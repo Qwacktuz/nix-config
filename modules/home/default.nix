@@ -1,0 +1,32 @@
+{ ... }:
+{
+  imports = [
+    ./packages.nix
+
+    # Shell
+    ./starship.nix
+    ./zsh.nix
+    ./zsh_alias.nix
+
+    # Services (might be enabled as darwin modules instead of HM)
+    ./music.nix
+    # ./aerospace.nix
+    # ./sketchybar.nix
+    #./skhd.nix
+
+    # GUI
+    ./zen-browser.nix
+    ./vesktop.nix
+    ./vscodium.nix # Using vscodium-system.nix
+    ./spicetify.nix
+
+    # TUI/CLI
+    ./git.nix
+    ./nh.nix
+    ./micro.nix
+    ./fzf.nix
+    ./btop.nix
+    ./bat.nix
+    ./fastfetch.nix
+  ];
+}

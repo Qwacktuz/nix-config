@@ -1,0 +1,37 @@
+# Keybinds
+keybind = global:cmd+/=toggle_quick_terminal
+
+# Possible that this will be styled by stylix
+theme = catppuccin-mocha
+font-family = JetBrainsMono NFM Regular
+font-size = 14
+maximize = true
+title = ""
+window-decoration = true
+window-title-font-family = JetBrainsMono NFM Regular
+window-padding-x = 8
+cursor-opacity = .8
+cursor-color = #F28FAD
+shell-integration-features = title, sudo
+title-report = false
+clipboard-trim-trailing-spaces = true
+clipboard-paste-protection = true
+clipboard-paste-bracketed-safe = true
+mouse-hide-while-typing = true
+
+background-opacity = .7
+background-blur = true
+
+# only on macos/darwin
+quick-terminal-screen = main
+window-vsync= true
+auto-update = off
+macos-non-native-fullscreen = true
+macos-titlebar-style = hidden
+macos-titlebar-proxy-icon = hidden
+macos-option-as-alt = true
+macos-window-shadow = false
+macos-auto-secure-input = true
+macos-secure-input-indication = true
+macos-icon = blueprint
+

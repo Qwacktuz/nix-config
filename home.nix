@@ -1,0 +1,60 @@
+{
+  config,
+  customConfig,
+  pkgs,
+  ...
+}:
+let
+  dotfiles = "${config.home.homeDirectory}/nix-config/dotfiles";
+  create_symlink = path: config.lib.file.mkOutOfStoreSymlink path;
+in
+{
+  # pass home-manager specific modules
+  # HM is crosscompatible across different systems
+  imports = [ ./modules/home ];
+
+  home = {
+    username = customConfig.username;
+    homeDirectory = "/Users/${customConfig.username}";
+    stateVersion = "25.11";
+  };
+
+  # TODO: modularize all of this
+  programs.home-manager.enable = true;
+  programs.git.enable = true;
+
+  # this doesn't work when configuring neovim non-nixified
+  # home-manager will try to create init.lua and other neovim config files
+  # which will cause conflict with symlinked neovim config files
+  # it's most likely the same for other symlinked dotfiles
+  # programs.neovim = {
+  #   enable = true;
+  #   vimAlias = true;
+  # };
+  home.packages = with pkgs; [
+    aerospace
+    neovim
+    # sketchybar
+  ];
+
+  # non-nixified dotfiles
+  #home.file.".config/nvim".source = ./dotfiles/nvim; # This will make a nix store entry for our dotfiles (non-dynamic)
+  # Symlinked/dynamic config file outside the nix store (our dotfiles repo)
+  xdg.configFile."nvim" = {
+    source = create_symlink "${dotfiles}/nvim";
+    #source = "./dotfiles/nvim";
+    recursive = true;
+  };
+
+  # xdg.configFile."sketchybar" = {
+  #   source = create_symlink "${dotfiles}/sketchybar";
+  #   recursive = true;
+  # };
+
+  # config for homebrew installed files
+  home.file."Library/Application Support/com.mitchellh.ghostty" = {
+    source = create_symlink "${dotfiles}/com.mitchellh.ghostty";
+    recursive = true;
+  };
+
+}
