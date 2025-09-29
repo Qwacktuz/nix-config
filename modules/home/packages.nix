@@ -48,7 +48,8 @@
     cmatrix
     cbonsai
     sl
-    cowsay
+    kittysay
+    neo-cowsay
 
     # Programming support
     go
