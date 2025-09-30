@@ -35,3 +35,11 @@ macos-auto-secure-input = true
 macos-secure-input-indication = true
 macos-icon = blueprint
 
+# hacky macos workaround
+keybind = alt+a=text:å
+keybind = alt+'=text:æ
+keybind = alt+o=text:ø
+keybind = alt+shift+a=text:Å
+keybind = alt+shift+'=text:Æ
+keybind = alt+shift+o=text:Ø
+
