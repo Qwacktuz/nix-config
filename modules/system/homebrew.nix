@@ -19,7 +19,7 @@
     mutableTaps = true;
     taps = {
       "homebrew/homebrew-core" = inputs.homebrew-core;
-      # "homebrew/homebrew-cask" = inputs.homebrew-cask;
+      "homebrew/homebrew-cask" = inputs.homebrew-cask;
       "psharma04/homebrew-dorion" = inputs.psharma04-dorion;
       "hashicorp/homebrew-tap" = inputs.hashicorp-tap;
     };
@@ -44,6 +44,7 @@
       "helium-browser"
       "wacom-tablet"
       #"vmware-fusion" # Apparently disabled because broadcom
+      "virtualbox"
       "hashicorp/tap/hashicorp-vagrant"
     ];
     brews = [

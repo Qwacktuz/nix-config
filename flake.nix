@@ -16,10 +16,10 @@
       url = "github:homebrew/homebrew-core";
       flake = false;
     };
-    # homebrew-cask = {
-    #   url = "github:homebrew/homebrew-cask";
-    #   flake = false;
-    # };
+    homebrew-cask = {
+      url = "github:homebrew/homebrew-cask";
+      flake = false;
+    };
     psharma04-dorion = {
       url = "github:psharma04/homebrew-dorion";
       flake = false;
