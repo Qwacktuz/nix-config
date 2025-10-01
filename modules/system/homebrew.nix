@@ -14,7 +14,7 @@
     # User owning the Homebrew prefix
     user = customConfig.username;
     # Automatically migrate existing Homebrew installations
-    autoMigrate = true;
+    # autoMigrate = true;
 
     mutableTaps = true;
     taps = {
