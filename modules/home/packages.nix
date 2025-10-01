@@ -33,6 +33,7 @@
     exiftool
     nmap
     inetutils
+    john
     # binwalk # doesn't work with some kind of font dep not working
 
     # Gaming
