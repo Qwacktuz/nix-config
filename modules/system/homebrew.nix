@@ -46,10 +46,15 @@
       #"vmware-fusion" # Apparently disabled because broadcom
       "virtualbox"
       "hashicorp/tap/hashicorp-vagrant"
+      "docker-desktop"
     ];
     brews = [
       "binwalk"
+      "mas"
     ];
+    masApps = {
+      "WireGuard" = 1451685025;
+    };
 
     onActivation.cleanup = "zap";
     onActivation.autoUpdate = true;
