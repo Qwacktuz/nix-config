@@ -54,6 +54,7 @@
     ];
     masApps = {
       "WireGuard" = 1451685025;
+      "Tailscale" = 1475387142;
     };
 
     onActivation.cleanup = "zap";

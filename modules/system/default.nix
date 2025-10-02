@@ -8,6 +8,6 @@
     # nix-darwin services
     ./sketchybar.nix
     ./aerospace.nix
-    ./tailscale.nix
+    # ./tailscale.nix
   ];
 }
