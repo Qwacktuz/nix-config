@@ -47,6 +47,7 @@
       "virtualbox"
       "hashicorp/tap/hashicorp-vagrant"
       "docker-desktop"
+      "burp-suite"
     ];
     brews = [
       "binwalk"
