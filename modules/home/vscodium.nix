@@ -19,7 +19,7 @@
 
         # Apparance
         "catppuccin.bracketMode" = "neovim"; # rainbow is default
-        "workbench.colorTheme" = "Stylix"; # Catppuccin Mocha if sylix isn't controlling this
+        "workbench.colorTheme" = "Stylix"; # Catppuccin Mocha if stylix isn't controlling this
         "workbench.iconTheme" = "catppuccin-mocha";
 
         # Make sure global telemetry is off
