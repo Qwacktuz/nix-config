@@ -22,6 +22,7 @@
     # vagrant # installed with brew because brew package is more recent
     podman
     docker
+    # audacity
 
     brave
     qbittorrent
