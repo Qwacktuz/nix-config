@@ -68,6 +68,7 @@
     zig
     nix-diff
     typst # need the entire toolchain
+    typship # typst package CLI tool
 
     # Resource monitoring
     iftop # Network
