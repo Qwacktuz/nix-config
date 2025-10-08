@@ -12,7 +12,10 @@
     '';
     shellAliases = {
       # services
-      ts = "tailscale";
+      # ts = "tailscale";
+      # Installed through app store
+      tailscale = "/Applications/Tailscale.app/Contents/MacOS/Tailscale";
+      ts = "/Applications/Tailscale.app/Contents/MacOS/Tailscale";
 
       # utils
       c = "clear";
