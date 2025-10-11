@@ -16,6 +16,7 @@
       # Installed through app store
       tailscale = "/Applications/Tailscale.app/Contents/MacOS/Tailscale";
       ts = "/Applications/Tailscale.app/Contents/MacOS/Tailscale";
+      n = "nvim";
 
       # utils
       c = "clear";
