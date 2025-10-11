@@ -16,7 +16,7 @@
     # ./skhd.nix
 
     # GUI
-    # GTK+3 issue upstream (sincos)
+    # GTK+3 issue upstream (sincos) https://github.com/NixOS/nixpkgs/pull/449689
     # ./zen-browser.nix
     ./vesktop.nix
     ./vscodium.nix # Using vscodium-system.nix

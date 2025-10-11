@@ -45,6 +45,8 @@
 
     # Gaming
     osu-lazer-bin
+
+    # https://github.com/NixOS/nixpkgs/pull/449689
     # prismlauncher
 
     # CLI
