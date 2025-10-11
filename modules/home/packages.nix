@@ -22,12 +22,17 @@
     # vagrant # installed with brew because brew package is more recent
     podman
     docker
-    # audacity
+    lazydocker
+    lazysql
+    lazyjournal
+
+    # audacity # wait for 4.0
 
     brave
     qbittorrent
     zathura # typst deps
     websocat # typst deps
+    xournalpp
 
     # Hax
     exiftool
@@ -40,7 +45,7 @@
 
     # Gaming
     osu-lazer-bin
-    prismlauncher
+    # prismlauncher
 
     # CLI
     #zoxide # program.enabled
@@ -60,7 +65,10 @@
     rustc
     #rustup # package manager for cargo ??
     python314
+    uv
     typescript
+    bun
+    deno
     temurin-bin
     kotlin
     lua # neovim depenency

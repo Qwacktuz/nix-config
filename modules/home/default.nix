@@ -9,13 +9,15 @@
     ./zsh_alias.nix
 
     # Services (might be enabled as darwin modules instead of HM)
-    ./music.nix
+    ./syncthing.nix
+    # ./music.nix
     # ./aerospace.nix
     # ./sketchybar.nix
-    #./skhd.nix
+    # ./skhd.nix
 
     # GUI
-    ./zen-browser.nix
+    # GTK+3 issue upstream (sincos)
+    # ./zen-browser.nix
     ./vesktop.nix
     ./vscodium.nix # Using vscodium-system.nix
     ./spicetify.nix
