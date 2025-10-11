@@ -1,10 +1,16 @@
 { pkgs, ... }:
 {
-  # environment.systemPackages = with pkgs; [
+  # home.packages = with pkgs; [
   #   syncthing-macos
   # ];
   services.syncthing = {
     enable = true;
-    package = pkgs.syncthing-macos;
+    package = pkgs.syncthing;
+    # Not supported on darwin
+    # tray.enable = true;
+
+    # settings = {
+    #
+    # };
   };
 }
