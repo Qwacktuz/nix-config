@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
   # home.packages = with pkgs; [
-  #vllm
+  #   lmstudio # marked as broken
   # ];
 
   # TODO: lib.mkIf config here
