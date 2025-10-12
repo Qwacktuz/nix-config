@@ -37,6 +37,8 @@
       "signal" # newer build than pkgs.signal-desktop-bin
       "dorion"
       "keepassxc"
+      "proton-mail"
+      "tuta-mail"
       "steam" # nixpkgs build doesn't support darwin afaik
       "libreoffice"
       "tor-browser"
