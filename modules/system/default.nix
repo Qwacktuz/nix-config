@@ -5,7 +5,7 @@
     ./stylix.nix
 
     # nix-darwin services
-    ./sketchybar.nix
+    # ./sketchybar.nix
     ./aerospace.nix
     ./tailscale.nix
   ];
