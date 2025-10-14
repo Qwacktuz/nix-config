@@ -7,6 +7,8 @@
     # nix-darwin services
     # ./sketchybar.nix
     ./aerospace.nix
-    ./tailscale.nix
+
+    # macos issues, idk, just enable the mas app
+    # ./tailscale.nix
   ];
 }
