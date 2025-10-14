@@ -62,6 +62,8 @@
     neo-cowsay
 
     # Programming support
+    # TODO: use devshells
+    mermaid-cli
     go
     cargo
     rustc
