@@ -51,6 +51,7 @@
       "hashicorp/tap/hashicorp-vagrant"
       "docker-desktop"
       "burp-suite"
+      "omnissa-horizon-client"
     ];
     brews = [
       "binwalk"
