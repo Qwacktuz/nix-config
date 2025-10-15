@@ -31,8 +31,10 @@ require("lazy").setup({
     -- { import = "lazyvim.plugins.extras.lang.rust" },
     -- { import = "lazyvim.plugins.extras.lang.java" },
     -- Svelte includes lang.typescript
-    { import = "lazyvim.plugins.extras.lang.Svelte" },
-    -- { import = "lazyvim.plugins.extras.lang.typescript" },
+    { import = "lazyvim.plugins.extras.lang.svelte" },
+    { import = "lazyvim.plugins.extras.lang.astro" },
+    { import = "lazyvim.plugins.extras.lang.tailwind" },
+    { import = "lazyvim.plugins.extras.lang.typescript" },
     { import = "lazyvim.plugins.extras.dap.core" },
 
     { import = "plugins" },
