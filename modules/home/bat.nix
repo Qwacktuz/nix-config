@@ -8,8 +8,8 @@
     extraPackages = with pkgs.bat-extras; [
       batman
       batpipe
-      batgrep
-      # batdiff
+      # batgrep
+      batdiff
     ];
   };
 }

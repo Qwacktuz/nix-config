@@ -1,19 +1,22 @@
 { pkgs, ... }:
 {
-  programs.git = {
-    enable = true;
-    userName = "Qwacktuz";
-    userEmail = "104035252+Qwacktuz@users.noreply.github.com";
+  programs = {
+    git = {
+      enable = true;
+      settings = {
+        user.name = "Qwacktuz";
+        user.email = "104035252+Qwacktuz@users.noreply.github.com";
 
-    extraConfig = {
-      init.defaultBranch = "main";
-      credential.helper = "store";
-      merge.conflictstyle = "diff3";
-      diff.colorMoved = "default";
+        init.defaultBranch = "main";
+        credential.helper = "store";
+        merge.conflictstyle = "diff3";
+        diff.colorMoved = "default";
+      };
     };
 
     delta = {
       enable = true;
+      enableGitIntegration = true;
       options = {
         line-numbers = true;
         side-by-side = true;
