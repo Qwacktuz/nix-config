@@ -33,6 +33,7 @@
       "monitorcontrol"
       "obs"
       "ghostty"
+      "little-snitch"
       "void"
       "signal" # newer build than pkgs.signal-desktop-bin
       "dorion"
