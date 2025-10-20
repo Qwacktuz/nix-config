@@ -35,6 +35,7 @@
       "ghostty"
       "little-snitch"
       "void"
+      "visual-studio-code"
       "signal" # newer build than pkgs.signal-desktop-bin
       "dorion"
       "keepassxc"
