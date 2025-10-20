@@ -45,9 +45,7 @@
 
     # Gaming
     osu-lazer-bin
-
-    # https://github.com/NixOS/nixpkgs/pull/449689
-    # prismlauncher
+    prismlauncher
 
     # CLI
     #zoxide # program.enabled
@@ -108,7 +106,6 @@
     file # Show file information
     gcc # neovim depenency
     gifsicle # gif utility
-    git # neovim depenency
     ghostscript # neovim depenency
     gtrash # rm replacement, put deleted files in system trash
     hexdump
