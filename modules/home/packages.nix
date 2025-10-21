@@ -39,6 +39,7 @@
     nmap
     inetutils
     john
+    steghide
     # burpsuite # some error iirc
     wireshark
     # binwalk # doesn't work with some kind of font dep not working
