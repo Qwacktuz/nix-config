@@ -40,6 +40,7 @@
     inetutils
     john
     steghide
+    zsteg
     # burpsuite # some error iirc
     wireshark
     # binwalk # doesn't work with some kind of font dep not working
@@ -124,6 +125,7 @@
     nil # nix lsp
     nixfmt-rfc-style # nix formatter
     nixpkgs-fmt # nix formatter (nixpkgs sytle)
+    notion-app # note taking app
     nodejs # neovim depenency
     openssl
     onefetch # fetch utility for git repo
