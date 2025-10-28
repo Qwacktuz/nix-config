@@ -54,8 +54,10 @@
       "docker-desktop"
       "burp-suite"
       "omnissa-horizon-client"
+      "chatgpt-atlas"
     ];
     brews = [
+      "ltex-ls"
       "binwalk"
       "mas"
     ];
