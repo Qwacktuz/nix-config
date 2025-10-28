@@ -75,7 +75,8 @@
     deno
     temurin-bin
     kotlin
-    lua # neovim depenency
+    # lua # neovim depenency
+    lua5_1 # neovim versioned dep
     luarocks # neovim depenency
     zig
     nix-diff
