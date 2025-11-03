@@ -88,7 +88,7 @@
     htop # lightweight
     nvtopPackages.apple # GPU
     sysdig # dig into processes (iotop+)
-    asitop # Activity Monitor replacement
+    macpm # Activity Monitor replacement
     # atop # core metrics + hidden metrics
     # s-tui # Stresstest (CPU)
     # iotop # disk io
