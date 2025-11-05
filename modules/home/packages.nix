@@ -82,6 +82,7 @@
     nix-diff
     typst # need the entire toolchain
     typship # typst package CLI tool
+    typstPackages.fontawesome
 
     # Resource monitoring
     iftop # Network
