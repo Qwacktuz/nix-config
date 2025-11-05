@@ -42,7 +42,7 @@
     steghide
     zsteg
     # burpsuite # some error iirc
-    wireshark
+    # wireshark
     # binwalk # doesn't work with some kind of font dep not working
 
     # Gaming
