@@ -25,6 +25,7 @@
     lazydocker
     lazysql
     lazyjournal
+    postman
 
     # audacity # wait for 4.0
 

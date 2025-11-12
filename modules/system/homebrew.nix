@@ -55,11 +55,14 @@
       "burp-suite"
       "omnissa-horizon-client"
       "chatgpt-atlas"
+      "font-fontawesome"
+      "wireshark"
     ];
     brews = [
       "ltex-ls"
       "binwalk"
       "mas"
+      "python@3.14"
     ];
     masApps = {
       "WireGuard" = 1451685025;
