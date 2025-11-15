@@ -32,6 +32,7 @@
       "mos"
       "monitorcontrol"
       "obs"
+      "parsec"
       "ghostty"
       "little-snitch"
       "void"
