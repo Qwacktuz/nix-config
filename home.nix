@@ -57,4 +57,6 @@ in
     recursive = true;
   };
 
+  # Temporary SSH config
+  home.file.".ssh/config".source = create_symlink "${dotfiles}/ssh/config";
 }
