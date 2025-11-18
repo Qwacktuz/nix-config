@@ -61,6 +61,7 @@
     ];
     brews = [
       "ltex-ls"
+      "scrcpy"
       "binwalk"
       "mas"
       "python@3.14"

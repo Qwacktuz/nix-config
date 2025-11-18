@@ -35,6 +35,10 @@
     websocat # typst deps
     xournalpp
 
+    # Android tools
+    # scrcpy
+    android-tools
+
     # Hax
     exiftool
     nmap
