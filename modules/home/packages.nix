@@ -34,6 +34,7 @@
     zathura # typst deps
     websocat # typst deps
     xournalpp
+    languagetool
 
     # Android tools
     # scrcpy
