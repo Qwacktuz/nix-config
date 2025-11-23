@@ -49,11 +49,6 @@
       url = "github:Gerg-L/spicetify-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # "Fix" nix apps not showing up in spotlight on darwin systems
-    mac-app-util = {
-      url = "github:hraban/mac-app-util";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   # inputs@ before or @inputs after doesn't matter
@@ -66,7 +61,6 @@
       home-manager,
       nix-homebrew,
       zen-browser,
-      mac-app-util,
       stylix,
       ...
     }:
@@ -137,7 +131,6 @@
               useUserPackages = true;
               backupFileExtension = "bak"; # "backup"
               sharedModules = [
-                mac-app-util.homeManagerModules.default
                 { stylix.targets.spicetify.enable = false; }
               ];
               extraSpecialArgs = { inherit inputs customConfig; }; # Passing attrSets to HM
