@@ -4,7 +4,7 @@
     enable = true;
     clean = {
       enable = true;
-      extraArgs = "--keep-since 7d --keep 5";
+      extraArgs = "--keep-since 7d --keep 3";
     };
     # TODO: generalize for linux & darwin systems
     flake = "/User/${customConfig.username}/nixos-config";

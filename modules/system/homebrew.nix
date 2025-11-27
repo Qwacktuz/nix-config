@@ -57,7 +57,7 @@
       "omnissa-horizon-client"
       "chatgpt-atlas"
       "font-fontawesome"
-      "wireshark"
+      "wireshark-app"
     ];
     brews = [
       "ltex-ls"

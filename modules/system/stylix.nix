@@ -7,6 +7,7 @@
   imports = [ inputs.stylix.darwinModules.stylix ];
 
   stylix.enable = true;
+  stylix.enableReleaseChecks = false;
   stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
   # doesn't work for macos wallpaper
   stylix.image = ./love_lain.jpg;
