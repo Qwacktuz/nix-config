@@ -106,6 +106,7 @@
     ani-cli # view anime in the terminal
     anki
     aoc-cli # Advent of Code command-line tool
+    baobab
     binsider # Analyze ELF binaries
     bitwise # cli tool for bit / hex manipulation
     caligula # User-friendly, lightweight TUI for disk imaging
