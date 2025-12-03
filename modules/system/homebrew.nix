@@ -33,6 +33,7 @@
       "monitorcontrol"
       "obs"
       "parsec"
+      "nvidia-geforce-now"
       "karabiner-elements"
       "ghostty"
       "little-snitch"
