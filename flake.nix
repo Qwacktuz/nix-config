@@ -49,10 +49,6 @@
       url = "github:Gerg-L/spicetify-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    mac-app-util = {
-      url = "github:hraban/mac-app-util";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   # inputs@ before or @inputs after doesn't matter
@@ -65,7 +61,6 @@
       home-manager,
       nix-homebrew,
       zen-browser,
-      mac-app-util,
       stylix,
       ...
     }:
@@ -74,20 +69,20 @@
       system = "aarch64-darwin";
 
       # Overlay to fix Spotify hash mismatch
-      # spotifyOverlay = final: prev: {
-      #   spotify = prev.spotify.overrideAttrs (old: {
-      #     src = prev.fetchurl {
-      #       url = "https://download.scdn.co/SpotifyARM64.dmg";
-      #       sha256 = "sha256-fTyACxbyIgg7EwIgnNvNerJGUwAVLP2bg0TMnOegWeQ=";
-      #     };
-      #   });
-      # };
+      spotifyOverlay = final: prev: {
+        spotify = prev.spotify.overrideAttrs (old: {
+          src = prev.fetchurl {
+            url = "https://download.scdn.co/SpotifyARM64.dmg";
+            sha256 = "sha256-0gwoptqLBJBM0qJQ+dGAZdCD6WXzDJEs0BfOxz7f2nQ=";
+          };
+        });
+      };
 
       # globally set pkgs
       pkgs = import nixpkgs {
         inherit system;
         config.allowUnfree = true;
-        # overlays = [ spotifyOverlay ];
+        overlays = [ spotifyOverlay ];
       };
 
       # essentially a global config variable if imoprted
@@ -100,7 +95,7 @@
         {
           nixpkgs.hostPlatform = system;
           # nixpkgs.config.allowUnfree = true;
-          # nixpkgs.overlays = [ spotifyOverlay ];
+          nixpkgs.overlays = [ spotifyOverlay ];
 
           nix.settings.experimental-features = "nix-command flakes";
           nix.linux-builder.enable = true;
@@ -136,7 +131,6 @@
               useUserPackages = true;
               backupFileExtension = "bak"; # "backup"
               sharedModules = [
-                # mac-app-util.homeManagerModules.default
                 { stylix.targets.spicetify.enable = false; }
               ];
               extraSpecialArgs = { inherit inputs customConfig; }; # Passing attrSets to HM
