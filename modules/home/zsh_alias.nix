@@ -8,7 +8,7 @@
       bindkey -v
       # Overrides vim default redo 
       bindkey "^R" history-incremental-search-backward
-      export PATH="$HOME/.local/bin:/usr/bin:$PATH"
+      export PATH="$HOME/.local/bin:$PATH"
     '';
     shellAliases = {
       # services
