@@ -104,7 +104,7 @@
     # earavemon
 
     ani-cli # view anime in the terminal
-    anki
+    anki-bin # flashcard software
     aoc-cli # Advent of Code command-line tool
     baobab
     binsider # Analyze ELF binaries
