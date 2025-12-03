@@ -65,7 +65,6 @@
       "scrcpy"
       "binwalk"
       "mas"
-      "python@3.14"
     ];
     masApps = {
       "WireGuard" = 1451685025;

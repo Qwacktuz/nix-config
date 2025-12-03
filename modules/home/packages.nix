@@ -74,7 +74,7 @@
     cargo
     rustc
     #rustup # package manager for cargo ??
-    python314
+    python315 # currently managed through .venv and local interpreter through uv
     uv
     typescript
     bun
