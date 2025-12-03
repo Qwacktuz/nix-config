@@ -33,6 +33,7 @@
       "monitorcontrol"
       "obs"
       "parsec"
+      "karabiner-elements"
       "ghostty"
       "little-snitch"
       "void"

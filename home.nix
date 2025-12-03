@@ -46,6 +46,12 @@ in
     recursive = true;
   };
 
+  # Add the Fn -> Hyper to main karabiner config manually through GUI once
+  xdg.configFile."karabiner" = {
+    source = create_symlink "${dotfiles}/karabiner";
+    recursive = true;
+  };
+
   # xdg.configFile."sketchybar" = {
   #   source = create_symlink "${dotfiles}/sketchybar";
   #   recursive = true;

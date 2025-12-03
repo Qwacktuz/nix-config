@@ -85,7 +85,7 @@ in
   };
 
   system.keyboard = {
-    swapLeftCtrlAndFn = true; # Swap left control and function keys
+    # swapLeftCtrlAndFn = true; # Swap left control and function keys
     enableKeyMapping = true; # Enable key mapping
   };
 
