@@ -66,6 +66,7 @@
       "scrcpy"
       "binwalk"
       "mas"
+      "picocom"
     ];
     masApps = {
       "WireGuard" = 1451685025;
