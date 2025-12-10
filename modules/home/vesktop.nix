@@ -25,7 +25,7 @@
         catppuccin-mocha = builtins.readFile (
           builtins.fetchurl {
             url = "https://catppuccin.github.io/discord/dist/catppuccin-mocha-mauve.theme.css";
-            sha256 = "sha256:166p8y939zhrgpvdh91bqmv433r13jac4v1hwwszaz0ndqpisn8k";
+            sha256 = "sha256:0kd48cx0m1zip927p923n4qbwjpqhqy449xwphsn2rxly3qnwfxl";
           }
         );
       };
