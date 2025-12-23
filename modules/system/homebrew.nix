@@ -36,7 +36,9 @@
       "nvidia-geforce-now"
       "karabiner-elements"
       "ghostty"
-      "little-snitch"
+      # "little-snitch" # amazing, but expensive + memory intensive
+      "lulu" # FOSS little snitch alternative
+      "android-studio"
       "void"
       "visual-studio-code"
       "signal" # newer build than pkgs.signal-desktop-bin
