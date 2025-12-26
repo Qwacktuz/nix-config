@@ -75,12 +75,14 @@
     rustc
     #rustup # package manager for cargo ??
     python315 # currently managed through .venv and local interpreter through uv
-    uv
+    # uv
+    pixi # uv replacement
     typescript
     bun
     deno
     temurin-bin
     kotlin
+    gradle
     # lua # neovim depenency
     lua5_1 # neovim versioned dep
     luarocks # neovim depenency
