@@ -2,45 +2,54 @@
 {
   # Works on aarch64-darwin + x86_64-linux
   home.packages = with pkgs; [
-    # GUI Apps
-    #neovim # program.enabled
-    obsidian
-    localsend
-    deluge
-    #ghostty # broken on darwin
-
-    # TODO: configure alternative browsers (DRY if ff based)
-    # librewolf # DRY-able
-    # mullvad-vpn # darwin build not working
-
     # Devtools
+    typst # need the entire toolchain
+    typship # typst package CLI tool
+    typstPackages.fontawesome
+    gemini-cli-bin
+    antigravity
     jetbrains.pycharm-professional
     jetbrains.idea-ultimate
     jetbrains.goland
+    zed
     pnpm
     utm
     # vagrant # installed with brew because brew package is more recent
-    podman
+    # Podman runs in a VM on macos, no root access (compared to linux)
+    # podman
+    # podman-tui
+    orbstack # docker desktop replacement
     docker
     lazydocker
     lazysql
     lazyjournal
     postman
-
-    # audacity # wait for 4.0
-
-    brave
-    qbittorrent
-    zathura # typst deps
-    websocat # typst deps
-    xournalpp
-    languagetool
-
-    # Android tools
-    # scrcpy
     android-tools
+    # scrcpy # only homebrew package works rn
+    # Using nix shells instead
+    # devcontainer # cli tool for implementing devcontainers (ex. gh actions)
+    # devpod
+    # devpod-desktop
+
+    # MOVE TO DEVCONTAINERS
+    go
+    zig
+    cargo
+    rustc
+    #rustup # package manager for cargo ??
+    temurin-bin
+    kotlin
+    gradle
+    python315 # currently managed through .venv and local interpreter through uv
+    pixi # uv replacement
+    typescript
+    bun
+    deno
+    #lua # neovim depenency
 
     # Hax
+    # https://github.com/azuwis/nix-config/blob/master/darwin/shadowsocks/default.nix
+    shadowsocks # TODO: implement this as a nix file
     exiftool
     nmap
     inetutils
@@ -51,46 +60,31 @@
     # wireshark
     # binwalk # doesn't work with some kind of font dep not working
 
+    # TODO: https://github.com/pfassina/lazyvim-nix?tab=readme-ov-file
+    # Dependencies
+    nodejs # neovim depenency
+    lua5_1 # neovim versioned dep
+    luarocks # neovim depenency
+    zathura # typst deps
+    websocat # typst deps
+
+    # GUI Apps
+    #neovim # program.enabled
+    obsidian
+    localsend
+    deluge
+    #ghostty # broken on darwin
+    # librewolf # DRY-able
+    # mullvad-vpn # darwin build not working
+    # audacity # wait for 4.0
+    brave
+    qbittorrent
+    xournalpp
+    notion-app # note taking app
+
     # Gaming
     osu-lazer-bin
     prismlauncher
-
-    # CLI
-    #zoxide # program.enabled
-    #btop # program.enabled
-    #bat # program.enabled
-    #fastfetch # program.enabled
-    #fzf # neovim depenency & program.enabled
-    cmatrix
-    cbonsai
-    sl
-    kittysay
-    neo-cowsay
-
-    # Programming support
-    # TODO: use devshells
-    mermaid-cli
-    go
-    cargo
-    rustc
-    #rustup # package manager for cargo ??
-    python315 # currently managed through .venv and local interpreter through uv
-    # uv
-    pixi # uv replacement
-    typescript
-    bun
-    deno
-    temurin-bin
-    kotlin
-    gradle
-    # lua # neovim depenency
-    lua5_1 # neovim versioned dep
-    luarocks # neovim depenency
-    zig
-    nix-diff
-    typst # need the entire toolchain
-    typship # typst package CLI tool
-    typstPackages.fontawesome
 
     # Resource monitoring
     iftop # Network
@@ -105,6 +99,13 @@
     # perf-linux # go deeper
     # earavemon
 
+    # CLI
+    #zoxide # program.enabled
+    #btop # program.enabled
+    #bat # program.enabled
+    #fastfetch # program.enabled
+    #fzf # neovim depenency & program.enabled
+
     ani-cli # view anime in the terminal
     anki-bin # flashcard software
     aoc-cli # Advent of Code command-line tool
@@ -112,6 +113,8 @@
     binsider # Analyze ELF binaries
     bitwise # cli tool for bit / hex manipulation
     caligula # User-friendly, lightweight TUI for disk imaging
+    cbonsai
+    cmatrix
     docfd # TUI multiline fuzzy document finder
     eza # ls replacement
     entr # perform action when file change
@@ -127,23 +130,26 @@
     imagemagick # image editor & neovim depenency
     jq # JSON processor
     keepass-diff # diff .kdbx files
+    kittysay
     killall
+    languagetool
     lazygit # neovim depenency
     man-pages # extra man pages
     mermaid-cli # neovim depenency
     mimeo # convert JSON/CSV/YAML-type files to differnt outputs
     ncdu # disk space
+    neo-cowsay
     nixd # nix lsp
     nil # nix lsp
     nixfmt-rfc-style # nix formatter
     nixpkgs-fmt # nix formatter (nixpkgs sytle)
-    notion-app # note taking app
-    nodejs # neovim depenency
+    nix-diff
     openssl
     onefetch # fetch utility for git repo
     programmer-calculator
     ripgrep # grep replacement & neovim depenency
     shfmt # bash formatter
+    sl
     tdf # cli pdf viewer
     tectonic # neovim depenency
     texliveSmall # neovim depenency

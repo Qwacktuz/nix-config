@@ -57,7 +57,6 @@
       #"vmware-fusion" # Apparently disabled because broadcom
       "virtualbox"
       "hashicorp/tap/hashicorp-vagrant"
-      "docker-desktop"
       "burp-suite"
       "omnissa-horizon-client"
       "chatgpt-atlas"
