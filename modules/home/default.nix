@@ -29,5 +29,6 @@
     ./btop.nix
     ./bat.nix
     ./fastfetch.nix
+    ./direnv.nix
   ];
 }

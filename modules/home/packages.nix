@@ -18,6 +18,7 @@
     # Podman runs in a VM on macos, no root access (compared to linux)
     # podman
     # podman-tui
+    devenv
     orbstack # docker desktop replacement
     docker
     lazydocker
