@@ -28,7 +28,7 @@
       url = "github:hashicorp/homebrew-tap";
       flake = false;
     };
-    tw93-tap = {
+    tw93-mole = {
       url = "github:tw93/homebrew-tap";
       flake = false;
     };
@@ -78,7 +78,7 @@
         spotify = prev.spotify.overrideAttrs (old: {
           src = prev.fetchurl {
             url = "https://download.scdn.co/SpotifyARM64.dmg";
-            sha256 = "sha256-0gwoptqLBJBM0qJQ+dGAZdCD6WXzDJEs0BfOxz7f2nQ=";
+            sha256 = "sha256-jOn4hPbxIQncdjkuySTsBaFzM6VpojbMMgph/Vpah1k=";
           };
         });
       };

@@ -8,8 +8,8 @@
     typstPackages.fontawesome
     gemini-cli-bin
     antigravity
-    jetbrains.pycharm-professional
-    jetbrains.idea-ultimate
+    jetbrains.pycharm
+    jetbrains.idea
     jetbrains.goland
     zed
     pnpm
@@ -20,12 +20,13 @@
     # podman-tui
     devenv
     orbstack # docker desktop replacement
-    docker
+    # docker
     lazydocker
     lazysql
     lazyjournal
     postman
     android-tools
+    xcodes
     # scrcpy # only homebrew package works rn
     # Using nix shells instead
     # devcontainer # cli tool for implementing devcontainers (ex. gh actions)
@@ -50,7 +51,7 @@
 
     # Hax
     # https://github.com/azuwis/nix-config/blob/master/darwin/shadowsocks/default.nix
-    shadowsocks # TODO: implement this as a nix file
+    shadowsocks-rust # TODO: implement this as a nix file
     exiftool
     nmap
     inetutils
