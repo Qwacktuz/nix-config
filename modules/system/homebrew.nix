@@ -64,6 +64,7 @@
       "wireshark-app"
     ];
     brews = [
+      "mole"
       "ltex-ls"
       "scrcpy"
       "binwalk"

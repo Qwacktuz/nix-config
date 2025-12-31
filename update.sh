@@ -20,3 +20,5 @@ elif [[ "$answer" == "n" || "$answer" == "N" ]]; then
 else
   echo "Invalid input. Please enter 'y' or 'n'."
 fi
+
+# TODO: add mole (mo) cleanup for macOS
