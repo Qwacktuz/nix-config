@@ -161,14 +161,14 @@
 
         # Environment variables and Aliases
         shellHook = ''
-          # Hackerman updating 😎
-          # alias apply="darwin-rebuild switch --flake .#saguaro"
-          alias apply="nh darwin switch ~/nix-config"
+          # alias nix-apply="darwin-rebuild switch --flake .#saguaro"
+          alias nix-apply="nh darwin switch .#saguaro"
 
-          # Hackerman formatting ✍️
+          alias clean="nh clean all"
+
           alias fmt="nixfmt ."
 
-          echo "🌵 Saguaro System Shell active. Run 'apply' to rebuild."
+          echo "🌵 Saguaro System Shell active. Run 'apply' to rebuild, 'fmt' to format or 'clean' to remove old gens"
         '';
       };
     };
