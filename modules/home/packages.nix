@@ -36,7 +36,6 @@
     # devcontainer # cli tool for implementing devcontainers (ex. gh actions)
     # devpod
     # devpod-desktop
-ng
     # MOVE TO DEVCONTAINERS
     go
     zig
