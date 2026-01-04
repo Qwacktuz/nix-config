@@ -148,7 +148,7 @@
     nix-diff
     openssl
     onefetch # fetch utility for git repo
-    programmer-calculator
+    # programmer-calculator
     ripgrep # grep replacement & neovim depenency
     shfmt # bash formatter
     sl
