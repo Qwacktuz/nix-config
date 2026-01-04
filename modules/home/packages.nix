@@ -141,16 +141,22 @@
     mimeo # convert JSON/CSV/YAML-type files to differnt outputs
     ncdu # disk space
     neo-cowsay
-    nixd # nix lsp
-    nil # nix lsp
-    nixfmt-rfc-style # nix formatter
-    nixpkgs-fmt # nix formatter (nixpkgs sytle)
+
+    nil # Nix Language Server (LSP)
+    #nixd # nix lsp
+    nixfmt-rfc-style # Formatter
+    #nixpkgs-fmt # Formatter
+    sops # For editing your secrets
+    age # Encryption needed for sops
+    ssh-to-age # Helper for sops keys
+    statix # Linter for Nix
     nix-diff
+    shfmt # bash formatter
+
     openssl
     onefetch # fetch utility for git repo
     # programmer-calculator
     ripgrep # grep replacement & neovim depenency
-    shfmt # bash formatter
     sl
     tdf # cli pdf viewer
     tectonic # neovim depenency

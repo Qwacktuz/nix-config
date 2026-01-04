@@ -105,8 +105,6 @@
           nix.settings.experimental-features = "nix-command flakes";
           nix.linux-builder.enable = true;
 
-          environment.systemPackages = [ pkgs.nixfmt-rfc-style ];
-
           fonts.packages = [
             pkgs.nerd-fonts.jetbrains-mono
           ];
@@ -143,6 +141,35 @@
             };
           }
         ];
+      };
+
+      devShells.${system}.default = pkgs.mkShell {
+        name = "saguaro-dev";
+
+        packages = with pkgs; [
+          nil # Nix Language Server (LSP)
+          #nixd # nix lsp
+          nixfmt-rfc-style # Formatter
+          #nixpkgs-fmt # Formatter
+          sops # For editing your secrets
+          age # Encryption needed for sops
+          ssh-to-age # Helper for sops keys
+          statix # Linter for Nix
+          nix-diff
+          shfmt
+        ];
+
+        # Environment variables and Aliases
+        shellHook = ''
+          # Hackerman updating 😎
+          # alias apply="darwin-rebuild switch --flake .#saguaro"
+          alias apply="nh darwin switch ~/nix-config"
+
+          # Hackerman formatting ✍️
+          alias fmt="nixfmt ."
+
+          echo "🌵 Saguaro System Shell active. Run 'apply' to rebuild."
+        '';
       };
     };
 }
