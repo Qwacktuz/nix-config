@@ -14,7 +14,6 @@
     jetbrains.goland
     jetbrains.clion
     #jetbrains.rust-rover
-    jetbrains.jdk
     zed
     pnpm
     utm
