@@ -1,7 +1,7 @@
-## *small* list of stuff TODO:
-- https://lix.systems/add-to-config
-- https://github.com/nikitabobko/AeroSpace
-- Intellij (check nix-idea on gh)
+## _small_ list of stuff TODO
+
+- <https://lix.systems/add-to-config>
+- Streamline devshell creation
 
 Docs:
-https://jdheyburn.co.uk/blog/nix-cheat-sheet
+<https://jdheyburn.co.uk/blog/nix-cheat-sheet>

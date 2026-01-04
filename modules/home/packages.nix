@@ -8,9 +8,13 @@
     typstPackages.fontawesome
     gemini-cli-bin
     antigravity
-    jetbrains.pycharm
     jetbrains.idea
+    jetbrains.pycharm
+    jetbrains.webstorm
     jetbrains.goland
+    jetbrains.clion
+    #jetbrains.rust-rover
+    jetbrains.jdk
     zed
     pnpm
     utm
@@ -32,7 +36,7 @@
     # devcontainer # cli tool for implementing devcontainers (ex. gh actions)
     # devpod
     # devpod-desktop
-
+ng
     # MOVE TO DEVCONTAINERS
     go
     zig
