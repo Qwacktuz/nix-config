@@ -109,6 +109,10 @@
             pkgs.nerd-fonts.jetbrains-mono
           ];
 
+          # openssh.authorizedKeys.keys = [
+          #   (builtins.readFile ./pubkeys/saguaro_id_ed25519.pub)
+          # ];
+
           # darwin specific, DRY-able pls /User vs /home
           users.users.${customConfig.username} = {
             home = "/Users/${customConfig.username}";
@@ -151,6 +155,9 @@
           #nixd # nix lsp
           nixfmt-rfc-style # Formatter
           #nixpkgs-fmt # Formatter
+          # TODO: treefmt with nix
+          #treefmt-nix
+          #nixfmt-tree
           sops # For editing your secrets
           age # Encryption needed for sops
           ssh-to-age # Helper for sops keys

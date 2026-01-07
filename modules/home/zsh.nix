@@ -96,6 +96,7 @@
       DISABLE_AUTO_UPDATE=true
       DISABLE_MAGIC_FUNCTIONS=true
       export "MICRO_TRUECOLOR=1"
+      export EDITOR=nvim
 
       setopt sharehistory
       setopt hist_ignore_space
