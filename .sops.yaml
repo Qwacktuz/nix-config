@@ -1,7 +1,12 @@
+# Editing atctual secrets
+# nix run nixpkgs#sops -- secrets/secrets.yaml
 keys:
-  - &primary age1h0mxefx2rpkrqg0987jg9j70xqxhqa2sf6txu5j3xs7nlmtqvcsqrl93kg
+  - &user_kaktus age1ey4gaelnj8ykzsd64483ef5c2g9h5d2uvz5yhcmphuzfygqxggustq443f
+  - &host_saguaro age1avlprtsgdx36uhzq9vjhajgl8skudzre9fkp9s2ln4gstltzndnsfn8wjp
+
 creation_rules:
   - path_regex: secrets/secrets.yaml$
     key_groups:
       - age:
-        - *primary
+          - *user_kaktus
+          - *host_saguaro

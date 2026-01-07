@@ -3,6 +3,8 @@
   imports = [
     ./homebrew.nix
     ./stylix.nix
+    # TODO: fix sops
+    # ./sops.nix
 
     # nix-darwin services
     # ./sketchybar.nix

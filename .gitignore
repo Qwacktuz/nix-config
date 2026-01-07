@@ -1,6 +1,7 @@
 # Custom dotfiles
 dotfiles/nvim/lazy-lock.json
 dotfiles/ssh/
+pubkeys/
 
 # Env
 .direnv/
