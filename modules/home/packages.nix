@@ -77,6 +77,7 @@
     obsidian
     localsend
     deluge
+    notion-app
     #ghostty # broken on darwin
     # librewolf # DRY-able
     # mullvad-vpn # darwin build not working
