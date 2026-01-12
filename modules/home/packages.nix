@@ -147,7 +147,7 @@
 
     nil # Nix Language Server (LSP)
     #nixd # nix lsp
-    nixfmt-rfc-style # Formatter
+    nixfmt # Formatter
     #nixpkgs-fmt # Formatter
     sops # For editing your secrets
     age # Encryption needed for sops

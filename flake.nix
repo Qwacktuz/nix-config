@@ -153,7 +153,7 @@
         packages = with pkgs; [
           nil # Nix Language Server (LSP)
           #nixd # nix lsp
-          nixfmt-rfc-style # Formatter
+          nixfmt
           #nixpkgs-fmt # Formatter
           # TODO: treefmt with nix
           #treefmt-nix
