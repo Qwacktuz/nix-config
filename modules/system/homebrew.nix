@@ -62,6 +62,7 @@
       "chatgpt-atlas"
       "font-fontawesome"
       "wireshark-app"
+      "microsoft-excel"
     ];
     brews = [
       "mole"
