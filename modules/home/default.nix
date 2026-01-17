@@ -20,6 +20,7 @@
     ./vesktop.nix
     ./vscodium.nix # Using vscodium-system.nix
     ./spicetify.nix
+    ./prismlauncher.nix
 
     # TUI/CLI
     ./git.nix

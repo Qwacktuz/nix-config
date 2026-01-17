@@ -89,7 +89,6 @@
 
     # Gaming
     osu-lazer-bin
-    prismlauncher
 
     # Resource monitoring
     iftop # Network
