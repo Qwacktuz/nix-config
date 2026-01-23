@@ -5,6 +5,7 @@
     # Devtools
     typst # need the entire toolchain
     typship # typst package CLI tool
+    opentofu
     typstPackages.fontawesome
     gemini-cli-bin
     antigravity
