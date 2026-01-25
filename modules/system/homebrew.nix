@@ -63,6 +63,7 @@
       "font-fontawesome"
       "wireshark-app"
       "microsoft-excel"
+      "warp"
     ];
     brews = [
       "mole"

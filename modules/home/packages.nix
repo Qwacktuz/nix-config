@@ -5,8 +5,8 @@
     # Devtools
     typst # need the entire toolchain
     typship # typst package CLI tool
-    tenv
     typstPackages.fontawesome
+    tenv
     gemini-cli-bin
     antigravity
     jetbrains.idea

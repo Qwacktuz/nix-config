@@ -108,7 +108,7 @@
           PinDMs.enabled = true;
           PlatformIndicators.enabled = true;
           ReactErrorDecoder.enabled = true;
-          ReadAllNotficationsButton.enabled = true;
+          ReadAllNotificationsButton.enabled = true;
           RelationshipNotifier.enabled = true;
           ReplaceGoogleSearch = {
             enabled = true;
@@ -133,7 +133,7 @@
           SpotifyControls.enabled = true;
           SpotifyCrack.enabled = true;
           SpotifyShareCommands.enabled = true;
-          StarupTimings.enabled = true;
+          StartupTimings.enabled = true;
           StickerPaste.enabled = true;
           StreamerModeOnStream.enabled = true;
           Summaries.enabled = true;
@@ -143,7 +143,7 @@
           Translate.enabled = true;
           Unindent.enabled = true;
           TypingTweaks.enabled = true;
-          UnblockedAvatarZoom.enabled = true;
+          UnlockedAvatarZoom.enabled = true;
           UnsuppressEmbeds.enabled = true;
           UserVoiceShow.enabled = true;
           USRBG.enabled = true;

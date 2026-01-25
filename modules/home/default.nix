@@ -21,6 +21,7 @@
     ./vscodium.nix # Using vscodium-system.nix
     ./spicetify.nix
     ./prismlauncher.nix
+    ./zed.nix
 
     # TUI/CLI
     ./git.nix
