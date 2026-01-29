@@ -64,6 +64,7 @@
       "wireshark-app"
       "microsoft-excel"
       "warp"
+      "detexify"
     ];
     brews = [
       "mole"
