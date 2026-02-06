@@ -8,6 +8,7 @@
     typstPackages.fontawesome
     tenv
     gemini-cli-bin
+    codex
     antigravity
     jetbrains.idea
     jetbrains.pycharm
