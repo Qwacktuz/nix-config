@@ -65,6 +65,7 @@
       "microsoft-excel"
       "warp"
       "detexify"
+      "lmms" # FL studio OSS replacement
     ];
     brews = [
       "mole"
