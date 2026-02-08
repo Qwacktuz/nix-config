@@ -17,6 +17,8 @@
     jetbrains.clion
     #jetbrains.rust-rover
     zed
+    mpv
+    tenacity
     pnpm
     utm
     # vagrant # installed with brew because brew package is more recent

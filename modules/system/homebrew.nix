@@ -66,6 +66,7 @@
       "warp"
       "detexify"
       "lmms" # FL studio OSS replacement
+      "middleclick"
     ];
     brews = [
       "mole"
