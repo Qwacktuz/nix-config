@@ -5,7 +5,8 @@
   ...
 }:
 {
-  flake.darwinModules.darwin."saguaro" = inputs.nix-darwin.lib.darinSystem {
+  # flake.darwinModules.darwin."saguaro" = inputs.nix-darwin.lib.darinSystem {
+  flake.darwinConfigurations."saguaro" = inputs.nix-darwin.lib.darinSystem {
     inherit system;
 
     imports = with self.modules; [
