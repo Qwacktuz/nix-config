@@ -85,6 +85,45 @@
         "type": "github"
       }
     },
+    "dendrix": {
+      "inputs": {
+        "import-tree": "import-tree",
+        "nixpkgs-lib": "nixpkgs-lib"
+      },
+      "locked": {
+        "lastModified": 1769548514,
+        "narHash": "sha256-84FoW3FrAXgzE4iXyDjLIQrfUEkNCfMA/uDcu1Y/cno=",
+        "owner": "vic",
+        "repo": "dendrix",
+        "rev": "ffea5e597bd1c5f8d35d51545c67cff984a0ff40",
+        "type": "github"
+      },
+      "original": {
+        "owner": "vic",
+        "repo": "dendrix",
+        "type": "github"
+      }
+    },
+    "devshell": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1768818222,
+        "narHash": "sha256-460jc0+CZfyaO8+w8JNtlClB2n4ui1RbHfPTLkpwhU8=",
+        "owner": "numtide",
+        "repo": "devshell",
+        "rev": "255a2b1725a20d060f566e4755dbf571bbbb5f76",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "devshell",
+        "type": "github"
+      }
+    },
     "firefox-gnome-theme": {
       "flake": false,
       "locked": {
@@ -98,21 +137,6 @@
       "original": {
         "owner": "rafaelmardojai",
         "repo": "firefox-gnome-theme",
-        "type": "github"
-      }
-    },
-    "flake-file": {
-      "locked": {
-        "lastModified": 1770893152,
-        "narHash": "sha256-DuZHf9EaQQ2iiUloYj4374VCsfDQ7kGuWC7037BDSpE=",
-        "owner": "vic",
-        "repo": "flake-file",
-        "rev": "1515b77c3c1dd08ab394e840603fc152e059d13e",
-        "type": "github"
-      },
-      "original": {
-        "owner": "vic",
-        "repo": "flake-file",
         "type": "github"
       }
     },
@@ -304,6 +328,21 @@
     },
     "import-tree": {
       "locked": {
+        "lastModified": 1751270547,
+        "narHash": "sha256-crsdw+SVF+8JewH2npzM5iy2RowD3min24DqzCZX7uQ=",
+        "owner": "vic",
+        "repo": "import-tree",
+        "rev": "e5a363c65db721944ec29d42c210f33f7dee9808",
+        "type": "github"
+      },
+      "original": {
+        "owner": "vic",
+        "repo": "import-tree",
+        "type": "github"
+      }
+    },
+    "import-tree_2": {
+      "locked": {
         "lastModified": 1763762820,
         "narHash": "sha256-ZvYKbFib3AEwiNMLsejb/CWs/OL/srFQ8AogkebEPF0=",
         "owner": "vic",
@@ -369,6 +408,21 @@
         "owner": "NixOS",
         "ref": "nixpkgs-unstable",
         "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs-lib": {
+      "locked": {
+        "lastModified": 1751159883,
+        "narHash": "sha256-urW/Ylk9FIfvXfliA1ywh75yszAbiTEVgpPeinFyVZo=",
+        "owner": "nix-community",
+        "repo": "nixpkgs.lib",
+        "rev": "14a40a1d7fb9afa4739275ac642ed7301a9ba1ab",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "nixpkgs.lib",
         "type": "github"
       }
     },
@@ -452,13 +506,14 @@
     },
     "root": {
       "inputs": {
-        "flake-file": "flake-file",
+        "dendrix": "dendrix",
+        "devshell": "devshell",
         "flake-parts": "flake-parts",
         "hashicorp-tap": "hashicorp-tap",
         "home-manager": "home-manager",
         "homebrew-cask": "homebrew-cask",
         "homebrew-core": "homebrew-core",
-        "import-tree": "import-tree",
+        "import-tree": "import-tree_2",
         "nix-darwin": "nix-darwin",
         "nix-homebrew": "nix-homebrew",
         "nixpkgs": "nixpkgs",

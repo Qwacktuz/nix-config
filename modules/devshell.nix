@@ -1,18 +1,9 @@
-{ inputs, lib, ... }:
+{ inputs, ... }:
 {
   imports = [
     inputs.devshell.flakeModule
     inputs.treefmt-nix.flakeModule
   ];
-
-  # TODO: split into formatter.nix
-  flake-file.inputs = {
-    devshell.url = "github:numtide/devshell";
-    devshell.inputs.nixpkgs.follows = "nixpkgs";
-
-    treefmt-nix.url = lib.mkDefault "github:numtide/treefmt-nix";
-    treefmt-nix.nixpkgs.follows = "nixpkgs";
-  };
 
   perSystem =
     {
@@ -42,18 +33,48 @@
         ];
       };
 
-      devShells.default = pkgs.mkShell {
+      devshells.default = {
         name = "flake-dev";
+        env = [
+          {
+            name = "NIX_CONFIG";
+            value = "experimental-features = nix-command flakes";
+          }
+          {
+            name = "NIXPKGS_ALLOW_UNFREE";
+            value = "1";
+          }
+        ];
+
+        commands = [
+          {
+            name = "napply";
+            help = "rebuild darwin flake";
+            command = "nh darwin switch .#saguaro";
+          }
+          {
+            name = "nfmt";
+            help = "format files";
+            command = "${config.treefmt.build.wrapper}/bin/treefmt";
+          }
+          {
+            name = "ncheck";
+            help = "check nix flake";
+            command = "nix flake check --all-systems";
+          }
+        ];
 
         packages = with pkgs; [
-          # Scripts
           # Write shellscripts as workaround for direnv
-          (writeShellScriptBin "napply" "nh darwin switch .#saguaro")
-          (writeShellScriptBin "nclean" "nh clean all")
-          (writeShellScriptBin "nfmt" "${config.treefmt.build.wrapper}/bin/treefmt")
-          (writeShellScriptBin "ncheck" "nix flake check --all-systems")
+          # (writeShellScriptBin "napply" "nh darwin switch .#saguaro")
+          # (writeShellScriptBin "nclean" "nh clean all")
+          # (writeShellScriptBin "nfmt" "${config.treefmt.build.wrapper}/bin/treefmt")
+          # (writeShellScriptBin "ncheck" "nix flake check --all-systems")
 
-          # Packages
+          curl
+          vim
+          git
+
           nh
           nil # Nix Language Server (LSP)
           sops # For editing your secrets
@@ -64,9 +85,8 @@
         ];
 
         # Environment variables and Aliases
-        shellHook = ''
-          # alias nix-apply="darwin-rebuild switch --flake .#saguaro"
-          echo "🌵 Flake-dev shell loaded | 'napply' to rebuild | 'nfmt' to format | 'nclean' to remove old"
+        motd = ''
+          🌵 Flake-dev shell loaded | 'napply' to rebuild | 'nfmt' to format | 'ncheck' to lint
         '';
       };
     };

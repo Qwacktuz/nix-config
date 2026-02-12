@@ -1,7 +1,12 @@
 { ... }:
 {
-  flake.modules.home-manager.nh =
-    { pkgs, ... }:
+  flake.modules.homeManager.nh =
+    {
+      config,
+      pkgs,
+      lib,
+      ...
+    }:
     {
       programs.nh = {
         enable = true;
@@ -9,12 +14,15 @@
           enable = true;
           extraArgs = "--keep-since 7d --keep 3";
         };
-        flake = "~/nix-config";
+
+        flake = lib.mkDefault (
+          if pkgs.stdenvNoCC.isDarwin then "/Users/${config.userName}" else "/home/${config.userName}"
+        );
       };
 
       home.packages = with pkgs; [
-        nix-output-monitor # nh pretty output
-        nvd # nh diffing capability
+        nix-output-monitor
+        nvd
       ];
     };
 }

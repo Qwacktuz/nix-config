@@ -1,10 +1,9 @@
-{ ... }:
+{ config, ... }:
 let
-  userName = "kaktus";
+  userName = config.userName;
 in
 {
   flake.modules = {
-
     nixos.${userName} = {
       users.users.${userName} = {
         isNormalUser = true;
