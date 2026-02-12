@@ -3,5 +3,4 @@
 - <https://lix.systems/add-to-config>
 - Streamline devshell creation
 
-Docs:
-<https://jdheyburn.co.uk/blog/nix-cheat-sheet>
+Docs: <https://jdheyburn.co.uk/blog/nix-cheat-sheet>
