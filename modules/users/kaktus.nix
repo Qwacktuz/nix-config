@@ -13,7 +13,7 @@ in
     };
 
     darwin.${userName} = {
-      system.primaryUser = userName; # note that configuring a user is different on MacOS than on NixOS.
+      system.primaryUser = userName;
     };
 
     homeManager.${userName} =

@@ -1,9 +1,25 @@
-{ inputs, ... }:
+{ inputs, lib, ... }:
 {
-  imports = [ inputs.treefmt-nix.flakeModule ];
+  imports = [
+    inputs.devshell.flakeModule
+    inputs.treefmt-nix.flakeModule
+  ];
+
+  # TODO: split into formatter.nix
+  flake-file.inputs = {
+    devshell.url = "github:numtide/devshell";
+    devshell.inputs.nixpkgs.follows = "nixpkgs";
+
+    treefmt-nix.url = lib.mkDefault "github:numtide/treefmt-nix";
+    treefmt-nix.nixpkgs.follows = "nixpkgs";
+  };
 
   perSystem =
-    { pkgs, config, ... }:
+    {
+      pkgs,
+      config,
+      ...
+    }:
     {
       treefmt = {
         projectRootFile = "flake.nix";
