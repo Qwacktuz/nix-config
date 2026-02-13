@@ -5,7 +5,7 @@ let
 in
 {
   flake.modules.darwin.mac-settings =
-    { self', pkgs }:
+    { self', pkgs, ... }:
     {
       nix.extraOptions = ''
         extra-platforms = x86_64-darwin aarch64-darwin

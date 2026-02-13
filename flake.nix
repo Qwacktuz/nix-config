@@ -6,7 +6,7 @@
     # flake-file.url = "github:vic/flake-file";
 
     # -- System & Configuration --
-    dendrix.url = "github:vic/dendrix";
+    # dendrix.url = "github:vic/dendrix";
 
     flake-parts.url = "github:hercules-ci/flake-parts";
     flake-parts.inputs.nixpkgs-lib.follows = "nixpkgs";

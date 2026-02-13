@@ -1,56 +1,9 @@
-{ inputs, ... }:
+{ inputs, config, ... }:
 {
   imports = [ inputs.home-manager.flakeModules.home-manager ];
 
-  flake.modules.generic.hm-integration =
+  flake.modules.homeManager.hm-config =
     {
-      config,
-      self,
-      ...
-    }:
-    {
-      home-manager = {
-        useGlobalPkgs = true;
-        useUserPackages = true;
-        backupFileExtension = "bak"; # "backup"
-        sharedModules = [
-          { stylix.targets.spicetify.enable = false; }
-        ];
-
-        users.${config.userName} = {
-          imports = with self.modules.homeManger; [
-            hm # hm config
-            packages
-            zsh
-            zsh_alias
-            git
-            nh
-            direnv
-            fastfetch
-            starship
-            micro
-            bat
-            fzf
-            btop
-            syncthing
-            prismlauncher
-            vscodium
-            spicetify
-            zed
-            llm
-
-            # vesktop
-            # brave
-            # music
-          ];
-        };
-
-      };
-    };
-
-  flake.modules.homeManager.hm =
-    {
-      config,
       self,
       pkgs,
       ...
@@ -62,7 +15,6 @@
     {
       # pass home-manager specific modules
       # HM is crosscompatible across different systems
-      imports = [ self.modules.homeManager.kaktus ];
 
       # TODO: modularize all of this
       programs.home-manager.enable = true;

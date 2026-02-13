@@ -1,6 +1,6 @@
 { ... }:
 {
-  flake.modules.homeManager.git =
+  flake.modules.homeManager.zsh =
     {
       pkgs,
       lib,

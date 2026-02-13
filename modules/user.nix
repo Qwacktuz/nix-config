@@ -1,6 +1,6 @@
 { config, ... }:
 let
-  userName = config.userName;
+  inherit (config) userName;
 in
 {
   flake.modules = {

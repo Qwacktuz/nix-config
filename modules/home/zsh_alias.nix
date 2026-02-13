@@ -45,7 +45,7 @@
         tree = "eza --icons --tree --group-directories-first";
 
         # nix
-        cdnix = "cd ~/nixos-config && codium ~/nixos-config";
+        cdnix = "cd ~/nix-config && codium ~/nix-config";
         ns = "nom-shell --run zsh";
         nd = "nom develop --command zsh";
         nb = "nom build";

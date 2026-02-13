@@ -1,6 +1,6 @@
 { ... }:
 {
-  flake.modules.darwin.homebrew =
+  flake.modules.darwin.stylix =
     { inputs, pkgs, ... }:
     {
       imports = [ inputs.stylix.darwinModules.stylix ];

@@ -15,9 +15,7 @@
           extraArgs = "--keep-since 7d --keep 3";
         };
 
-        flake = lib.mkDefault (
-          if pkgs.stdenvNoCC.isDarwin then "/Users/${config.userName}" else "/home/${config.userName}"
-        );
+        flake = "/Users/${config.userName}/nix-config";
       };
 
       home.packages = with pkgs; [
