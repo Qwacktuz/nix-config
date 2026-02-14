@@ -47,6 +47,10 @@
       flake = false;
       url = "github:psharma04/homebrew-dorion";
     };
+    pubkeys = {
+      flake = false;
+      url = "path:../pubkeys";
+    };
     sops-nix = {
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:Mic92/sops-nix";
