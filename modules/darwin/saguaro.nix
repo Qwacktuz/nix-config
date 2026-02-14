@@ -18,7 +18,7 @@
   # flake.darwinModules.darwin.saguaro = inputs.nix-darwin.lib.darwinSystem {
   flake.darwinConfigurations.saguaro = inputs.nix-darwin.lib.darwinSystem {
     inherit system;
-    specialArgs = { inherit inputs self; };
+    # specialArgs = { inherit inputs self; };
 
     modules = [
       inputs.home-manager.darwinModules.home-manager
@@ -35,7 +35,7 @@
           sharedModules = [
             { stylix.targets.spicetify.enable = false; }
           ];
-          extraSpecialArgs = { inherit inputs self; };
+          # extraSpecialArgs = { inherit inputs self; };
           users.${config.userName} = {
             imports = with self.modules.homeManager; [
               kaktus
@@ -68,7 +68,7 @@
         };
 
         imports = [
-          # self.modules.generic.core
+          self.modules.generic.core
           self.modules.darwin.kaktus
           self.modules.darwin.mac-settings
           self.modules.darwin.aerospace
@@ -93,7 +93,7 @@
   };
 
   flake.modules.generic.core =
-    { pkgs, self, ... }:
+    { pkgs, ... }:
     {
       # Not quite sure if this should be here too
       nix.linux-builder.enable = true;

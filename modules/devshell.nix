@@ -33,10 +33,6 @@
         name = "flake-dev";
         env = [
           {
-            name = "NIX_CONFIG";
-            value = "experimental-features = nix-command flakes";
-          }
-          {
             name = "NIXPKGS_ALLOW_UNFREE";
             value = "1";
           }
@@ -68,7 +64,7 @@
           # (writeShellScriptBin "ncheck" "nix flake check --all-systems")
 
           curl
-          vim
+          neovim
           git
 
           nh
