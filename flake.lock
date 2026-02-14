@@ -470,18 +470,6 @@
         "type": "github"
       }
     },
-    "pubkeys": {
-      "flake": false,
-      "locked": {
-        "path": "../pubkeys",
-        "type": "path"
-      },
-      "original": {
-        "path": "../pubkeys",
-        "type": "path"
-      },
-      "parent": []
-    },
     "root": {
       "inputs": {
         "devshell": "devshell",
@@ -500,7 +488,6 @@
         ],
         "nur": "nur",
         "psharma04-dorion": "psharma04-dorion",
-        "pubkeys": "pubkeys",
         "sops-nix": "sops-nix",
         "spicetify-nix": "spicetify-nix",
         "stylix": "stylix",
