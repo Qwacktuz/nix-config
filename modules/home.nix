@@ -25,6 +25,7 @@
       #   vimAlias = true;
       # };
       home.packages = with pkgs; [
+        neovim
         aerospace
         # sketchybar
       ];

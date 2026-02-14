@@ -26,7 +26,7 @@
         nixpkgs.hostPlatform = lib.mkDefault "aarch64-darwin";
         nixpkgs.config.allowUnfree = lib.mkDefault true;
         nix.settings.experimental-features = lib.mkDefault "nix-command flakes";
-        nixpkgs.overlays = [ inputs.self.overlays.spotify ];
+        nixpkgs.overlays = [ self.overlays.spotify ];
 
         home-manager = {
           useGlobalPkgs = true;
