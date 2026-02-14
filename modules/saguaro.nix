@@ -2,17 +2,23 @@
   inputs,
   self,
   lib,
-  system,
   config,
   ...
 }:
+let
+  system = "aarch64-darwin";
+in
 {
-  imports = [
-    inputs.flake-parts.flakeModules.modules
-    inputs.flake-file.flakeModules.dendritic
-  ];
+
+  flake.darwinConfigurations.saguaro = inputs.nix-darwin.lib.darwinSystem {
+    modules = [
+      self.modules.darwin.saguaro
+      { nixpkgs.hostPlatform = lib.mkDefault system; }
+    ];
+  };
 
   flake.modules.darwin.saguaro = {
+
     imports = with self.modules; [
       darwin.kaktus
       generic.core
@@ -28,8 +34,7 @@
   };
 
   flake.modules.darwin.kaktus = {
-    # imports = with self.modules.saguaro; [
-    # ];
+    imports = [ inputs.home-manager.darwinModules.home-manager ];
 
     home-manager = {
       useGlobalPkgs = true;
@@ -38,7 +43,8 @@
       sharedModules = [
         { stylix.targets.spicetify.enable = false; }
       ];
-      home-manager.users.${config.userName} = {
+
+      users.${config.userName} = {
         imports = with self.modules.homeManager; [
           kaktus
           hm-config # hm config
@@ -68,16 +74,6 @@
         ];
       };
     };
-  };
-
-  # flake.darwinModules.darwin.saguaro = inputs.nix-darwin.lib.darwinSystem {
-  flake.darwinConfigurations.saguaro = inputs.self.nix-darwin.lib.darwinSystem {
-    inherit system;
-    modules = [
-      self.modules.darwin.saguaro
-      # inputs.home-manager.darwinModules.home-manager
-      { nixpkgs.hostPlatform = lib.mkDefault system; }
-    ];
   };
 
   flake.overlays.spotify = final: prev: {

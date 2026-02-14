@@ -53,7 +53,6 @@
       spicetify-nix.inputs.nixpkgs.follows = "nixpkgs";
 
       # -- Raw Sources (flake = false) --
-      # You cannot use .follows on these
       homebrew-core = {
         url = "github:homebrew/homebrew-core";
         flake = false;
@@ -74,9 +73,8 @@
         url = "github:tw93/homebrew-tap";
         flake = false;
       };
-
       # pubkeys = {
-      #   url = "path:./pubkeys";
+      #   url = "path:../pubkeys";
       #   flake = false;
       # };
     };
