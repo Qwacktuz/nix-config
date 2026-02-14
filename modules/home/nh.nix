@@ -1,12 +1,7 @@
-{ ... }:
+{ config, ... }:
 {
   flake.modules.homeManager.nh =
-    {
-      config,
-      pkgs,
-      lib,
-      ...
-    }:
+    { pkgs, ... }:
     {
       programs.nh = {
         enable = true;

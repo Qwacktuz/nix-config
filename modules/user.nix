@@ -8,11 +8,15 @@ in
       users.users.${userName} = {
         isNormalUser = true;
         extraGroups = [ "wheel" ];
+        home = "/home/${userName}";
       };
     };
 
     darwin.${userName} = {
       system.primaryUser = userName;
+      users.users.${userName} = {
+        home = "/Users/${userName}";
+      };
     };
 
     homeManager.${userName} =
@@ -23,7 +27,7 @@ in
           homeDirectory = lib.mkDefault (
             if pkgs.stdenvNoCC.isDarwin then "/Users/${userName}" else "/home/${userName}"
           );
-          stateVersion = lib.mkDefault "25.11";
+          stateVersion = lib.mkDefault "26.05";
         };
       };
   };

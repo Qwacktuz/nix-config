@@ -35,7 +35,7 @@
           sharedModules = [
             { stylix.targets.spicetify.enable = false; }
           ];
-          extraSpecialArgs = { inherit inputs self config; };
+          extraSpecialArgs = { inherit inputs self; };
           users.${config.userName} = {
             imports = with self.modules.homeManager; [
               kaktus

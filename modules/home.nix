@@ -1,13 +1,9 @@
-{ inputs, config, ... }:
+{ inputs, ... }:
 {
   imports = [ inputs.home-manager.flakeModules.home-manager ];
 
   flake.modules.homeManager.hm-config =
-    {
-      self,
-      pkgs,
-      ...
-    }:
+    { pkgs, config, ... }:
     let
       dotfiles = "${config.home.homeDirectory}/nix-config/dotfiles";
       create_symlink = path: config.lib.file.mkOutOfStoreSymlink path;

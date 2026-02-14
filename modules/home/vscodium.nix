@@ -1,11 +1,7 @@
 { ... }:
 {
   flake.modules.homeManager.vscodium =
-    {
-      pkgs,
-      lib,
-      ...
-    }:
+    { pkgs, lib, ... }:
     {
       programs.vscode = {
         enable = true;

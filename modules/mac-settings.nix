@@ -1,11 +1,11 @@
-{ ... }:
+{ self, ... }:
 let
   # TODO:: refactor into global
   hostname = "saguaro";
 in
 {
   flake.modules.darwin.mac-settings =
-    { self', pkgs, ... }:
+    { pkgs, ... }:
     {
       nix.extraOptions = ''
         extra-platforms = x86_64-darwin aarch64-darwin
@@ -38,7 +38,7 @@ in
       system = {
 
         # Set Git commit hash for darwin-version.
-        configurationRevision = self'.rev or self'.dirtyRev or null;
+        configurationRevision = self.rev or self.dirtyRev or null;
         # Used for backwards compatibility, please read the changelog before changing.
         # $ darwin-rebuild changelog
         stateVersion = 6;

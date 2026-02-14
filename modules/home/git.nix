@@ -1,10 +1,7 @@
 { ... }:
 {
   flake.modules.homeManager.git =
-    {
-      pkgs,
-      ...
-    }:
+    { pkgs, ... }:
     {
 
       programs = {

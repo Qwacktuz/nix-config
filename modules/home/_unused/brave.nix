@@ -1,10 +1,7 @@
 { ... }:
 {
   flake.modules.homeManager.brave =
-    {
-      pkgs,
-      ...
-    }:
+    { pkgs, ... }:
     {
       # remember to turn of brave from eenvironment.systemPackages
       programs.chromium = {

@@ -39,10 +39,10 @@
         space = "ncdu";
         man = "BAT_THEME='default' batman";
 
-        ls = "eza --icons ";
-        l = "eza --icons  -a --group-directories-first -1"; # EZA_ICON_SPACING=2
-        ll = "eza --icons  -ah --group-directories-first -1 --no-user --long";
-        tree = "eza --icons --tree --group-directories-first";
+        ls = "eza --icons=auto";
+        l = "eza --icons=auto -a --group-directories-first -1"; # EZA_ICON_SPACING=2
+        ll = "eza --icons=auto -ah --group-directories-first -1 --no-user --long";
+        tree = "eza --icons=auto --tree --group-directories-first";
 
         # nix
         cdnix = "cd ~/nix-config && codium ~/nix-config";

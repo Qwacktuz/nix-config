@@ -1,11 +1,7 @@
 { ... }:
 {
   flake.modules.homeManager.zsh =
-    {
-      pkgs,
-      lib,
-      ...
-    }:
+    { pkgs, lib, ... }:
     {
       programs.zsh = {
         enable = true;

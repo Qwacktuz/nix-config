@@ -1,7 +1,7 @@
-{ ... }:
+{ inputs, ... }:
 {
   flake.modules.darwin.stylix =
-    { inputs, pkgs, ... }:
+    { pkgs, ... }:
     {
       imports = [ inputs.stylix.darwinModules.stylix ];
 

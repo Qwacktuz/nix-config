@@ -2,6 +2,7 @@
 dotfiles/nvim/lazy-lock.json
 dotfiles/ssh/
 pubkeys/
+result/
 
 # Env
 .direnv/

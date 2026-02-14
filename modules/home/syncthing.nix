@@ -1,10 +1,7 @@
 { ... }:
 {
   flake.modules.homeManager.syncthing =
-    {
-      pkgs,
-      ...
-    }:
+    { pkgs, ... }:
     {
       # home.packages = with pkgs; [
       #   syncthing-macos
