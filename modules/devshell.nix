@@ -31,6 +31,11 @@
 
       devshells.default = {
         name = "flake-dev";
+
+        motd = ''
+          🌵 Flake-dev shell loaded | 'napply' to rebuild | 'nfmt' to format | 'ncheck' to lint
+        '';
+
         env = [
           {
             name = "NIXPKGS_ALLOW_UNFREE";
@@ -57,29 +62,24 @@
         ];
 
         packages = with pkgs; [
-          # Write shellscripts as workaround for direnv
-          # (writeShellScriptBin "napply" "nh darwin switch .#saguaro")
-          # (writeShellScriptBin "nclean" "nh clean all")
-          # (writeShellScriptBin "nfmt" "${config.treefmt.build.wrapper}/bin/treefmt")
-          # (writeShellScriptBin "ncheck" "nix flake check --all-systems")
-
-          curl
           neovim
+          curl
           git
 
-          nh
+          nh # nix helper
           nil # Nix Language Server (LSP)
           sops # For editing your secrets
           age # Encryption needed for sops
           ssh-to-age # Helper for sops keys
           statix # Linter for Nix
           nix-diff
-        ];
 
-        # Environment variables and Aliases
-        motd = ''
-          🌵 Flake-dev shell loaded | 'napply' to rebuild | 'nfmt' to format | 'ncheck' to lint
-        '';
+          # Write shellscripts as workaround for direnv
+          # (writeShellScriptBin "napply" "nh darwin switch .#saguaro")
+          # (writeShellScriptBin "nclean" "nh clean all")
+          # (writeShellScriptBin "nfmt" "${config.treefmt.build.wrapper}/bin/treefmt")
+          # (writeShellScriptBin "ncheck" "nix flake check --all-systems")
+        ];
       };
     };
 
