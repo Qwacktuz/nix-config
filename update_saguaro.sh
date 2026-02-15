@@ -39,7 +39,6 @@ if [[ $answer =~ ^[Yy]$ ]]; then
   else
     echo "Mole (mo) not found. Cleanup finished!"
   fi
-  mo clean # MacOS only!
 else
   echo "Garbage wont be collected"
 fi
