@@ -1,8 +1,9 @@
-{ inputs, ... }:
+{ inputs, config, ... }:
 {
+  # TODO: is this really relevant? Need to make the HM config actually modular
   imports = [ inputs.home-manager.flakeModules.home-manager ];
 
-  flake.modules.homeManager.hm-config =
+  flake.modules.homeManager.${config.userName} =
     { pkgs, config, ... }:
     let
       dotfiles = "${config.home.homeDirectory}/nix-config/dotfiles";
@@ -57,5 +58,4 @@
       # Temporary SSH config
       home.file.".ssh/config".source = create_symlink "${dotfiles}/ssh/config";
     };
-
 }
