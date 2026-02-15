@@ -28,7 +28,7 @@
       home-manager.url = "github:nix-community/home-manager";
 
       # -- Utilities & Overlays --
-      nur.url = "github:nix-community/NUR";
+      # nur.url = "github:nix-community/NUR";
 
       # -- Raw Sources (flake = false) --
       homebrew-core = {

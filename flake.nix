@@ -34,7 +34,6 @@
     nix-homebrew.url = "github:zhaofengli/nix-homebrew";
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     nixpkgs-lib.follows = "nixpkgs";
-    nur.url = "github:nix-community/NUR";
     psharma04-dorion = {
       flake = false;
       url = "github:psharma04/homebrew-dorion";
