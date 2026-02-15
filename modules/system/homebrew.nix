@@ -18,13 +18,12 @@ in
 
       nix-homebrew = {
         enable = true;
-        # Apple Silicon Only: Also install Homebrew under the default Intel prefix for Rosetta 2
-        enableRosetta = true;
-        # User owning the Homebrew prefix
-        user = userName;
-        # Automatically migrate existing Homebrew installations
-        # autoMigrate = true;
+        user = userName; # User owning the Homebrew prefix
+        autoMigrate = true; # Let nix symlink existing installations etc.
 
+        # Alternative set this under git.nix if mutableTaps = true;
+        # git config --global --add safe.directory '/nix/store/*'
+        # programs.git.extraConfig.safe.directory = "/nix/store/*";
         mutableTaps = false;
         taps = {
           "homebrew/homebrew-core" = inputs.homebrew-core;
