@@ -14,7 +14,6 @@
 
       # TODO: modularize all of this
       programs.home-manager.enable = true;
-      programs.git.enable = true;
 
       # this doesn't work when configuring neovim non-nixified
       # home-manager will try to create init.lua and other neovim config files

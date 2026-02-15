@@ -1,9 +1,4 @@
-{
-  inputs,
-  config,
-  lib,
-  ...
-}:
+{ inputs, config, ... }:
 let
   inherit (config) userName;
 in
@@ -12,7 +7,7 @@ in
   flake-file.inputs.nix-homebrew.url = "github:zhaofengli/nix-homebrew";
 
   flake.modules.darwin.homebrew =
-    { config, ... }:
+    { config, lib, ... }:
     {
       imports = lib.optionals (inputs ? nix-homebrew) [ inputs.nix-homebrew.darwinModules.nix-homebrew ];
 

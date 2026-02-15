@@ -9,7 +9,6 @@ let
   system = "aarch64-darwin";
 in
 {
-
   flake.darwinConfigurations.saguaro = inputs.nix-darwin.lib.darwinSystem {
     modules = [
       self.modules.darwin.saguaro
@@ -18,7 +17,6 @@ in
   };
 
   flake.modules.darwin.saguaro = {
-
     imports = with self.modules; [
       darwin.kaktus
       generic.core
@@ -40,6 +38,8 @@ in
       useGlobalPkgs = true;
       useUserPackages = true;
       backupFileExtension = "bak";
+
+      # TODO: Move this to spicetify flake
       sharedModules = [
         { stylix.targets.spicetify.enable = false; }
       ];
@@ -75,35 +75,5 @@ in
       };
     };
   };
-
-  flake.overlays.spotify = final: prev: {
-    spotify = prev.spotify.overrideAttrs (old: {
-      src = prev.fetchurl {
-        url = "https://download.scdn.co/SpotifyARM64.dmg";
-        sha256 = "sha256-i/+w9s/3ZQtLAEMVTcLaV69fhpKq2rT5+WoBzer0ahY=";
-      };
-    });
-  };
-
-  flake.modules.generic.core =
-    { pkgs, ... }:
-    {
-      nixpkgs.hostPlatform = lib.mkDefault system;
-      nixpkgs.config.allowUnfree = lib.mkDefault true;
-      nix.settings.experimental-features = lib.mkDefault "nix-command flakes";
-      nixpkgs.overlays = [ self.overlays.spotify ];
-
-      # Not quite sure if this should be here too
-      nix.linux-builder.enable = true;
-
-      # Not quite sure if this should be here too
-      fonts.packages = [
-        pkgs.nerd-fonts.jetbrains-mono
-      ];
-
-      # openssh.authorizedKeys.keys = [
-      #   (builtins.readFile ./pubkeys/saguaro_id_ed25519.pub)
-      # ];
-    };
 
 }

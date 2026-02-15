@@ -1,9 +1,9 @@
-{ inputs, lib, ... }:
+{ inputs, ... }:
 {
   flake-file.inputs.stylix.url = "github:nix-community/stylix";
 
   flake.modules.darwin.stylix =
-    { pkgs, ... }:
+    { pkgs, lib, ... }:
     {
       imports = lib.optionals (inputs ? stylix) [ inputs.stylix.darwinModules.stylix ];
 
