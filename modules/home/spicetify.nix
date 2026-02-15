@@ -1,12 +1,16 @@
-{ inputs, ... }:
+{ inputs, lib, ... }:
 {
+  flake-file.inputs.spicetify-nix.url = "github:Gerg-L/spicetify-nix";
+
   flake.modules.homeManager.spicetify =
     { pkgs, ... }:
     let
       spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.stdenv.system};
     in
     {
-      imports = [ inputs.spicetify-nix.homeManagerModules.spicetify ];
+      imports = lib.optionals (inputs ? spicetify-nix) [
+        inputs.spicetify-nix.homeManagerModules.spicetify
+      ];
 
       programs.spicetify = {
         enable = true;

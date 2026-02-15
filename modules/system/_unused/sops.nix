@@ -1,7 +1,14 @@
-{ inputs, config, ... }:
 {
+  inputs,
+  lib,
+  config,
+  ...
+}:
+{
+  flake-file.inputs.sops-nix.url = "github:Mic92/sops-nix";
+
   flake.modules.darwin.sops = {
-    imports = [ inputs.sops-nix.darwinModules.sops ];
+    imports = lib.optionals (inputs ? sops-nix) [ inputs.sops-nix.darwinModules.sops ];
 
     sops = {
       defaultSopsFile = ../../secrets/secrets.yaml;

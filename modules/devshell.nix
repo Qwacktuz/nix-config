@@ -1,5 +1,8 @@
 { inputs, ... }:
 {
+  flake-file.inputs.devshell.url = "github:numtide/devshell";
+  flake-file.inputs.treefmt-nix.url = "github:numtide/treefmt-nix";
+
   imports = [
     inputs.devshell.flakeModule
     inputs.treefmt-nix.flakeModule

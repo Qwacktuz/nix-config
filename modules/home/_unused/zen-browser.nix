@@ -1,9 +1,16 @@
-{ inputs, config, ... }:
 {
+  inputs,
+  lib,
+  config,
+  ...
+}:
+{
+  flake-file.inputs.zen-browser.url = "github:0xc000022070/zen-browser-flake/beta";
+
   flake.modules.homeManager.zen-browser =
     { pkgs, ... }:
     {
-      imports = [ inputs.zen-browser.homeModules.beta ];
+      imports = lib.optionals (inputs ? zen-browser) [ inputs.zen-browser.homeModules.beta ];
 
       #inputs.zen-browser.packages."${system}".default.override {
       #  policies = {
