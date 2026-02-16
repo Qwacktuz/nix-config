@@ -8,30 +8,44 @@
       jbLib = inputs.nix-jetbrains-plugins.lib;
       commonPlugins = [
         "IdeaVIM" # IdeaVIM
-        "org.jetbrains.IdeaVim-EasyMotion"
         "org.yelog.ideavim.flash"
         "AceJump" # AceJump
 
         "com.github.catppuccin.jetbrains"
         "com.github.catppuccin.jetbrains_icons"
 
-        "org.jetbrains.security.package-checker"
         "net.ashald.envfile"
         "org.toml.lang"
         "mobi.hsz.idea.gitignore"
-        "com.intellij.bigdatatools"
-        "intellij.prettierJS"
 
         "com.jetbrains.edu"
-        "com.intellij.mermaid"
-        "nix-idea"
+        "Key Promoter X"
+        "dev.protsenko.security-linter"
 
-        "org.jetbrains.plugins.github"
+        # Might move later
+        "nix-idea"
+        "com.intellij.mermaid"
+        "com.intellij.bigdatatools"
+
         "org.jetbrains.junie"
         "com.github.copilot"
       ];
+
+      # buildIDE =
+      #   ide: specificPlugins: jbLib.buildIdeWithPlugins pkgs ide (commonPlugins ++ specificPlugins);
+
+      # darwin patch
       buildIDE =
-        ide: specificPlugins: jbLib.buildIdeWithPlugins pkgs ide (commonPlugins ++ specificPlugins);
+        ide: specificPlugins:
+        let
+          wrappedIde = jbLib.buildIdeWithPlugins pkgs ide (commonPlugins ++ specificPlugins);
+        in
+        # Strip 'disallowedReferences' on darwin because the
+        # wrapper causes a false-positive security violation.
+        wrappedIde.overrideAttrs (old: {
+          disallowedReferences = [ ];
+        });
+
     in
     {
       # imports = [ inputs.nix-jetbrains-plugins.plugins ];
@@ -40,73 +54,55 @@
 
         # --- IntelliJ IDEA Ultimate ---
         (buildIDE idea [
-          "Lombook Plugin"
+          "Pythonid" # PyCharm Pro replacement
+          "org.jetbrains.plugins.go" # GoLand replacement
+          "com.intellij.clion" # CLion replacement
+          "com.jetbrains.rust" # Rust rover replacement
+          "org.jetbrains.android" # Android studio replacement
+
+          # Language
+          "androidx.compose.plugins.idea" # Jetpack compose
+          "com.jetbrains.kmm" # Kotlin multiplatform
+          "com.falsepattern.zigbrains"
+          "dev.blachut.svelte.lang"
           "io.flutter"
           "Dart"
+
+          # Cloud
+          "com.intellij.kubernetes"
+          "org.intellij.plugins.hcl"
+
+          # Minecraft
+          "com.github.tth05.minecraft-nbt-intellij-plugin"
           "com.demonwav.minecraft-dev"
-          "com.intellij.spring"
-          "org.jetbrains.kotlin"
         ])
 
         # --- PyCharm Professional ---
         (buildIDE pycharm [
-          # Add specific python plugins if needed
+          "org.tonybaloney.security.pycharm-security"
         ])
 
         # --- WebStorm ---
         (buildIDE webstorm [
-          "NodeJS"
-          "JavaScript"
-          "org.intellij.plugins.postcss"
+          "org.jetbrains.plugins.astro"
           "dev.blachut.svelte.lang"
-          "intellij.vitejs"
           "com.intellij.lang.jsgraphql"
-          "com.github.warningimhack3r.intellijshadcnplugin"
-          "com.haulmont.rcb"
-        ])
-
-        # --- GoLand ---
-        (buildIDE goland [
-          "io.flutter"
-          "Dart"
-          "com.intellij.kubernetes"
-          "org.intellij.plugins.hcl"
+          "com.haulmont.rcb" # react
+          "com.github.warningimhack3r.intellijshadcnplugin" # shadcn
         ])
 
         # --- CLion ---
         (buildIDE clion [
-          "name.kropp.intellij.makefile"
-          "org.jetbrains.bazel"
-          "SerialPortMonitor"
+          "com.intellij.clion-gradle"
         ])
+
+        # --- GoLand ---
+        # (buildIDE goland [
+        #   "intellij.prettierJS"
+        # ])
 
         # --- Rust Rover ---
         # (buildIDE rust-rover [])
       ];
     };
 }
-
-# TODO: intagrate these into the config above
-# com.intellij.notebooks.core (253.30387.193)
-# com.jetbrains.edu (2026.1-2025.3-563)
-# Subversion (253.30387.193)
-# ru.adelf.idea.dotenv (253.30387.193)
-# org.yelog.ideavim.flash (1.0.5)
-# com.github.catppuccin.jetbrains (3.5.3)
-# Dart (502.0.0)
-# com.intellij.mermaid (0.0.26+IJ.252)
-# com.intellij.spring (253.30387.173)
-# org.jetbrains.junie (253.620.53)
-# org.jetbrains.plugins.terminal (253.30387.92)
-# AceJump (3.8.22)
-# IdeaVIM (2.29.0)
-# org.jetbrains.IdeaVim-EasyMotion (1.16)
-# intellij.jupyter (253.30387.193)
-# com.intellij.nativeDebug (253.30387.79)
-# intellij.vitejs (253.30387.193)
-# dev.blachut.svelte.lang (253.29346.45)
-# com.demonwav.minecraft-dev (2025.3-1.8.11)
-# com.github.catppuccin.jetbrains_icons (1.13.1)
-# io.flutter (89.0.0)
-# nix-idea (0.4.0.18)
-# org.jetbrains.plugins.docker.gateway (253.30387.92)
