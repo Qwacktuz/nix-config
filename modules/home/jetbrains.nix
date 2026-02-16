@@ -25,7 +25,14 @@
         # Might move later
         "nix-idea"
         "com.intellij.mermaid"
-        "com.intellij.bigdatatools"
+
+        # "com.intellij.bigdatatools"
+        # "com.intellij.bigdatatools.core"
+        # "intellij.bigdatatools.coreUi"
+        # "intellij.bigdatatools.awsBase"
+        # "com.intellij.bigdatatools.binary.files"
+        # "com.intellij.bigdatatools.rfs"
+        # "com.intellij.bigdatatools.gcloud"
 
         "org.jetbrains.junie"
         "com.github.copilot"
@@ -56,9 +63,13 @@
         (buildIDE idea [
           "Pythonid" # PyCharm Pro replacement
           "org.jetbrains.plugins.go" # GoLand replacement
-          "com.intellij.clion" # CLion replacement
           "com.jetbrains.rust" # Rust rover replacement
           "org.jetbrains.android" # Android studio replacement
+
+          # Some bug currently - DO NOT UPDATE IF DOWNLOADED - just use CLion directly
+          # "com.intellij.clion" # CLion replacement
+          "org.jetbrains.plugins.clion.radler"
+          "com.intellij.nativeDebug"
 
           # Language
           "androidx.compose.plugins.idea" # Jetpack compose
@@ -71,10 +82,17 @@
           # Cloud
           "com.intellij.kubernetes"
           "org.intellij.plugins.hcl"
+          "com.intellij.kubernetes"
 
           # Minecraft
           "com.github.tth05.minecraft-nbt-intellij-plugin"
           "com.demonwav.minecraft-dev"
+
+          # Various deps
+          "com.redhat.devtools.lsp4ij"
+          "com.android.tools.design"
+          "PythonCore"
+          "intellij.webp"
         ])
 
         # --- PyCharm Professional ---
@@ -93,6 +111,7 @@
 
         # --- CLion ---
         (buildIDE clion [
+          "com.intellij.gradle"
           "com.intellij.clion-gradle"
         ])
 
