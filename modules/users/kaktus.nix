@@ -26,6 +26,7 @@ in
           with self.modules.homeManager;
           [
             fonts
+            jetbrains
             packages
             zsh
             zsh_alias

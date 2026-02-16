@@ -13,12 +13,6 @@
         gemini-cli-bin
         codex
         antigravity
-        jetbrains.idea
-        jetbrains.pycharm
-        jetbrains.webstorm
-        jetbrains.goland
-        jetbrains.clion
-        #jetbrains.rust-rover
         zed
         mpv
         tenacity

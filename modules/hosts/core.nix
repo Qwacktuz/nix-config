@@ -14,7 +14,9 @@
       nix.linux-builder.enable = lib.mkDefault true;
 
       # Move to darwin core module?
-      nixpkgs.overlays = [ self.overlays.spotify ];
+      nixpkgs.overlays = [
+        self.overlays.spotify
+      ];
 
       fonts = {
         packages = with pkgs; [ nerd-fonts.jetbrains-mono ];

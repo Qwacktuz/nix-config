@@ -32,6 +32,7 @@
     };
     nix-darwin.url = "github:nix-darwin/nix-darwin/master";
     nix-homebrew.url = "github:zhaofengli/nix-homebrew";
+    nix-jetbrains-plugins.url = "github:nix-community/nix-jetbrains-plugins";
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     nixpkgs-lib.follows = "nixpkgs";
     psharma04-dorion = {
