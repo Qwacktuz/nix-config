@@ -41,7 +41,7 @@
       # buildIDE =
       #   ide: specificPlugins: jbLib.buildIdeWithPlugins pkgs ide (commonPlugins ++ specificPlugins);
 
-      # darwin patch
+      # Darwin patch
       buildIDE =
         ide: specificPlugins:
         let
@@ -55,8 +55,6 @@
 
     in
     {
-      # imports = [ inputs.nix-jetbrains-plugins.plugins ];
-
       home.packages = with pkgs.jetbrains; [
 
         # --- IntelliJ IDEA Ultimate ---
