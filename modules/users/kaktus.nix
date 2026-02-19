@@ -25,6 +25,8 @@ in
         imports =
           with self.modules.homeManager;
           [
+            darwin-packages
+
             fonts
             jetbrains
             packages

@@ -68,8 +68,8 @@ in
           "microsoft-excel"
           "warp"
           "detexify"
-          "lmms" # FL studio OSS replacement
           "middleclick"
+          "1kc-razer"
         ];
         brews = [
           "mole"
