@@ -7,7 +7,7 @@ cd "$HOME"/nix-config/ || exit
 
 # Formatting with nixfmt (can also use nfmt for treefmt)
 echo "Formatting with nixfmt..."
-find . -name '*.nix' -exec nixfmt {} +
+nix fmt
 
 # Lint/check for syntax errors (ncheck)
 echo "Checking flake syntax..."

@@ -6,7 +6,8 @@
 ## TODO
 
 - Streamline devshell creation
-- languagetool server for neovim (ltex-ls-plus vs ltex-ls?) and activate norwegian spellchecking
+- languagetool server for neovim (ltex-ls-plus vs ltex-ls?) and activate
+  norwegian spellchecking
   - <https://dev.languagetool.org/http-server>
   - <https://nix.dev/tutorials/packaging-existing-software> (nix package?)
   - <https://forum.languagetool.org/t/norwegian-language/11752>
