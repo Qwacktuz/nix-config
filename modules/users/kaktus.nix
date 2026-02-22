@@ -27,6 +27,7 @@ in
           [
             darwin-packages
 
+            languagetool
             fonts
             jetbrains
             packages

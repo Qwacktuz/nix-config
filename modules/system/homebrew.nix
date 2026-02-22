@@ -73,7 +73,7 @@ in
         ];
         brews = [
           "mole"
-          "ltex-ls"
+          # "ltex-ls"
           "scrcpy"
           "binwalk"
           "mas"
