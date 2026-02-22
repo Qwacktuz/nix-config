@@ -1,6 +1,6 @@
 { ... }:
 {
-  flake.modules.homeManager.langaugetool =
+  flake.modules.homeManager.languagetool =
     { pkgs, ... }:
     {
       home.packages = with pkgs; [
