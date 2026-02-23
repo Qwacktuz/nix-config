@@ -66,6 +66,7 @@ in
           "font-fontawesome"
           "wireshark-app"
           "microsoft-excel"
+          "codex-app"
           "warp"
           "detexify"
           "middleclick"
