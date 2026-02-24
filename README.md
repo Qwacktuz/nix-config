@@ -5,8 +5,13 @@
 
 ## Caveats
 
-- Commands such as `nix flake show` won't work properly since dendritic nix design implements flakes using: `flake.modules.<module class>.<aspect name>`, where the aspect name is a feature/module name and the module class can be `homeManager`, `darwin`, `nixos`
-  - Normal flake-parts modules follow the pattern `flake.<host>` where host can be `darwinConfiugrations`, `homeManagerModules`, `darwinModules` or `nixosModules`
+- Commands such as `nix flake show` won't work properly since dendritic nix
+  design implements flakes using: `flake.modules.<module class>.<aspect name>`,
+  where the aspect name is a feature/module name and the module class can be
+  `homeManager`, `darwin`, `nixos`
+  - Normal flake-parts modules follow the pattern `flake.<host>` where host can
+    be `darwinConfiugrations`, `homeManagerModules`, `darwinModules` or
+    `nixosModules`
 
 ## TODO
 
