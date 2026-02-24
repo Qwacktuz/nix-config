@@ -14,6 +14,7 @@
         "com.github.catppuccin.jetbrains"
         "com.github.catppuccin.jetbrains_icons"
 
+        "org.ldemetrios.kvasir" # Typst support
         "net.ashald.envfile"
         "org.toml.lang"
         "mobi.hsz.idea.gitignore"

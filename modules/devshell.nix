@@ -10,6 +10,16 @@
 
   perSystem =
     { pkgs, config, ... }:
+    let
+      commonPackages = with pkgs; [
+        neovim
+        curl
+        git
+        zip
+      ];
+      debugger = if pkgs.stdenv.isDarwin then "lldb" else "gdb";
+      memcheck = if pkgs.stdenv.isLinux then "valgrind --leak-check=full" else "leaks --atExit --";
+    in
     {
       treefmt = {
         projectRootFile = "flake.nix";
@@ -25,6 +35,9 @@
         programs.ruff.check = true;
         programs.ruff.format = true;
 
+        # C formatting
+        programs.clang-format.enable = true;
+
         #programs.shellcheck.options = [ "--severity=error" ];
         settings.formatter.shellcheck.excludes = [
           ".envrc"
@@ -33,18 +46,11 @@
       };
 
       devshells.default = {
-        name = "flake-dev";
+        name = "nix-dev";
 
         motd = ''
-          🌵 Flake-dev shell loaded | 'napply' to rebuild | 'nfmt' to format | 'ncheck' to lint
+          ❄️ Nix devshell loaded | 'napply' to rebuild | 'nfmt' to format | 'ncheck' to lint
         '';
-
-        env = [
-          {
-            name = "NIXPKGS_ALLOW_UNFREE";
-            value = "1";
-          }
-        ];
 
         commands = [
           {
@@ -64,26 +70,83 @@
           }
         ];
 
-        packages = with pkgs; [
-          neovim
-          curl
-          git
+        packages =
+          with pkgs;
+          [
+            nh # nix helper
+            nil # Nix Language Server (LSP)
+            sops # For editing your secrets
+            age # Encryption needed for sops
+            ssh-to-age # Helper for sops keys
+            statix # Linter for Nix
+            nix-diff
 
-          nh # nix helper
-          nil # Nix Language Server (LSP)
-          sops # For editing your secrets
-          age # Encryption needed for sops
-          ssh-to-age # Helper for sops keys
-          statix # Linter for Nix
-          nix-diff
+            # Write shellscripts as workaround for direnv
+            # (writeShellScriptBin "napply" "nh darwin switch .#saguaro")
+            # (writeShellScriptBin "nclean" "nh clean all")
+            # (writeShellScriptBin "nfmt" "${config.treefmt.build.wrapper}/bin/treefmt")
+            # (writeShellScriptBin "ncheck" "nix flake check --all-systems")
+          ]
+          ++ commonPackages;
+      };
 
-          # Write shellscripts as workaround for direnv
-          # (writeShellScriptBin "napply" "nh darwin switch .#saguaro")
-          # (writeShellScriptBin "nclean" "nh clean all")
-          # (writeShellScriptBin "nfmt" "${config.treefmt.build.wrapper}/bin/treefmt")
-          # (writeShellScriptBin "ncheck" "nix flake check --all-systems")
+      devshells.c = {
+        name = "c-dev";
+
+        motd = ''
+          ⚡️ C devshell loaded | 'cb' to build | 'cx' to run | 'cdb' to debug
+        '';
+
+        commands = [
+          {
+            name = "cb";
+            help = "Quick compile a file (Usage: cb main.c)";
+            command = "cc -Wall -Wextra -g $1 -o out";
+          }
+          {
+            name = "cx";
+            help = "Compile and run (Usage: cx main.c)";
+            command = "cc -Wall -Wextra -g $1 -o out && ./out";
+          }
+          {
+            name = "cdb";
+            help = "Debug the 'out' binary";
+            command = "${debugger} ./out";
+          }
+          {
+            name = "cmem";
+            help = "Check for memory leaks (Valgrind on Linux / Leaks on Darwin)";
+            command = "${memcheck} ./out";
+          }
+          {
+            name = "c-init";
+            help = "Create a basic Makefile and main.c";
+            command = ''
+              if [ ! -f Makefile ]; then
+                echo -e "all:\n\tcc -Wall -g main.c -o out\nclean:\n\trm -f out" > Makefile
+                echo -e "#include <stdio.h>\n\nint main() {\n    printf(\"Hello World\\\\n\");\n    return 0;\n}" > main.c
+                echo "Created main.c and Makefile"
+              else
+                echo "Makefile already exists."
+              fi
+            '';
+          }
         ];
+
+        packages =
+          with pkgs;
+          [
+            clang-tools
+            stdenv.cc
+            cmake
+            gnumake
+          ]
+          ++ pkgs.lib.optionals pkgs.stdenv.isLinux [
+            valgrind
+            gdb
+          ]
+          ++ pkgs.lib.optionals pkgs.stdenv.isDarwin [ lldb ]
+          ++ commonPackages;
       };
     };
-
 }

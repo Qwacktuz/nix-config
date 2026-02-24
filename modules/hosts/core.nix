@@ -3,6 +3,7 @@
   flake.modules.generic.core =
     { pkgs, lib, ... }:
     {
+      # host level configs
       nixpkgs.config.allowUnfree = lib.mkDefault true;
       nix.settings.experimental-features = [
         "nix-command"

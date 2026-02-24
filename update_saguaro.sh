@@ -31,6 +31,7 @@ if [[ $answer =~ ^[Yy]$ ]]; then
   #nix store gc
   #nix-collect-garbage -d
   nh clean all
+  nix store optimise
 
   if command -v mo &>/dev/null; then
     echo "Starting macOS system cleanup with Mole..."

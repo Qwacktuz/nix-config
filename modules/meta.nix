@@ -8,5 +8,4 @@
       description = "User name for the configuration";
     };
   };
-
 }
