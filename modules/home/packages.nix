@@ -71,6 +71,7 @@
         mpv # Media player
         tenacity # Audio editor
         utm # Virtual machines
+        qemu
 
         #=======================================================================
         # Security & Pentesting (Hax)

@@ -140,8 +140,10 @@
             stdenv.cc
             cmake
             gnumake
+            binutils
           ]
           ++ pkgs.lib.optionals pkgs.stdenv.isLinux [
+            ltrace
             valgrind
             gdb
           ]

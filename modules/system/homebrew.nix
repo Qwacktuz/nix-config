@@ -57,8 +57,7 @@ in
           "orion"
           "helium-browser"
           "wacom-tablet"
-          #"vmware-fusion" # Apparently disabled because broadcom
-          "virtualbox"
+          # "vmware-fusion" # Apparently disabled because broadcom
           "hashicorp/tap/hashicorp-vagrant"
           "burp-suite"
           "omnissa-horizon-client"

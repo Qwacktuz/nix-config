@@ -7,6 +7,7 @@
       darwin.aerospace
       darwin.homebrew
       darwin.stylix
+      # darwin.virtualization
       # darwin.karabiner
       # darwin.sketchybar
       # darwin.sops
