@@ -12,6 +12,11 @@
   - Normal flake-parts modules follow the pattern `flake.<host>` where host can
     be `darwinConfiugrations`, `homeManagerModules`, `darwinModules` or
     `nixosModules`
+- GNU coreutils doesn't exist on macOS and it's needed for flags like `--no-preserve` and `--reflink` when using `nix run .#write-flake` with github:vic/flake-file. The fix is to temporarily add it to PATH:
+
+```bash
+nix shell nixpkgs#coreutils --command nix run .#write-flake
+```
 
 ## TODO
 
