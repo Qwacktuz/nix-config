@@ -73,6 +73,7 @@
         packages =
           with pkgs;
           [
+            coreutils # needed for nix run .#write-flake
             nh # nix helper
             nil # Nix Language Server (LSP)
             sops # For editing your secrets
