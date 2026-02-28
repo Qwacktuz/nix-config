@@ -70,7 +70,7 @@
 
           # Some bug currently - DO NOT UPDATE IF DOWNLOADED - just use CLion directly
           # "com.intellij.clion" # CLion replacement
-          "org.jetbrains.plugins.clion.radler"
+          # "org.jetbrains.plugins.clion.radler"
           "com.intellij.nativeDebug"
 
           # Language

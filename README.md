@@ -28,6 +28,8 @@
 
 - <https://jdheyburn.co.uk/blog/nix-cheat-sheet>
 
+- [Automatic lock flattening](https://github.com/fzakaria/nix-auto-follow)
+
 **Flake parts and dendritic design:**
 
 - <https://flake.parts>

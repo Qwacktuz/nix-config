@@ -143,7 +143,7 @@
         unzip
         viu # Image viewer
         wget
-        yt-dlp-light
+        # yt-dlp-light
         xxd
 
         # Fun

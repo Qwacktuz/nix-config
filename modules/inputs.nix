@@ -16,6 +16,7 @@
   systems = lib.mkDefault (import inputs.systems);
 
   flake-file = {
+    prune-lock.enable = true;
     description = "Kaktus nix flake";
     inputs = {
       flake-file.url = "github:vic/flake-file";

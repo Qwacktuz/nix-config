@@ -16,6 +16,7 @@
 
       # Move to darwin core module?
       nixpkgs.overlays = [
+        self.overlays.default
         self.overlays.spotify
       ];
 

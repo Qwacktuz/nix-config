@@ -29,7 +29,7 @@
 
         programs.shfmt.enable = true;
         programs.shellcheck.enable = true;
-        programs.deno.enable = true;
+        # programs.deno.enable = true;
 
         # Python linting and formatting
         programs.ruff.check = true;
@@ -66,7 +66,7 @@
           {
             name = "ncheck";
             help = "check nix flake";
-            command = "nix flake check --all-systems";
+            command = "nix flake check";
           }
         ];
 
