@@ -23,7 +23,6 @@
 
       # Using easyOverlay, you use pkgs directly instead of referencing prev
       overlayAttrs = {
-        xrdb = pkgs.xorg.xrdb;
         yt-dlp = pkgs.yt-dlp.overridePythonAttrs (oldAttrs: {
           dependencies = lib.filter (
             dep:

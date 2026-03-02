@@ -17,7 +17,10 @@
       spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.stdenv.system};
     in
     {
-      imports = lib.optionals (inputs ? spicetify-nix) [
+      # imports = lib.optionals (inputs ? spicetify-nix) [
+      #   inputs.spicetify-nix.homeManagerModules.spicetify
+      # ];
+      imports = [
         inputs.spicetify-nix.homeManagerModules.spicetify
       ];
 

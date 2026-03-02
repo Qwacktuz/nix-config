@@ -146,6 +146,8 @@
         # yt-dlp-light
         xxd
 
+        patchelf # clion with plugins needs this DEP
+
         # Fun
         cbonsai
         cmatrix
