@@ -54,6 +54,7 @@ in
           "libreoffice"
           "tor-browser"
           "element"
+          "yubico-authenticator"
           "orion"
           "helium-browser"
           "wacom-tablet"
