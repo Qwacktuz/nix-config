@@ -87,6 +87,10 @@
         tfsec # Terraform static analysis
         syft # Generate SBOM
         grype # Vulnerability scanner for SBOM
+        yubico-piv-tool
+        yubikey-manager
+        opensc
+        gnupg
 
         #=======================================================================
         # System & Resource Monitoring
