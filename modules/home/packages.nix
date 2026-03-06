@@ -43,7 +43,6 @@
         lazydocker
         lazysql
         lazyjournal
-        postman # API testing
         android-tools
         xcodes
         act # Run GitHub Actions locally
@@ -76,7 +75,7 @@
         #=======================================================================
         # Security & Pentesting (Hax)
         #=======================================================================
-        openssh
+        # openssh
         shadowsocks-rust
         exiftool
         nmap
