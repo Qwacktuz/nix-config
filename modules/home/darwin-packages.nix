@@ -9,6 +9,8 @@
         if pkgs.stdenvNoCC.isDarwin then
           with pkgs;
           [
+            aerospace
+            # sketchybar
             stats
             iina
           ]

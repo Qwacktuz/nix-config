@@ -20,6 +20,7 @@ nix shell nixpkgs#coreutils --command nix run .#write-flake
 
 ## TODO
 
+- Move ssh config into nix
 - Streamline devshell creation
 - languagetool server for neovim (ltex-ls-plus vs ltex-ls?) and activate
   norwegian spellchecking

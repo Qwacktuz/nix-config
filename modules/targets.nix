@@ -17,10 +17,11 @@ in
     ];
   };
 
-  # flake.nixosConfigurations.<machine-name> = inputs.nixpkgs.lib.nixosSystem {
-  #   modules = [
-  #     self.modules.nixos.<machine-name>
-  #     { nixpkgs.hostPlatform = lib.mkDefault nixos; }
-  #   ];
-  # };
+  # Tailscale jump host homelab
+  flake.nixosConfigurations.fishhook = inputs.nixpkgs.lib.nixosSystem {
+    modules = [
+      self.modules.nixos.fishhook
+      { nixpkgs.hostPlatform = lib.mkDefault nixos; }
+    ];
+  };
 }

@@ -1,4 +1,4 @@
-{ self, ... }:
+{ config, ... }:
 {
   flake.modules.generic.core =
     { pkgs, lib, ... }:
@@ -10,22 +10,15 @@
         "flakes"
       ];
 
-      # Small VM that builds x86_64-linux systems anywhere!
-      # Might move to darwin module
-      nix.linux-builder.enable = lib.mkDefault true;
-
-      # Move to darwin core module?
-      nixpkgs.overlays = [
-        self.overlays.default
-        self.overlays.spotify
-      ];
-
       fonts = {
         packages = with pkgs; [ nerd-fonts.jetbrains-mono ];
       };
 
-      # openssh.authorizedKeys.keys = [
-      #   (builtins.readFile ./pubkeys/saguaro_id_ed25519.pub)
-      # ];
+      # lib.mkdefault?
+      # Same level values will be merged, or the highest value take presidence
+      users.users.${config.userName}.openssh.authorizedKeys.keyFiles = [
+        ../../pubkeys/kaktus_id_ed25519_sk_backup.pub
+        ../../pubkeys/kaktus_id_ed25519_sk.pub
+      ];
     };
 }

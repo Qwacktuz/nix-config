@@ -26,7 +26,6 @@
       # };
       home.packages = with pkgs; [
         neovim
-        aerospace
         # sketchybar
       ];
 
@@ -54,8 +53,5 @@
         source = create_symlink "${dotfiles}/com.mitchellh.ghostty";
         recursive = true;
       };
-
-      # Temporary SSH config
-      home.file.".ssh/config".source = create_symlink "${dotfiles}/ssh/config";
     };
 }
