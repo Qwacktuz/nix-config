@@ -7,40 +7,31 @@
 {
   flake.modules.nixos.fishhook = {
     imports = with self.modules; [
+      (modulesPath + "/virtualisation/proxmox-lxc.nix")
       generic.core
       nixos.${config.userName}
       nixos.tailscale
       nixos.ssh-server
     ];
 
-    boot.loader.limine.enable = true;
-
-    fileSystems."/" = {
-      device = "/dev/disk/by-label/nixos";
-      fsType = "ext4";
-    };
-
-    # for EFI
-    fileSystems."/boot" = {
-      device = "/dev/disk/by-label/boot";
-      fsType = "vfat";
-    };
+    boot.isContainer = true;
 
     networking = {
       hostName = "fishhook";
       domain = "homelab.${config.networkDomain}";
+
+      # Make it obey the network
+      useDHCP = lib.mkDefault true;
     };
 
     time.timeZone = "Europe/Oslo";
 
     services = {
-      xserver.xkb.layout = "us";
       tailscale = {
         useRoutingFeatures = "server";
         extraSetFlags = [ "--ssh=true" ];
       };
 
-      qemuGuest.enable = true;
       openssh.settings = {
         AllowTcpForwarding = "yes";
       };
@@ -51,5 +42,22 @@
     ];
 
     system.stateVersion = lib.mkDefault "25.11";
+
+    /*
+      # Not used for LXC containers
+      xserver.xkb.layout = "us";
+      services.qemuGuest.enable = true;
+      boot.loader.limine.enable = true;
+      fileSystems."/" = {
+        device = "/dev/disk/by-label/nixos";
+        fsType = "ext4";
+      };
+
+      # for EFI
+      fileSystems."/boot" = {
+        device = "/dev/disk/by-label/boot";
+        fsType = "vfat";
+      };
+    */
   };
 }

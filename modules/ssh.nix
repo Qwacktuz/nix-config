@@ -1,4 +1,4 @@
-{ config, ... }:
+{ lib, config, ... }:
 {
   flake.modules.homeManager.ssh-client =
     { config, ... }:
@@ -221,19 +221,17 @@
       };
     };
 
-  flake.modules.nixos.ssh-server =
-    { lib, ... }:
-    {
-      services.openssh = {
-        ports = [ 22 ]; # security through not-obscurity
-        enable = true;
-        settings = {
-          AllowUsers = lib.mkDefault [ config.userName ];
-          PasswordAuthentication = false;
-          KbdInteractiveAuthentication = false;
-          PermitRootLogin = "no";
-          X11Forwarding = false;
-        };
+  flake.modules.nixos.ssh-server = {
+    services.openssh = {
+      ports = [ 22 ]; # security through not-obscurity
+      enable = true;
+      settings = {
+        AllowUsers = lib.mkDefault [ config.userName ];
+        PasswordAuthentication = false;
+        KbdInteractiveAuthentication = false;
+        PermitRootLogin = "no";
+        X11Forwarding = false;
       };
     };
+  };
 }
