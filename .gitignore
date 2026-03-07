@@ -1,7 +1,7 @@
 # Custom dotfiles
 dotfiles/nvim/lazy-lock.json
 dotfiles/ssh/
-result/
+result
 
 # Env
 .direnv/
