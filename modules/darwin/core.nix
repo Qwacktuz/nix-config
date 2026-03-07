@@ -19,6 +19,9 @@
 
     # Small VM that builds x86_64-linux systems anywhere!
     # Might move to darwin module
-    nix.linux-builder.enable = lib.mkDefault true;
+    nix.linux-builder = {
+      enable = lib.mkDefault true;
+      config.boot.binfmt.emulatedSystems = [ "x86_64-linux" ];
+    };
   };
 }
