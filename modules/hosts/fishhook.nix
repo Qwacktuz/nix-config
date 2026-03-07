@@ -15,6 +15,17 @@
 
     boot.loader.limine.enable = true;
 
+    fileSystems."/" = {
+      device = "/dev/disk/by-label/nixos";
+      fsType = "ext4";
+    };
+
+    # for EFI
+    fileSystems."/boot" = {
+      device = "/dev/disk/by-label/boot";
+      fsType = "vfat";
+    };
+
     networking = {
       hostName = "fishhook";
       domain = "homelab.${config.networkDomain}";
@@ -23,7 +34,7 @@
     time.timeZone = "Europe/Oslo";
 
     services = {
-      xserver.layout = "us";
+      xserver.xkb.layout = "us";
       tailscale = {
         useRoutingFeatures = "server";
         extraSetFlags = [ "--ssh=true" ];
