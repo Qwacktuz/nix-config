@@ -27,6 +27,7 @@ in
           [
             darwin-packages
 
+            ssh-client
             languagetool
             fonts
             jetbrains
