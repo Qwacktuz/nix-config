@@ -54,7 +54,7 @@
             controlPath = "~/.ssh/cm-%r@%h:%p";
             controlPersist = "10m";
             extraOptions = {
-              tcpKeepAlive = "true";
+              tcpKeepAlive = "yes";
               ConnectTimeout = "10";
               StrictHostKeyChecking = "accept-new";
               IgnoreUnknown = "UseKeychain";
