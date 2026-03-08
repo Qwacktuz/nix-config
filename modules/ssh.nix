@@ -126,10 +126,12 @@
       ports = [ 22 ]; # security through not-obscurity
       enable = true;
       settings = {
-        AllowUsers = lib.mkDefault [ config.userName ];
+        AllowUsers = lib.mkDefault [
+          config.userName
+        ];
         PasswordAuthentication = false;
         KbdInteractiveAuthentication = false;
-        PermitRootLogin = "prohibit-password";
+        PermitRootLogin = lib.mkDefault "no";
         X11Forwarding = false;
         PubkeyAuthentication = true;
         ChallengeResponseAuthentication = false;
