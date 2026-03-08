@@ -5,6 +5,7 @@ return {
     opts = {
       ensure_installed = {
         "tinymist",
+        "tofu-ls",
       },
     },
   },

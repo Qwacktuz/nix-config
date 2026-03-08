@@ -62,7 +62,7 @@
         typst # Document creation
         typship # typst package CLI tool
         typstPackages.fontawesome
-        tenv
+        tenv # install opentofu through this
         gemini-cli-bin
         codex
         antigravity

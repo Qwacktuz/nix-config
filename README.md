@@ -20,7 +20,8 @@ nix shell nixpkgs#coreutils --command nix run .#write-flake
 
 ## TODO
 
-- Move ssh config into nix
+- Consider migrating from HCL to terranix (compiles to \*.tf.json)
+  - <https://terranix.org/getting-started.html>
 - Streamline devshell creation
 - languagetool server for neovim (ltex-ls-plus vs ltex-ls?) and activate
   norwegian spellchecking
