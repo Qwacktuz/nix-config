@@ -48,6 +48,7 @@
         act # Run GitHub Actions locally
         yq # YAML processor
         kubectx # Kubernetes context switching
+        infisical # secrets management
 
         # Nix Ecosystem
         nil # Nix Language Server (LSP)
