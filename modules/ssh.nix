@@ -80,6 +80,7 @@
           # Local infrastructure
           openwrt = lanRoot "private-host-5.invalid" "~/.ssh/openwrt_id_ed25519";
           pve1 = lanRoot "10.10.0.10" "~/.ssh/homelab_id_ed25519";
+          pbs1 = lanRoot "10.10.0.20" "~/.ssh/homelab_id_ed25519";
 
           # Tailscale host
           tailscale = lanRootCompressed "100.68.229.38" "~/.ssh/tailscale_id_ed25519";
@@ -128,8 +129,13 @@
         AllowUsers = lib.mkDefault [ config.userName ];
         PasswordAuthentication = false;
         KbdInteractiveAuthentication = false;
-        PermitRootLogin = "no";
+        PermitRootLogin = "prohibit-password";
         X11Forwarding = false;
+        PubkeyAuthentication = true;
+        ChallengeResponseAuthentication = false;
+        MaxAuthTries = 3;
+        ClientAliveInterval = 300;
+        ClientAliveCountMax = 2;
       };
     };
   };
