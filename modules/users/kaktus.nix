@@ -27,6 +27,7 @@ in
           [
             darwin-packages
 
+            virtualization
             ssh-client
             languagetool
             fonts

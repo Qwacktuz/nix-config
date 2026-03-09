@@ -39,8 +39,6 @@
 
         # DevOps & Containers
         devenv
-        orbstack # Docker Desktop replacement
-        lazydocker
         lazysql
         lazyjournal
         android-tools
@@ -49,7 +47,7 @@
         yq # YAML processor
         kubectx # Kubernetes context switching
         infisical # secrets management
-        lima # VM
+        tenv # install opentofu through this
 
         # Nix Ecosystem
         nil # Nix Language Server (LSP)
@@ -64,15 +62,14 @@
         typst # Document creation
         typship # typst package CLI tool
         typstPackages.fontawesome
-        tenv # install opentofu through this
-        gemini-cli-bin
-        codex
-        antigravity
         zed # Code editor
         mpv # Media player
         tenacity # Audio editor
-        utm # Virtual machines
-        qemu
+
+        # AI
+        gemini-cli-bin
+        codex
+        antigravity
 
         #=======================================================================
         # Security & Pentesting (Hax)
