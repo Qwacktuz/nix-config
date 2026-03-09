@@ -71,6 +71,7 @@ in
           "detexify"
           "middleclick"
           "1kc-razer"
+          "raspberry-pi-imager"
         ];
         brews = [
           "mole"
