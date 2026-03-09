@@ -25,6 +25,12 @@
         setEnv = termEnv;
       };
 
+      tsHost = user: ip: {
+        hostname = ip;
+        inherit user;
+        setEnv = termEnv;
+      };
+
       compressedHost = attrs: attrs // { compression = true; };
       lanRoot = ip: key: rootHost ip key;
       lanRootCompressed = ip: key: compressedHost (rootHost ip key);
@@ -66,13 +72,13 @@
 
           # University
           uio = compressedHost (userHost "redacted-user" "login.uio.no" "~/.ssh/uio_id_ed25519");
-          ifi = compressedHost ({
+          ifi = compressedHost {
             hostname = "login.ifi.uio.no";
             user = "redacted-user";
             identityFile = [ "~/.ssh/uio_id_ed25519" ];
             proxyJump = "uio";
             setEnv = termEnv;
-          });
+          };
 
           # Minecraft production (through tailscale)
           # prd-hel1-mc-01 = userHost "deploy" "100.125.91.49" "~/.ssh/saguaro_id_ed25519";
@@ -81,23 +87,20 @@
           openwrt = lanRoot "private-host-5.invalid" "~/.ssh/openwrt_id_ed25519";
           pve1 = lanRoot "10.10.0.10" "~/.ssh/homelab_id_ed25519";
           pbs1 = lanRoot "10.10.0.20" "~/.ssh/homelab_id_ed25519";
+          tslan = lanRoot "10.10.0.5" "~/.ssh/tailscale_id_ed25519";
 
           # Tailscale host
-          tailscale = lanRootCompressed "100.68.229.38" "~/.ssh/tailscale_id_ed25519";
+          ts = compressedHost (tsHost "root" "100.68.229.38");
 
           # Homelab services
-          ts-sync = lanRootCompressed "10.0.0.84" "~/.ssh/nixos-ts-sync_id_ed25519";
-          n8n = lanRootCompressed "192.168.1.78" "~/.ssh/n8n_id_ed25519";
-          gitea = lanRootCompressed "192.168.1.22" "~/.ssh/gitea_id_ed25519";
-          ghostfolio = lanRootCompressed "192.168.1.23" "~/.ssh/ghostfolio_id_ed25519";
-          ollama = lanRootCompressed "192.168.1.119" "~/.ssh/ollama_id_ed25519";
+          # host = lanRootCompressed "10.60.0.123" "~/.ssh/ssh_key_id_ed25519";
 
-          minecraft-nixos = {
-            hostname = "192.168.1.200";
-            user = "cactuz";
-            identityFile = [ "~/.ssh/minecraft-nixos_id_ed25519" ];
-            compression = true;
-          };
+          # minecraft-nixos = {
+          #   hostname = "192.168.1.200";
+          #   user = "cactuz";
+          #   identityFile = [ "~/.ssh/minecraft-nixos_id_ed25519" ];
+          #   compression = true;
+          # };
 
           # Git providers
           "github.com" = {
@@ -115,7 +118,11 @@
             hostname = "gitlab.com";
             user = "git";
             identitiesOnly = true;
-            identityFile = [ "~/.ssh/gitlab_id_ed25519" ];
+            identityFile = [
+              "~/.ssh/gitlab_id_ed25519"
+              "~/.ssh/kaktus_id_ed25519_sk"
+              "~/.ssh/kaktus_id_ed25519_sk_backup"
+            ];
           };
         };
       };
