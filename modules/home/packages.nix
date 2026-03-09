@@ -49,6 +49,7 @@
         yq # YAML processor
         kubectx # Kubernetes context switching
         infisical # secrets management
+        lima # VM
 
         # Nix Ecosystem
         nil # Nix Language Server (LSP)
