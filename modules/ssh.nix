@@ -80,18 +80,17 @@
             setEnv = termEnv;
           };
 
-          # Minecraft production (through tailscale)
-          # prd-hel1-mc-01 = userHost "deploy" "100.125.91.49" "~/.ssh/saguaro_id_ed25519";
-
           # Local infrastructure
           openwrt = lanRoot "private-host-5.invalid" "~/.ssh/openwrt_id_ed25519";
           pve1 = lanRoot "10.10.0.10" "~/.ssh/homelab_id_ed25519";
           pbs1 = lanRoot "10.10.0.20" "~/.ssh/homelab_id_ed25519";
           tslan = lanRoot "10.10.0.5" "~/.ssh/tailscale_id_ed25519";
 
-          # Tailscale hosts
+          # Tailscale host
           ts = compressedHost (tsHost "root" "tailscale-debian");
-          mcprd = compressedHost (tsHost "deployer" "mc-prod");
+
+          # Minecraft production (through tailscale)
+          mcprd = compressedHost (userHost "deployer" "mc-prod" "~/.ssh/mc-prod_id_ed25519");
 
           # Homelab services
           # host = lanRootCompressed "10.60.0.123" "~/.ssh/ssh_key_id_ed25519";
