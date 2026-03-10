@@ -89,8 +89,9 @@
           pbs1 = lanRoot "10.10.0.20" "~/.ssh/homelab_id_ed25519";
           tslan = lanRoot "10.10.0.5" "~/.ssh/tailscale_id_ed25519";
 
-          # Tailscale host
-          ts = compressedHost (tsHost "root" "100.68.229.38");
+          # Tailscale hosts
+          ts = compressedHost (tsHost "root" "tailscale-debian");
+          mcprd = compressedHost (tsHost "deployer" "mc-prod");
 
           # Homelab services
           # host = lanRootCompressed "10.60.0.123" "~/.ssh/ssh_key_id_ed25519";
