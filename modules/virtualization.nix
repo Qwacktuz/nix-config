@@ -8,6 +8,10 @@
         enable = true;
       };
 
+      programs.docker-cli = {
+        enable = true;
+      };
+
       home.packages = with pkgs; [
         orbstack # Docker Desktop replacement
         lima # Run linux VMs
