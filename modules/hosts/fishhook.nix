@@ -50,7 +50,7 @@
         ../../pubkeys/saguaro_id_ed25519.pub
       ];
 
-      system.stateVersion = lib.mkDefault "25.11";
+      system.stateVersion = lib.mkDefault "26.05";
 
       /*
         # Not used for LXC containers
