@@ -89,7 +89,6 @@
         yubico-piv-tool
         yubikey-manager
         opensc
-        gnupg
 
         #=======================================================================
         # System & Resource Monitoring
