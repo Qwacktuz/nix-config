@@ -5,7 +5,7 @@
     { pkgs, ... }:
     {
       services.colima = {
-        enable = true;
+        enable = false;
       };
 
       programs.docker-cli = {
