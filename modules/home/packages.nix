@@ -48,6 +48,7 @@
         kubectx # Kubernetes context switching
         infisical # secrets management
         tenv # install opentofu through this
+        ansible
 
         # Nix Ecosystem
         nil # Nix Language Server (LSP)
