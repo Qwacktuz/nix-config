@@ -53,7 +53,7 @@ in
 
             # vesktop
             # brave
-            # music
+            music
           ]
           ++ [ self.modules.homeManager.${userName} ];
       };

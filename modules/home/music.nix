@@ -1,19 +1,19 @@
-{ config, ... }:
+{ ... }:
 {
   flake.modules.homeManager.music =
+    { config, ... }:
     let
-      # TODO: generalize for linux & darwin
-      musicDirectory = "/Users/${config.userName}/Music";
+      musicDir = "${config.home.homeDirectory}/Music";
     in
     {
       services.mpd = {
         enable = true;
-        inherit musicDirectory;
+        musicDirectory = musicDir;
       };
 
       programs.ncmpcpp = {
         enable = true;
-        mpdMusicDir = musicDirectory;
+        mpdMusicDir = musicDir;
       };
     };
 
