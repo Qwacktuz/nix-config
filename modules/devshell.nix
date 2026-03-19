@@ -47,7 +47,6 @@
       };
 
       devenv.shells.default = {
-        devenv.root = "${../.}"; # fix for nix flake check
         name = "nix-dev";
 
         packages = commonPackages;
@@ -62,7 +61,6 @@
       };
 
       devenv.shells.c = {
-        devenv.root = "${../.}"; # fix for nix flake check
         name = "c-dev";
 
         # Best Practice: Use devenv's language modules to ensure standard C toolchains
