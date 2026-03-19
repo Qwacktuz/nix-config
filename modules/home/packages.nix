@@ -38,7 +38,6 @@
         pnpm
 
         # DevOps & Containers
-        devenv
         lazysql
         lazyjournal
         android-tools
@@ -53,6 +52,7 @@
         # Nix Ecosystem
         nil # Nix Language Server (LSP)
         nixfmt # Formatter
+        devenv # Development environments
         sops # For editing secrets
         age # Encryption needed for sops
         ssh-to-age # Helper for sops keys
