@@ -10,56 +10,99 @@
 
   perSystem =
     { pkgs, config, ... }:
+    let
+      commonPackages = with pkgs; [
+        neovim
+        curl
+        git
+        zip
+        devenv
+      ];
+      debugger = if pkgs.stdenv.isDarwin then "lldb" else "gdb";
+      memcheck = if pkgs.stdenv.isLinux then "valgrind --leak-check=full" else "leaks --atExit --";
+    in
     {
       treefmt = {
         projectRootFile = "flake.nix";
+
         programs.nixfmt.enable = true;
         programs.nixfmt.package = pkgs.nixfmt;
+
         programs.shfmt.enable = true;
         programs.shellcheck.enable = true;
+        # programs.deno.enable = true;
+
+        # Python linting and formatting
         programs.ruff.check = true;
         programs.ruff.format = true;
+
+        # C formatting
         programs.clang-format.enable = true;
+
+        #programs.shellcheck.options = [ "--severity=error" ];
         settings.formatter.shellcheck.excludes = [
           ".envrc"
           "dotfiles/sketchybar/**"
         ];
       };
 
-      # The Flake-Parts integration now imports the root devenv.nix.
-      # This ensures that both `devenv shell` and `nix develop` use the 
-      # same environment definition.
       devenv.shells.default = {
-        imports = [ ../devenv.nix ];
+        devenv.root = "${../.}"; # fix for nix flake check
+        name = "nix-dev";
 
-        # We keep the flake-specific treefmt wrapper here.
-        # This will override the generic 'treefmt' script in devenv.nix.
+        packages = commonPackages;
+
+        enterShell = ''
+          echo "❄️ Nix devshell loaded | 'napply' to rebuild | 'nfmt' to format | 'ncheck' to lint"
+        '';
+
+        scripts.napply.exec = "nh darwin switch .#saguaro";
         scripts.nfmt.exec = "${config.treefmt.build.wrapper}/bin/treefmt";
+        scripts.ncheck.exec = "nix flake check";
       };
 
       devenv.shells.c = {
-        imports = [ ../devenv.nix ];
+        devenv.root = "${../.}"; # fix for nix flake check
         name = "c-dev";
+
+        # Best Practice: Use devenv's language modules to ensure standard C toolchains
+        # (like stdenv.cc, clang-tools) are correctly hooked up without manual package definitions.
         languages.c.enable = true;
 
         enterShell = ''
           echo "⚡️ C devshell loaded | 'cb' to build | 'cx' to run | 'cdb' to debug"
         '';
 
-        # Add the C-specific packages and tools back here.
-        packages = with pkgs; [
-          cmake
-          gnumake
-          binutils
-        ] ++ pkgs.lib.optionals pkgs.stdenv.isLinux [
-          ltrace
-          valgrind
-          gdb
-        ] ++ pkgs.lib.optionals pkgs.stdenv.isDarwin [ lldb ];
-
+        # Using $1 in devenv scripts is safe because they are mapped to bash scripts under the hood.
         scripts.cb.exec = "cc -Wall -Wextra -g $1 -o out";
         scripts.cx.exec = "cc -Wall -Wextra -g $1 -o out && ./out";
-        scripts.cdb.exec = "${if pkgs.stdenv.isDarwin then "lldb" else "gdb"} ./out";
+        scripts.cdb.exec = "${debugger} ./out";
+        scripts.cmem.exec = "${memcheck} ./out";
+
+        scripts."c-init".exec = ''
+          if [ ! -f Makefile ]; then
+            echo -e "all:\n\tcc -Wall -g main.c -o out\nclean:\n\trm -f out" > Makefile
+            echo -e "#include <stdio.h>\n\nint main() {\n    printf(\"Hello World\\\\n\");\n    return 0;\n}" > main.c
+            echo "Created main.c and Makefile"
+          else
+            echo "Makefile already exists."
+          fi
+        '';
+
+        packages =
+          with pkgs;
+          [
+            cmake
+            gnumake
+            binutils
+          ]
+          ++ pkgs.lib.optionals pkgs.stdenv.isLinux [
+            ltrace
+            valgrind
+            gdb
+          ]
+          ++ pkgs.lib.optionals pkgs.stdenv.isDarwin [ lldb ]
+          ++ commonPackages;
       };
     };
 }
