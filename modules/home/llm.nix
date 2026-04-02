@@ -3,9 +3,13 @@
   flake.modules.homeManager.llm =
     { pkgs, ... }:
     {
-      # home.packages = with pkgs; [
-      #   lmstudio # marked as broken
-      # ];
+      home.packages = with pkgs; [
+        # lmstudio # marked as broken
+        claude-code
+        gemini-cli-bin
+        codex
+        antigravity
+      ];
 
       # TODO: lib.mkIf config here
       services.ollama = {

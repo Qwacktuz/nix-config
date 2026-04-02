@@ -67,11 +67,6 @@
         mpv # Media player
         tenacity # Audio editor
 
-        # AI
-        gemini-cli-bin
-        codex
-        antigravity
-
         #=======================================================================
         # Security & Pentesting (Hax)
         #=======================================================================
