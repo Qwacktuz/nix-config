@@ -9,6 +9,7 @@
         gemini-cli-bin
         codex
         antigravity
+        opencode
       ];
 
       # TODO: lib.mkIf config here
