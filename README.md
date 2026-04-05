@@ -20,6 +20,7 @@ nix shell nixpkgs#coreutils --command nix run .#write-flake
 
 ## TODO
 
+- Move entire flake to determinate-nix (at least for darwin, might consider x86 down the line as well)
 - set up <https://github.com/oddlama/nix-topology>
 - Further modularize packages into packages built with perSystem (flake parts) so I can build for each system using DRY (limit identical configuration in separate independent darwinModules or nixosModules)
   - May use <https://birdeehub.github.io/nix-wrapper-modules/md/getting-started.html>
