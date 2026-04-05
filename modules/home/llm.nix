@@ -5,6 +5,7 @@
     {
       home.packages = with pkgs; [
         # lmstudio # marked as broken
+        github-copilot-cli
         claude-code
         gemini-cli-bin
         codex
