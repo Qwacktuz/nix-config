@@ -20,9 +20,14 @@ nix shell nixpkgs#coreutils --command nix run .#write-flake
 
 ## TODO
 
+- set up <https://github.com/oddlama/nix-topology>
+- Further modularize packages into packages built with perSystem (flake parts) so I can build for each system using DRY (limit identical configuration in separate independent darwinModules or nixosModules)
+  - May use <https://birdeehub.github.io/nix-wrapper-modules/md/getting-started.html>
+  - Look into how to build my own derivations (everything cross platform should exist in a perSystem package derivation)
 - Consider migrating from HCL to terranix (compiles to \*.tf.json)
   - <https://terranix.org/getting-started.html>
 - Streamline devshell creation
+- Consider moving back to pure direnv (not sure if I need devenv capabilities really) - make sure to disable warnings and logging (env var?)
 - languagetool server for neovim (ltex-ls-plus vs ltex-ls?) and activate
   norwegian spellchecking
   - <https://dev.languagetool.org/http-server>

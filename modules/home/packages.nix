@@ -48,6 +48,8 @@
         infisical # secrets management
         tenv # install opentofu through this
         ansible
+        fluxcd
+        awscli2
 
         # Nix Ecosystem
         nil # Nix Language Server (LSP)
@@ -66,6 +68,9 @@
         zed # Code editor
         mpv # Media player
         tenacity # Audio editor
+        glow # cli markdown viewer
+        just # make alternative
+        watchexec # exec commands on filechange
 
         #=======================================================================
         # Security & Pentesting (Hax)

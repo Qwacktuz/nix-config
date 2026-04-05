@@ -19,12 +19,12 @@
         "org.toml.lang"
         "mobi.hsz.idea.gitignore"
         "com.github.bric3.excalidraw"
-        "com.jetbrains.writerside"
+        # "com.jetbrains.writerside"
         "mdx.js"
 
         "com.jetbrains.edu"
         "Key Promoter X"
-        "dev.protsenko.security-linter"
+        # "dev.protsenko.security-linter"
 
         # Might move later
         "nix-idea"
