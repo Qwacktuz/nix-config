@@ -17,14 +17,17 @@
       self.overlays.spotify
     ];
 
+    # Use determinate nix
+    nix.enable = false;
+
     # Small VM that builds x86_64-linux systems anywhere!
     # Might move to darwin module
-    nix.settings.extra-platforms = [
-      "aarch64-linux"
-      "x86_64-linux"
-    ];
+    #nix.settings.extra-platforms = [
+    #  "aarch64-linux"
+    #  "x86_64-linux"
+    #];
 
-    nix.settings.trusted-users = [ "@admin" ];
+    #nix.settings.trusted-users = [ "@admin" ];
     # nix.linux-builder = {
     #   systems = [
     #     "aarch64-linux"
