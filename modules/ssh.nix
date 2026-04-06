@@ -91,6 +91,7 @@
 
           # Minecraft production (through tailscale)
           mcprd = compressedHost (userHost "deployer" "mc-prod" "~/.ssh/mc-prod_id_ed25519");
+          mc-node = compressedHost (userHost "deployer" "private-host-2.invalid" "~/.ssh/mc-prod_id_ed25519");
 
           # Homelab services
           # host = lanRootCompressed "10.60.0.123" "~/.ssh/ssh_key_id_ed25519";
