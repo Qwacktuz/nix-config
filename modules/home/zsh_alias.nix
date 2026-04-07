@@ -7,8 +7,9 @@
       initContent = ''
         # Use vim key bindings
         bindkey -v
-        # Overrides vim default redo 
-        bindkey "^R" history-incremental-search-backward
+        # Use fzf for history search
+        bindkey "^R" fzf-history-widget
+        bindkey -M vicmd "^R" fzf-history-widget
         export PATH="$HOME/.local/bin:$PATH"
       '';
       shellAliases = {
