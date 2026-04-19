@@ -9,10 +9,10 @@
           pager = "less -FR";
         };
         extraPackages = with pkgs.bat-extras; [
-          batman
-          batpipe
-          batgrep
-          batdiff
+          # batman
+          # batpipe
+          # batgrep
+          # batdiff
         ];
       };
     };
