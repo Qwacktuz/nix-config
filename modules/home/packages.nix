@@ -83,6 +83,9 @@
         john # Password cracker
         steghide
         zsteg
+        hexedit
+        scalpel
+        foremost
         trivy # Vulnerability scanner
         tfsec # Terraform static analysis
         syft # Generate SBOM
