@@ -69,8 +69,8 @@
           "org.jetbrains.android" # Android studio replacement
 
           # Some bug currently - DO NOT UPDATE IF DOWNLOADED - just use CLion directly
-          # "com.intellij.clion" # CLion replacement
-          # "org.jetbrains.plugins.clion.radler"
+          "com.intellij.clion" # CLion replacement
+          "org.jetbrains.plugins.clion.radler"
           "com.intellij.nativeDebug"
 
           # Language
@@ -112,10 +112,10 @@
         ])
 
         # --- CLion ---
-        (buildIDE clion [
-          "com.intellij.gradle"
-          "com.intellij.clion-gradle"
-        ])
+        # (buildIDE clion [
+        #   "com.intellij.gradle"
+        #   "com.intellij.clion-gradle"
+        # ])
 
         # --- GoLand ---
         # (buildIDE goland [
