@@ -75,7 +75,7 @@
 
           # Language
           "androidx.compose.plugins.idea" # Jetpack compose
-          "com.jetbrains.kmm" # Kotlin multiplatform
+          # "com.jetbrains.kmm" # Kotlin multiplatform mobile - conflicts with clion plugin
           "com.falsepattern.zigbrains"
           "dev.blachut.svelte.lang"
           "io.flutter"
