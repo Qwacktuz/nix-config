@@ -17,6 +17,7 @@
         qbittorrent
         xournalpp
         notion-app # Note taking app
+        # pika-backup
 
         #=======================================================================
         # Developer Tools
@@ -81,7 +82,7 @@
         nmap
         inetutils
         john # Password cracker
-        steghide
+        # steghide
         zsteg
         hexedit
         scalpel
@@ -93,6 +94,7 @@
         yubico-piv-tool
         yubikey-manager
         opensc
+        # hcxtools
 
         #=======================================================================
         # System & Resource Monitoring
@@ -121,7 +123,7 @@
         ani-cli # Watch anime
         anki-bin # Flashcards
         aoc-cli # Advent of Code CLI
-        baobab # Disk usage analyzer
+        # baobab # Disk usage analyzer
         binsider # Analyze ELF binaries
         bitwise # Bit/hex manipulation
         caligula # Disk imaging
