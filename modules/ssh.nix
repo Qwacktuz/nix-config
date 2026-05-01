@@ -87,7 +87,7 @@
           tslan = lanRoot "10.10.0.5" "~/.ssh/tailscale_id_ed25519";
 
           # Local devices
-          pwnpwnpurin = lanRoot "private-host-1.invalid" "~/.ssh/saguaro_id_ed25519";
+          pwnpwnpurin = compressedHost (userHost "pi" "private-host-1.invalid" "~/.ssh/saguaro_id_ed25519");
 
           # Tailscale host
           ts = compressedHost (tsHost "root" "tailscale-debian");
