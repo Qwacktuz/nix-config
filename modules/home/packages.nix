@@ -25,6 +25,8 @@
 
         # Languages & Runtimes
         go
+        golangci-lint
+        golangci-lint-langserver
         zig
         cargo
         rustc
@@ -152,7 +154,7 @@
         viu # Image viewer
         wget
         # yt-dlp-light
-        xxd
+        xxd # hex editor
 
         patchelf # clion with plugins needs this DEP
 

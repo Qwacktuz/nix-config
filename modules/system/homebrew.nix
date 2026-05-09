@@ -72,6 +72,7 @@ in
           "middleclick"
           "1kc-razer"
           "raspberry-pi-imager"
+          "vorta"
         ];
         brews = [
           "mole"
@@ -80,6 +81,7 @@ in
           "binwalk"
           "mas"
           "picocom"
+          "jdupes"
         ];
         masApps = {
           "WireGuard" = 1451685025;
