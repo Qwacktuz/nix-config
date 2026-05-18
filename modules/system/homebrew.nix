@@ -44,11 +44,11 @@ in
           "lulu" # FOSS little snitch alternative
           "android-studio"
           "void"
-          "visual-studio-code"
           "signal" # newer build than pkgs.signal-desktop-bin
           "dorion"
           "keepassxc"
           "proton-mail"
+          # "protonvpn"
           "tuta-mail"
           "steam" # nixpkgs build doesn't support darwin afaik
           "libreoffice"

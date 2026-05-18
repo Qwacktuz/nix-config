@@ -18,6 +18,7 @@
         xournalpp
         notion-app # Note taking app
         # pika-backup
+        # unifi
 
         #=======================================================================
         # Developer Tools
@@ -83,7 +84,7 @@
         exiftool
         nmap
         inetutils
-        john # Password cracker
+        # john # Password cracker
         # steghide
         zsteg
         hexedit

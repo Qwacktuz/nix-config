@@ -3,9 +3,8 @@
   flake.modules.homeManager.vscodium =
     { pkgs, lib, ... }:
     {
-      programs.vscode = {
+      programs.vscodium = {
         enable = true;
-        package = pkgs.vscodium;
         profiles.default.enableUpdateCheck = false; # No notifications about updates
         profiles.default.enableExtensionUpdateCheck = false; # Declarative updates
         profiles.default = {
