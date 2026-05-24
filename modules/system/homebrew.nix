@@ -65,7 +65,6 @@ in
           "chatgpt-atlas"
           "font-fontawesome"
           "wireshark-app"
-          "microsoft-excel"
           "codex-app"
           "warp"
           "detexify"
@@ -73,6 +72,8 @@ in
           "1kc-razer"
           "raspberry-pi-imager"
           "vorta"
+          "linearmouse"
+          "bit-slicer"
         ];
         brews = [
           "mole"
