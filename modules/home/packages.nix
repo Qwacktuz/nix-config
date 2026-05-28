@@ -75,6 +75,7 @@
         glow # cli markdown viewer
         just # make alternative
         watchexec # exec commands on filechange
+        iperf3
 
         #=======================================================================
         # Security & Pentesting (Hax)
