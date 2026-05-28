@@ -16,7 +16,7 @@
       url = "github:hashicorp/homebrew-tap";
       flake = false;
     };
-    home-manager.url = "github:nix-community/home-manager";
+    home-manager.url = "github:nix-community/home-manager/master";
     homebrew-cask = {
       url = "github:homebrew/homebrew-cask";
       flake = false;

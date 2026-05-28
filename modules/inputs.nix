@@ -26,7 +26,7 @@
       nixpkgs-lib.follows = "nixpkgs";
       systems.url = "github:nix-systems/default";
       nix-darwin.url = "github:nix-darwin/nix-darwin/master";
-      home-manager.url = "github:nix-community/home-manager";
+      home-manager.url = "github:nix-community/home-manager/master";
 
       # -- Utilities & Overlays --
       # nur.url = "github:nix-community/NUR";
