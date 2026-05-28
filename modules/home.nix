@@ -10,6 +10,8 @@
       create_symlink = path: config.lib.file.mkOutOfStoreSymlink path;
     in
     {
+      home.enableNixpkgsReleaseCheck = false;
+
       # pass home-manager specific modules
       # HM is crosscompatible across different systems
 

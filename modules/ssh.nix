@@ -12,26 +12,26 @@
       };
 
       rootHost = ip: key: {
-        hostname = ip;
-        user = "root";
-        identityFile = [ key ];
-        setEnv = termEnv;
+        HostName = ip;
+        User = "root";
+        IdentityFile = [ key ];
+        SetEnv = termEnv;
       };
 
-      userHost = user: ip: key: {
-        hostname = ip;
-        inherit user;
-        identityFile = [ key ];
-        setEnv = termEnv;
+      userHost = User: ip: key: {
+        HostName = ip;
+        inherit User;
+        IdentityFile = [ key ];
+        SetEnv = termEnv;
       };
 
-      tsHost = user: ip: {
-        hostname = ip;
-        inherit user;
-        setEnv = termEnv;
+      tsHost = User: ip: {
+        HostName = ip;
+        inherit User;
+        SetEnv = termEnv;
       };
 
-      compressedHost = attrs: attrs // { compression = true; };
+      compressedHost = attrs: attrs // { Compression = true; };
       lanRoot = ip: key: rootHost ip key;
       lanRootCompressed = ip: key: compressedHost (rootHost ip key);
     in
@@ -47,37 +47,35 @@
           Include ~/.orbstack/ssh/config
         '';
 
-        matchBlocks = {
+        settings = {
           # Global defaults
           "*" = {
-            serverAliveInterval = 60;
-            serverAliveCountMax = 3;
-            forwardAgent = false;
-            forwardX11 = false;
-            identitiesOnly = true;
-            addKeysToAgent = "yes";
-            controlMaster = "auto";
-            controlPath = "~/.ssh/cm-%r@%h:%p";
-            controlPersist = "10m";
-            extraOptions = {
-              tcpKeepAlive = "yes";
-              ConnectTimeout = "10";
-              StrictHostKeyChecking = "accept-new";
-              IgnoreUnknown = "UseKeychain";
-              UseKeychain = "yes";
-              VisualHostKey = "yes";
-              UserKnownHostsFile = "~/.ssh/known_hosts";
-            };
+            ServerAliveInterval = 60;
+            ServerAliveCountMax = 3;
+            ForwardAgent = false;
+            ForwardX11 = false;
+            IdentitiesOnly = true;
+            AddKeysToAgent = "yes";
+            ControlMaster = "auto";
+            ControlPath = "~/.ssh/cm-%r@%h:%p";
+            ControlPersist = "10m";
+            TCPKeepAlive = "yes";
+            ConnectTimeout = "10";
+            StrictHostKeyChecking = "accept-new";
+            IgnoreUnknown = "UseKeychain";
+            UseKeychain = "yes";
+            VisualHostKey = "yes";
+            UserKnownHostsFile = "~/.ssh/known_hosts";
           };
 
           # University
           uio = compressedHost (userHost "redacted-user" "login.uio.no" "~/.ssh/uio_id_ed25519");
           ifi = compressedHost {
-            hostname = "login.ifi.uio.no";
-            user = "redacted-user";
-            identityFile = [ "~/.ssh/uio_id_ed25519" ];
-            proxyJump = "uio";
-            setEnv = termEnv;
+            HostName = "login.ifi.uio.no";
+            User = "redacted-user";
+            IdentityFile = [ "~/.ssh/uio_id_ed25519" ];
+            ProxyJump = "uio";
+            SetEnv = termEnv;
           };
 
           # Local infrastructure
@@ -110,10 +108,10 @@
 
           # Git providers
           "github.com" = {
-            hostname = "github.com";
-            user = "git";
-            identitiesOnly = true;
-            identityFile = [
+            HostName = "github.com";
+            User = "git";
+            IdentitiesOnly = true;
+            IdentityFile = [
               "~/.ssh/github_id_ed25519"
               "~/.ssh/kaktus_id_ed25519_sk"
               "~/.ssh/kaktus_id_ed25519_sk_backup"
@@ -121,10 +119,10 @@
           };
 
           "gitlab.com" = {
-            hostname = "gitlab.com";
-            user = "git";
-            identitiesOnly = true;
-            identityFile = [
+            HostName = "gitlab.com";
+            User = "git";
+            IdentitiesOnly = true;
+            IdentityFile = [
               "~/.ssh/gitlab_id_ed25519"
               "~/.ssh/kaktus_id_ed25519_sk"
               "~/.ssh/kaktus_id_ed25519_sk_backup"
