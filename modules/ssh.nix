@@ -82,6 +82,7 @@
           ow1 = lanRoot "private-host-5.invalid" "~/.ssh/openwrt_id_ed25519";
           ow2 = lanRoot "private-host-6.invalid" "~/.ssh/openwrt_id_ed25519";
           ow3 = lanRoot "private-host-7.invalid" "~/.ssh/openwrt_id_ed25519";
+          ow4 = lanRoot "private-host-8.invalid" "~/.ssh/openwrt_id_ed25519";
           pve1 = lanRoot "private-host-3.invalid" "~/.ssh/homelab_id_ed25519";
           pbs1 = lanRoot "private-host-4.invalid" "~/.ssh/homelab_id_ed25519";
           tslan = lanRoot "private-host-9.invalid" "~/.ssh/tailscale_id_ed25519";
