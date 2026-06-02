@@ -51,8 +51,8 @@
 
         packages = commonPackages;
 
-        pre-commit.hooks.treefmt.enable = true;
-        pre-commit.hooks.treefmt.package = config.treefmt.build.wrapper;
+        git-hooks.hooks.treefmt.enable = true;
+        git-hooks.hooks.treefmt.package = config.treefmt.build.wrapper;
 
         # pre-commit.hooks = {
         #   nixfmt.enable = true;
