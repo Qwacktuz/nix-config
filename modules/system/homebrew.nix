@@ -23,7 +23,6 @@ in
         taps = {
           "homebrew/homebrew-core" = inputs.homebrew-core;
           "homebrew/homebrew-cask" = inputs.homebrew-cask;
-          "psharma04/homebrew-dorion" = inputs.psharma04-dorion;
           "tw93/homebrew-mole" = inputs.tw93-mole;
           "hashicorp/homebrew-tap" = inputs.hashicorp-tap;
         };
@@ -45,7 +44,6 @@ in
           "android-studio"
           "void"
           "signal" # newer build than pkgs.signal-desktop-bin
-          "dorion"
           "keepassxc"
           "proton-mail"
           # "protonvpn"

@@ -35,10 +35,6 @@
     nix-jetbrains-plugins.url = "github:nix-community/nix-jetbrains-plugins";
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     nixpkgs-lib.follows = "nixpkgs";
-    psharma04-dorion = {
-      url = "github:psharma04/homebrew-dorion";
-      flake = false;
-    };
     spicetify-nix.url = "github:Gerg-L/spicetify-nix";
     stylix.url = "github:nix-community/stylix";
     systems.url = "github:nix-systems/default";

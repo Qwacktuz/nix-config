@@ -40,10 +40,6 @@
         url = "github:homebrew/homebrew-cask";
         flake = false;
       };
-      psharma04-dorion = {
-        url = "github:psharma04/homebrew-dorion";
-        flake = false;
-      };
       hashicorp-tap = {
         url = "github:hashicorp/homebrew-tap";
         flake = false;

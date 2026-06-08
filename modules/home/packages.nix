@@ -17,6 +17,7 @@
         qbittorrent
         xournalpp
         notion-app # Note taking app
+        dorion
         # pika-backup
         # unifi
 
@@ -76,6 +77,7 @@
         just # make alternative
         watchexec # exec commands on filechange
         iperf3
+        # autin # TODO: move from fzf history to synchronized autin
 
         #=======================================================================
         # Security & Pentesting (Hax)

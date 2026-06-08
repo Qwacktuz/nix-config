@@ -6,10 +6,11 @@
       home.packages = with pkgs; [
         # lmstudio # marked as broken
         github-copilot-cli
-        claude-code
-        gemini-cli-bin
+        # claude-code
+        # gemini-cli-bin
         codex
-        antigravity
+        antigravity-cli
+        # antigravity
         # opencode
       ];
 
