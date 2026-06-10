@@ -72,6 +72,7 @@ in
           "vorta"
           "linearmouse"
           "bit-slicer"
+          "legcord"
         ];
         brews = [
           "mole"
