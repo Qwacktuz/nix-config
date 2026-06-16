@@ -4,7 +4,7 @@ let
   hostname = "saguaro";
 in
 {
-  flake.modules.darwin.mac-settings =
+  flake.modules.darwin.darwin-config =
     { pkgs, ... }:
     {
       nix.extraOptions = ''

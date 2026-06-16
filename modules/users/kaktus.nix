@@ -59,4 +59,45 @@ in
       };
     };
   };
+
+  flake.modules.nixos.${userName} = {
+    imports = [ inputs.home-manager.nixosModules.home-manager ];
+
+    home-manager = {
+      useGlobalPkgs = true;
+      useUserPackages = true;
+      backupFileExtension = "bak";
+
+      users.${userName} = {
+        imports =
+          with self.modules.homeManager;
+          [
+            # Cross-platform user configurations and packages
+            packages
+            virtualization
+            ssh-client
+            languagetool
+            fonts
+            jetbrains
+            zsh
+            zsh_alias
+            git
+            nh
+            direnv
+            fastfetch
+            starship
+            micro
+            bat
+            fzf
+            btop
+            syncthing
+            vscodium
+            zed
+            llm
+            music
+          ]
+          ++ [ self.modules.homeManager.${userName} ];
+      };
+    };
+  };
 }

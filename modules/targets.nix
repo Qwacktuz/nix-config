@@ -7,6 +7,7 @@
 let
   darwin = "aarch64-darwin";
   nixos = "x86_64-linux";
+  asahi = "aarch64-linux";
 in
 {
   # Consume saguaro module
@@ -22,6 +23,21 @@ in
     modules = [
       self.modules.nixos.fishhook
       { nixpkgs.hostPlatform = lib.mkDefault nixos; }
+    ];
+  };
+
+  # aarch64-linux target host cholla
+  flake-file.inputs.apple-silicon.url = "github:nix-community/nixos-apple-silicon";
+  flake.nixosConfigurations.cholla = inputs.nixpkgs.lib.nixosSystem {
+    imports = lib.optionals (inputs ? apple-silicon) [
+      inputs.apple-silicon.nixosModules.apple-silicon-support
+    ];
+    modules = [
+      self.modules.nixos.cholla
+      { nixpkgs.hostPlatform = lib.mkDefault asahi; }
+    ]
+    ++ lib.optionals (inputs ? apple-silicon) [
+      inputs.apple-silicon.nixosModules.apple-silicon-support
     ];
   };
 }
