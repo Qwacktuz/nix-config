@@ -8,6 +8,10 @@
   inputs = {
     apple-silicon.url = "github:nix-community/nixos-apple-silicon";
     devenv.url = "github:cachix/devenv";
+    devenv-root = {
+      url = "file+file:///dev/null";
+      flake = false;
+    };
     flake-file.url = "github:vic/flake-file";
     flake-parts = {
       url = "github:hercules-ci/flake-parts";

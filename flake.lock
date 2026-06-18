@@ -181,6 +181,18 @@
         "type": "github"
       }
     },
+    "devenv-root": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-d6xi4mKdjkX2JFicDIv5niSzpyI0m/Hnm8GGAIU04kY=",
+        "type": "file",
+        "url": "file:///dev/null"
+      },
+      "original": {
+        "type": "file",
+        "url": "file:///dev/null"
+      }
+    },
     "firefox-gnome-theme": {
       "flake": false,
       "locked": {
@@ -830,6 +842,7 @@
       "inputs": {
         "apple-silicon": "apple-silicon",
         "devenv": "devenv",
+        "devenv-root": "devenv-root",
         "flake-file": "flake-file",
         "flake-parts": "flake-parts_2",
         "hashicorp-tap": "hashicorp-tap",
@@ -1049,7 +1062,7 @@
     },
     "treefmt-nix": {
       "inputs": {
-        "nixpkgs": "nixpkgs_2"
+        "nixpkgs": "nixpkgs_10"
       },
       "locked": {
         "lastModified": 1780220602,

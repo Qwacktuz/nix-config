@@ -32,6 +32,10 @@
       # nur.url = "github:nix-community/NUR";
 
       # -- Raw Sources (flake = false) --
+      devenv-root = {
+        url = "file+file:///dev/null";
+        flake = false;
+      };
       homebrew-core = {
         url = "github:homebrew/homebrew-core";
         flake = false;
