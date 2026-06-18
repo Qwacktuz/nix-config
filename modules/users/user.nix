@@ -1,34 +1,42 @@
 { config, ... }:
 let
   inherit (config) userName;
+  nixosUser = {
+    users.users.${userName} = {
+      isNormalUser = true;
+      extraGroups = [ "wheel" ];
+      home = "/home/${userName}";
+    };
+  };
+
+  darwinUser = {
+    system.primaryUser = userName;
+    users.users.${userName} = {
+      home = "/Users/${userName}";
+    };
+  };
+
+  homeManagerUser =
+    { pkgs, lib, ... }:
+    {
+      home = {
+        username = lib.mkDefault userName;
+        homeDirectory = lib.mkDefault (
+          if pkgs.stdenvNoCC.isDarwin then "/Users/${userName}" else "/home/${userName}"
+        );
+        stateVersion = lib.mkDefault "26.05";
+      };
+    };
 in
 {
   flake.modules = {
-    nixos.${userName} = {
-      users.users.${userName} = {
-        isNormalUser = true;
-        extraGroups = [ "wheel" ];
-        home = "/home/${userName}";
-      };
-    };
+    nixos.user-kaktus = nixosUser;
+    nixos.${userName} = nixosUser;
 
-    darwin.${userName} = {
-      system.primaryUser = userName;
-      users.users.${userName} = {
-        home = "/Users/${userName}";
-      };
-    };
+    darwin.user-kaktus = darwinUser;
+    darwin.${userName} = darwinUser;
 
-    homeManager.${userName} =
-      { pkgs, lib, ... }:
-      {
-        home = {
-          username = lib.mkDefault userName;
-          homeDirectory = lib.mkDefault (
-            if pkgs.stdenvNoCC.isDarwin then "/Users/${userName}" else "/home/${userName}"
-          );
-          stateVersion = lib.mkDefault "26.05";
-        };
-      };
+    homeManager.user-kaktus = homeManagerUser;
+    homeManager.${userName} = homeManagerUser;
   };
 }

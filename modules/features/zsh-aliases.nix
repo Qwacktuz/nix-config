@@ -1,6 +1,6 @@
 { ... }:
-{
-  flake.modules.homeManager.zsh_alias = {
+let
+  zshAliases = {
     # TODO: configure missing aliases & vim keybinds
     programs.zsh = {
       # idk why i put this here
@@ -62,4 +62,8 @@
       };
     };
   };
+in
+{
+  flake.modules.homeManager.zsh-aliases = zshAliases;
+  flake.modules.homeManager.zsh_alias = zshAliases;
 }

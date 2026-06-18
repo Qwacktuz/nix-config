@@ -5,7 +5,7 @@
   ...
 }:
 {
-  flake.modules.nixos.nixos-config =
+  flake.modules.nixos.hardware-cholla =
     { pkgs, ... }:
     {
       # Basic system settings for cholla

@@ -1,19 +1,16 @@
 {
   self,
   config,
-  lib,
   ...
 }:
 {
   flake.modules.nixos.cholla =
-    { modulesPath, ... }:
+    { ... }:
     {
-      imports = with self.modules; [
-        generic.core
-        nixos.nixos-config
-        nixos.${config.userName}
-        nixos.tailscale
-        nixos.ssh-server
+      imports = with config.flake.modules.nixos; [
+        profile-desktop
+        hardware-cholla
+        user-kaktus-desktop
       ];
 
       nixpkgs.overlays = [

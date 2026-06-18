@@ -1,5 +1,4 @@
 {
-  self,
   config,
   lib,
   ...
@@ -12,12 +11,10 @@
     }:
     {
       imports =
-        with self.modules;
+        with config.flake.modules.nixos;
         [
-          generic.core
-          nixos.${config.userName}
-          nixos.tailscale
-          nixos.ssh-server
+          profile-server
+          user-kaktus-server
         ]
         ++ [
           (modulesPath + "/virtualisation/proxmox-lxc.nix")

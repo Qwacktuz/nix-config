@@ -1,14 +1,9 @@
 { self, config, ... }:
 {
   flake.modules.darwin.saguaro = {
-    imports = with self.modules; [
-      generic.core
-      darwin.darwin-config
-      darwin.${config.userName}
-
-      darwin.aerospace
-      darwin.homebrew
-      darwin.stylix
+    imports = with config.flake.modules.darwin; [
+      profile-desktop
+      config.flake.modules.darwin.${config.userName}
       # darwin.virtualization
       # darwin.karabiner
       # darwin.sketchybar

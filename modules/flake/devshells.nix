@@ -48,6 +48,7 @@
 
       devenv.shells.default = {
         name = "nix-dev";
+        devenv.root = builtins.toString ../..;
 
         packages = commonPackages;
 

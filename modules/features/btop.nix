@@ -12,10 +12,13 @@
         };
       };
 
-      home.packages = with pkgs.nvtopPackages; [
-        # TODO: generalize for linux & darwin
-        apple
-        #full; ;
-      ];
+      home.packages = pkgs.lib.optionals pkgs.stdenvNoCC.isDarwin (
+        with pkgs.nvtopPackages;
+        [
+          # TODO: generalize for linux & darwin
+          apple
+          #full; ;
+        ]
+      );
     };
 }

@@ -1,6 +1,6 @@
 { self, ... }:
 {
-  flake.modules.darwin.darwin-config =
+  flake.modules.darwin.profile-base =
     { pkgs, config, ... }:
     {
       nix.extraOptions = ''

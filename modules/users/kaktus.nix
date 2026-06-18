@@ -1,46 +1,27 @@
 {
   inputs,
-  self,
   config,
   ...
 }:
 let
   inherit (config) userName;
 
-  sharedHmModules = with self.modules.homeManager; [
-    self.modules.homeManager.${userName}
-    dotfiles
-
-    zsh
-    zsh_alias
-    direnv
-    starship
-    fzf
-    bat
-    btop
-
-    git
-    micro
-    fastfetch
-    nh
-    languagetool
-    llm
-    vscodium
-    zed
-    jetbrains
-
-    packages
-    ssh-client
-    fonts
-    syncthing
-    music
+  cliHmModules = with config.flake.modules.homeManager; [
+    config.flake.modules.homeManager.${userName}
+    profile-cli
   ];
 
-  darwinHmExtras = with self.modules.homeManager; [
-    darwin-packages
-    spicetify
-    prismlauncher
-    virtualization
+  desktopHmModules = with config.flake.modules.homeManager; [
+    profile-dev
+    profile-desktop
+  ];
+
+  linuxHmExtras = with config.flake.modules.homeManager; [
+    profile-linux
+  ];
+
+  darwinHmExtras = with config.flake.modules.homeManager; [
+    profile-darwin
   ];
 
   hmDefaults = {
@@ -61,15 +42,31 @@ in
         { stylix.targets.spicetify.enable = false; }
       ];
 
-      users.${userName}.imports = sharedHmModules ++ darwinHmExtras;
+      users.${userName}.imports = cliHmModules ++ desktopHmModules ++ darwinHmExtras;
     };
   };
 
-  flake.modules.nixos.${userName} = {
-    imports = [ inputs.home-manager.nixosModules.home-manager ];
+  flake.modules.nixos.user-kaktus-desktop = {
+    imports = [
+      config.flake.modules.nixos.user-kaktus
+      inputs.home-manager.nixosModules.home-manager
+    ];
 
     home-manager = hmDefaults // {
-      users.${userName}.imports = sharedHmModules;
+      users.${userName}.imports = cliHmModules ++ desktopHmModules ++ linuxHmExtras;
     };
   };
+
+  flake.modules.nixos.user-kaktus-server = {
+    imports = [
+      config.flake.modules.nixos.user-kaktus
+      inputs.home-manager.nixosModules.home-manager
+    ];
+
+    home-manager = hmDefaults // {
+      users.${userName}.imports = cliHmModules ++ linuxHmExtras;
+    };
+  };
+
+  flake.modules.nixos.${userName} = config.flake.modules.nixos.user-kaktus-desktop;
 }

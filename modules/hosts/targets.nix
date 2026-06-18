@@ -1,6 +1,6 @@
 {
   inputs,
-  self,
+  config,
   lib,
   ...
 }:
@@ -13,7 +13,7 @@ in
   # Consume saguaro module
   flake.darwinConfigurations.saguaro = inputs.nix-darwin.lib.darwinSystem {
     modules = [
-      self.modules.darwin.saguaro
+      config.flake.modules.darwin.saguaro
       { nixpkgs.hostPlatform = lib.mkDefault darwin; }
     ];
   };
@@ -21,7 +21,7 @@ in
   # Tailscale jump host homelab
   flake.nixosConfigurations.fishhook = inputs.nixpkgs.lib.nixosSystem {
     modules = [
-      self.modules.nixos.fishhook
+      config.flake.modules.nixos.fishhook
       { nixpkgs.hostPlatform = lib.mkDefault nixos; }
     ];
   };
@@ -30,7 +30,7 @@ in
   flake-file.inputs.apple-silicon.url = "github:nix-community/nixos-apple-silicon";
   flake.nixosConfigurations.cholla = inputs.nixpkgs.lib.nixosSystem {
     modules = [
-      self.modules.nixos.cholla
+      config.flake.modules.nixos.cholla
       { nixpkgs.hostPlatform = lib.mkDefault asahi; }
     ]
     ++ lib.optionals (inputs ? apple-silicon) [

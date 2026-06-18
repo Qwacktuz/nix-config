@@ -1,6 +1,6 @@
 { config, ... }:
-{
-  flake.modules.generic.core =
+let
+  coreModule =
     { pkgs, lib, ... }:
     {
       # host level configs
@@ -21,4 +21,8 @@
         ../../pubkeys/kaktus_id_ed25519_sk.pub
       ];
     };
+in
+{
+  flake.modules.nixos.core = coreModule;
+  flake.modules.darwin.core = coreModule;
 }
