@@ -49,7 +49,7 @@ Important user modules:
 - `modules/features/core.nix` registers both `nixos.core` and `darwin.core` for shared system-level Nix settings, unfree packages, fonts, and SSH authorized keys.
 - `modules/features/btop.nix` guards `nvtopPackages.apple` to Darwin so Linux server targets can evaluate.
 - `modules/features/stylix.nix` points to `assets/wallpapers/love_lain.jpg`.
-- `modules/flake/devshells.nix` sets `devenv.root` explicitly to the repository root so `path:` flake evaluation works.
+- `modules/flake/devshells.nix` sets `devenv.root` with `lib.mkOverride 900` as a fallback; `.envrc` passes `devenv-root` so devenv's flake-parts module can override it with the real working-tree path.
 - The old `zsh_alias` Home Manager module remains as an alias to `zsh-aliases` for compatibility.
 
 ## Verification State

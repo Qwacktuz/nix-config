@@ -1,4 +1,4 @@
-{ inputs, ... }:
+{ inputs, lib, ... }:
 {
   flake-file.inputs.treefmt-nix.url = "github:numtide/treefmt-nix";
   flake-file.inputs.devenv.url = "github:cachix/devenv";
@@ -48,7 +48,7 @@
 
       devenv.shells.default = {
         name = "nix-dev";
-        devenv.root = builtins.toString ../..;
+        devenv.root = lib.mkOverride 900 (builtins.toString ../..);
 
         packages = commonPackages;
 
