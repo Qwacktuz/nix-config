@@ -1,23 +1,24 @@
 { ... }:
 {
   flake.modules.homeManager.prismlauncher =
-    { pkgs, ... }:
+    { pkgs, lib, ... }:
     {
-      home.packages = with pkgs; [
-        (prismlauncher.override {
-          # EXAMPLE: add binary required by some mod
-          # additionalPrograms = [ ffmpeg ];
+      programs.prismlauncher = {
+        enable = true;
 
-          # Change Java runtimes available to Prism Launcher
-          jdks = [
+        #lib.optionals pkgs.stenv.isLinux()
+        package = pkgs.prismlauncher.override {
+          # Useful if specific mods require additional CLI binaries in PATH
+          #additionalPrograms = [ pkgs.ffmpeg ];
+
+          # Explicitly declare available JDKs passed to the wrapper
+          jdks = with pkgs; [
+            zulu25
             jdk21
             jdk17
             jdk8
-            graalvmPackages.graalvm-ce
-            zulu25
-            zulu
           ];
-        })
-      ];
+        };
+      };
     };
 }

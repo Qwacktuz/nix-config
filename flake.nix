@@ -6,6 +6,7 @@
   outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } (inputs.import-tree ./modules);
 
   inputs = {
+    apple-silicon.url = "github:nix-community/nixos-apple-silicon";
     devenv.url = "github:cachix/devenv";
     flake-file.url = "github:vic/flake-file";
     flake-parts = {
