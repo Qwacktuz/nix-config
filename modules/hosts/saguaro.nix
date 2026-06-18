@@ -15,6 +15,8 @@
       # darwin.sops
     ];
 
+    networking.hostName = "saguaro";
+
     nixpkgs.overlays = [
       self.overlays.default
       self.overlays.spotify

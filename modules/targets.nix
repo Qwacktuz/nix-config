@@ -29,9 +29,6 @@ in
   # aarch64-linux target host cholla
   flake-file.inputs.apple-silicon.url = "github:nix-community/nixos-apple-silicon";
   flake.nixosConfigurations.cholla = inputs.nixpkgs.lib.nixosSystem {
-    imports = lib.optionals (inputs ? apple-silicon) [
-      inputs.apple-silicon.nixosModules.apple-silicon-support
-    ];
     modules = [
       self.modules.nixos.cholla
       { nixpkgs.hostPlatform = lib.mkDefault asahi; }

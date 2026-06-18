@@ -6,98 +6,70 @@
 }:
 let
   inherit (config) userName;
+
+  sharedHmModules = with self.modules.homeManager; [
+    self.modules.homeManager.${userName}
+    dotfiles
+
+    zsh
+    zsh_alias
+    direnv
+    starship
+    fzf
+    bat
+    btop
+
+    git
+    micro
+    fastfetch
+    nh
+    languagetool
+    llm
+    vscodium
+    zed
+    jetbrains
+
+    packages
+    ssh-client
+    fonts
+    syncthing
+    music
+  ];
+
+  darwinHmExtras = with self.modules.homeManager; [
+    darwin-packages
+    spicetify
+    prismlauncher
+    virtualization
+  ];
+
+  hmDefaults = {
+    useGlobalPkgs = true;
+    useUserPackages = true;
+    backupFileExtension = "bak";
+  };
 in
 {
+  imports = [ inputs.home-manager.flakeModules.home-manager ];
+
   flake.modules.darwin.${userName} = {
     imports = [ inputs.home-manager.darwinModules.home-manager ];
 
-    home-manager = {
-      useGlobalPkgs = true;
-      useUserPackages = true;
-      backupFileExtension = "bak";
-
+    home-manager = hmDefaults // {
       # TODO: Move this to spicetify flake
       sharedModules = [
         { stylix.targets.spicetify.enable = false; }
       ];
 
-      users.${userName} = {
-        imports =
-          with self.modules.homeManager;
-          [
-            darwin-packages
-
-            virtualization
-            ssh-client
-            languagetool
-            fonts
-            jetbrains
-            packages
-            zsh
-            zsh_alias
-            git
-            nh
-            direnv
-            fastfetch
-            starship
-            micro
-            bat
-            fzf
-            btop
-            syncthing
-            prismlauncher
-            vscodium
-            spicetify
-            zed
-            llm
-
-            # vesktop
-            # brave
-            music
-          ]
-          ++ [ self.modules.homeManager.${userName} ];
-      };
+      users.${userName}.imports = sharedHmModules ++ darwinHmExtras;
     };
   };
 
   flake.modules.nixos.${userName} = {
     imports = [ inputs.home-manager.nixosModules.home-manager ];
 
-    home-manager = {
-      useGlobalPkgs = true;
-      useUserPackages = true;
-      backupFileExtension = "bak";
-
-      users.${userName} = {
-        imports =
-          with self.modules.homeManager;
-          [
-            # Cross-platform user configurations and packages
-            packages
-            virtualization
-            ssh-client
-            languagetool
-            fonts
-            jetbrains
-            zsh
-            zsh_alias
-            git
-            nh
-            direnv
-            fastfetch
-            starship
-            micro
-            bat
-            fzf
-            btop
-            syncthing
-            vscodium
-            zed
-            llm
-            music
-          ]
-          ++ [ self.modules.homeManager.${userName} ];
-      };
+    home-manager = hmDefaults // {
+      users.${userName}.imports = sharedHmModules;
     };
   };
 }

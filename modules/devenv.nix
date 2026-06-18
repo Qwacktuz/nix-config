@@ -64,7 +64,7 @@
           echo "❄️ Nix devshell loaded | 'napply' to rebuild | 'nfmt' to format | 'ncheck' to lint"
         '';
 
-        scripts.napply.exec = "nh darwin switch .#saguaro";
+        scripts.napply.exec = "nh os switch";
         scripts.nfmt.exec = "${config.treefmt.build.wrapper}/bin/treefmt";
         scripts.ncheck.exec = "nix flake check";
       };

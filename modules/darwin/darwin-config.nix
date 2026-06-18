@@ -1,11 +1,7 @@
 { self, ... }:
-let
-  # TODO:: refactor into global
-  hostname = "saguaro";
-in
 {
   flake.modules.darwin.darwin-config =
-    { pkgs, ... }:
+    { pkgs, config, ... }:
     {
       nix.extraOptions = ''
         extra-platforms = x86_64-darwin aarch64-darwin
@@ -13,8 +9,7 @@ in
 
       # TODO: refactor into networking.nix (NB: this is darwin specific nix code)
       networking = {
-        computerName = hostname;
-        hostName = hostname;
+        computerName = config.networking.hostName;
         dns = [
           "194.242.2.4"
           "9.9.9.9"
@@ -53,7 +48,7 @@ in
         };
 
         defaults = {
-          smb.NetBIOSName = hostname;
+          smb.NetBIOSName = config.networking.hostName;
 
           trackpad = {
             Clicking = true;

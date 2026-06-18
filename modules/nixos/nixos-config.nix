@@ -13,8 +13,10 @@
       boot.loader.efi.canTouchEfiVariables = lib.mkDefault false;
       boot.kernelParams = [ "appledrm.show_notch=1" ];
 
-      hardware.bluetooth.enable = true;
+      services.desktopManager.plasma6.enable = true;
+      services.displayManager.plasma-login-manager.enable = true;
 
+      hardware.bluetooth.enable = true;
       networking = {
         hostName = "cholla";
         #domain = "homelab.${config.networkDomain}";
