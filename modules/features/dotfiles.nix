@@ -28,10 +28,5 @@
         source = create_symlink "${dotfiles}/karabiner";
         recursive = true;
       };
-
-      home.file."Library/Application Support/com.mitchellh.ghostty" = lib.mkIf pkgs.stdenvNoCC.isDarwin {
-        source = create_symlink "${dotfiles}/com.mitchellh.ghostty";
-        recursive = true;
-      };
     };
 }

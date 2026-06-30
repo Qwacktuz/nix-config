@@ -3,6 +3,7 @@
 {
   flake.modules.homeManager.profile-desktop = {
     imports = with config.flake.modules.homeManager; [
+      ghostty
       syncthing
       music
     ];
