@@ -18,7 +18,7 @@
           qbittorrent
           xournalpp
           notion-app # Note taking app
-          dorion
+          #dorion # Temporarily disabled: uses insecure pnpm for now
           # pika-backup
           # unifi
 
@@ -64,7 +64,7 @@
           sops # For editing secrets
           age # Encryption needed for sops
           ssh-to-age # Helper for sops keys
-          statix # Linter for Nix
+          #statix # Linter for Nix # Temporarily disabled
           nix-diff
 
           # General Dev Tools
