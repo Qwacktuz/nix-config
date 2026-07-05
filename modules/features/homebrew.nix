@@ -73,6 +73,7 @@ in
           "linearmouse"
           "bit-slicer"
           "legcord"
+          "tailscale"
         ];
         brews = [
           "mole"
@@ -85,7 +86,7 @@ in
         ];
         masApps = {
           "WireGuard" = 1451685025;
-          "Tailscale" = 1475387142;
+          # "Tailscale" = 1475387142;
           # "Xcode" = 497799835;
         };
 

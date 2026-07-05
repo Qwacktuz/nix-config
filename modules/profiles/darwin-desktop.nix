@@ -8,6 +8,7 @@
       aerospace
       homebrew
       stylix
+      tailscale
     ];
   };
 }

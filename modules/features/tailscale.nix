@@ -1,10 +1,12 @@
 { ... }:
 {
-  flake.modules.darwin.tailscale = {
+  flake.modules.darwin.tailscale = { pkgs, ... }: {
     # environment.systemPackages = with pkgs; [
-    # tsui # check the github for installation instructions
+    #   # tsui # check the github for installation instructions
+    #   tailscale-gui
     # ];
 
+    # Daemon
     services.tailscale = {
       enable = true;
       #overrideLocalDns = true;
