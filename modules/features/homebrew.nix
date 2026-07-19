@@ -73,7 +73,7 @@ in
           "linearmouse"
           "bit-slicer"
           "legcord"
-          "tailscale"
+          "tailscale-app"
         ];
         brews = [
           "mole"

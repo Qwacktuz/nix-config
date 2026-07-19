@@ -56,6 +56,7 @@
           ansible
           fluxcd
           awscli2
+          packer
 
           # Nix Ecosystem
           nil # Nix Language Server (LSP)
@@ -133,7 +134,7 @@
           # baobab # Disk usage analyzer
           binsider # Analyze ELF binaries
           bitwise # Bit/hex manipulation
-          caligula # Disk imaging
+          #caligula # Disk imaging
           docfd # Fuzzy document finder
           entr # Run command on file change
           ffmpeg
