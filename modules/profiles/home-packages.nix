@@ -17,7 +17,6 @@
           brave
           qbittorrent
           xournalpp
-          notion-app # Note taking app
           #dorion # Temporarily disabled: uses insecure pnpm for now
           # pika-backup
           # unifi
@@ -47,7 +46,6 @@
           lazysql
           lazyjournal
           android-tools
-          xcodes
           act # Run GitHub Actions locally
           yq # YAML processor
           kubectx # Kubernetes context switching
@@ -109,9 +107,7 @@
           #=======================================================================
           iftop # Network traffic
           htop # Process monitor
-          nvtopPackages.apple # GPU monitor
           sysdig # System-level monitoring
-          macpm # Activity Monitor replacement for Mac
           ncdu # Disk space analyzer
 
           #=======================================================================
@@ -184,6 +180,34 @@
         ]
         ++ lib.optionals pkgs.stdenv.isLinux [
           deluge
+
+          # Imported from homebrew.nix for Linux systems
+          obs-studio
+          parsec-bin
+          android-studio
+          signal-desktop
+          keepassxc
+          protonmail-desktop
+          tuta-mail # Might be tutanota-desktop on older nixpkgs versions
+          steam
+          libreoffice
+          tor-browser-bundle-bin
+          element-desktop
+          yubico-authenticator
+          burpsuite
+          vmware-horizon-client
+          wireshark
+          warp-terminal
+          rpi-imager
+          vorta
+          legcord
+          tailscale
+
+          # CLI equivalents
+          scrcpy
+          binwalk
+          picocom
+          jdupes
         ];
     };
 }
