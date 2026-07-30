@@ -70,8 +70,8 @@
 
           # Some bug currently - DO NOT UPDATE IF DOWNLOADED - just use CLion directly
           "com.intellij.clion" # CLion replacement
-          "org.jetbrains.plugins.clion.radler"
-          "com.intellij.nativeDebug"
+          # "org.jetbrains.plugins.clion.radler" # asahi issues
+          # "com.intellij.nativeDebug" # asahi issues
 
           # Language
           "androidx.compose.plugins.idea" # Jetpack compose
