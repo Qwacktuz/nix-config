@@ -184,20 +184,20 @@
           # Imported from homebrew.nix for Linux systems
           obs-studio
           parsec-bin
-          android-studio
+          #android-studio
           signal-desktop
           keepassxc
-          protonmail-desktop
-          tuta-mail # Might be tutanota-desktop on older nixpkgs versions
-          steam
+          #protonmail-desktop # No asahi port
+          #tutanota-desktop # No asahi port
+          #steam # No 32-bit support / no asahi port
           libreoffice
-          tor-browser-bundle-bin
+          #tor-browser # No asahi port
           element-desktop
-          yubico-authenticator
+          #yubico-authenticator # TODO: make this a feature https://wiki.nixos.org/wiki/Yubikey
           burpsuite
-          vmware-horizon-client
+          #vmware-horizon-client
           wireshark
-          warp-terminal
+          #warp-terminal
           rpi-imager
           vorta
           legcord
