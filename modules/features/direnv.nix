@@ -1,4 +1,3 @@
-{ ... }:
 {
   flake.modules.homeManager.direnv = {
     programs.direnv = {

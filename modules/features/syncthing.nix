@@ -1,4 +1,3 @@
-{ ... }:
 {
   flake.modules.homeManager.syncthing =
     { pkgs, ... }:

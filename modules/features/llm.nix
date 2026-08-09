@@ -1,4 +1,3 @@
-{ ... }:
 {
   flake.modules.homeManager.llm =
     { pkgs, ... }:

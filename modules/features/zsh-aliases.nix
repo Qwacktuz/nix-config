@@ -1,4 +1,3 @@
-{ ... }:
 let
   zshAliases = {
     # TODO: configure missing aliases & vim keybinds

@@ -1,4 +1,3 @@
-{ ... }:
 {
   flake.modules.darwin.tailscale = { pkgs, ... }: {
     # environment.systemPackages = with pkgs; [
