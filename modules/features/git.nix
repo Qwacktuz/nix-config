@@ -32,6 +32,7 @@
 
       # ClI tools
       home.packages = with pkgs; [
+        lazygit
         gh
         glab
         # pkgs.git-lfslab

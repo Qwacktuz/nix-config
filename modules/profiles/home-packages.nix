@@ -141,7 +141,6 @@
           keepass-diff # Diff .kdbx files
           killall
           languagetool
-          lazygit # Git TUI
           man-pages
           mermaid-cli # Diagram generation
           mimeo # File format converter
