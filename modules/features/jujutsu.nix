@@ -36,7 +36,7 @@
         jdf = "jj diff";
         jps = "jj git push";
         jft = "jj git fetch";
-        jbm = "jj bookmark move --to @-"; # move current jj bookmark (e.g. main) to latest commit
+        jbm = "jj bookmark set main -r @-"; # move current jj bookmark (on main) to latest commit
       };
     };
 }
