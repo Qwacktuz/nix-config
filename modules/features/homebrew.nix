@@ -38,8 +38,6 @@ in
           "parsec"
           "nvidia-geforce-now"
           "karabiner-elements"
-          "ghostty"
-          # "little-snitch" # amazing, but expensive + memory intensive
           "lulu" # FOSS little snitch alternative
           "android-studio"
           "void"

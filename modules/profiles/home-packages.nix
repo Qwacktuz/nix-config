@@ -147,6 +147,7 @@
           onefetch # Git repo info
           openssl
           sl # Steam Locomotive
+          signalbackup-tools
           tdf # PDF viewer
           todo # Todo list
           toipe # Typing test
