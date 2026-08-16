@@ -31,7 +31,9 @@
         js = "jj status";
         jl = "jj log";
         jn = "jj new";
-        jd = "jj diff";
+        jd = "jj describe";
+        jb = "jj bookmark";
+        jdf = "jj diff";
       };
     };
 }
