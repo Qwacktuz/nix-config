@@ -7,7 +7,7 @@
     }:
     let
       inherit (lib) mkIf mkMerge;
-      isDarwin = pkgs.stdenvNoCC.isDarwin;
+      isDarwin = pkgs.stdenvNoCC.hostPlatform.isDarwin;
     in
     {
       programs.ghostty = {

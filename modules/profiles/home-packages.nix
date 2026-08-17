@@ -41,6 +41,7 @@
           bun
           deno
           pnpm
+          racket
 
           # DevOps & Containers
           lazysql
@@ -178,7 +179,7 @@
           texliveSmall
           tree-sitter
         ]
-        ++ lib.optionals pkgs.stdenv.isLinux [
+        ++ lib.optionals pkgs.stdenv.hostPlatform.isLinux [
           deluge
 
           # Imported from homebrew.nix for Linux systems

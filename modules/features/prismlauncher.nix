@@ -5,7 +5,7 @@
       programs.prismlauncher = {
         enable = true;
 
-        #lib.optionals pkgs.stenv.isLinux()
+        #lib.optionals pkgs.stenv.hostPlatform.isLinux()
         package = pkgs.prismlauncher.override {
           # Useful if specific mods require additional CLI binaries in PATH
           #additionalPrograms = [ pkgs.ffmpeg ];

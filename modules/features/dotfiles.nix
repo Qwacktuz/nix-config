@@ -24,7 +24,7 @@
         recursive = true;
       };
 
-      xdg.configFile."karabiner" = lib.mkIf pkgs.stdenvNoCC.isDarwin {
+      xdg.configFile."karabiner" = lib.mkIf pkgs.stdenvNoCC.hostPlatform.isDarwin {
         source = create_symlink "${dotfiles}/karabiner";
         recursive = true;
       };

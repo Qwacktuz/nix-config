@@ -18,8 +18,8 @@
         zip
         devenv
       ];
-      # debugger = if pkgs.stdenv.isDarwin then "lldb" else "gdb";
-      # memcheck = if pkgs.stdenv.isLinux then "valgrind --leak-check=full" else "leaks --atExit --";
+      # debugger = if pkgs.stdenv.hostPlatform.isDarwin then "lldb" else "gdb";
+      # memcheck = if pkgs.stdenv.hostPlatform.isLinux then "valgrind --leak-check=full" else "leaks --atExit --";
     in
     {
       treefmt = {
@@ -104,12 +104,12 @@
       #         gnumake
       #         binutils
       #       ]
-      #       ++ pkgs.lib.optionals pkgs.stdenv.isLinux [
+      #       ++ pkgs.lib.optionals pkgs.stdenv.hostPlatform.isLinux [
       #         ltrace
       #         valgrind
       #         gdb
       #       ]
-      #       ++ pkgs.lib.optionals pkgs.stdenv.isDarwin [ lldb ]
+      #       ++ pkgs.lib.optionals pkgs.stdenv.hostPlatform.isDarwin [ lldb ]
       #       ++ commonPackages;
       #   };
     };

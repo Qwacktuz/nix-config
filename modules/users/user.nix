@@ -22,7 +22,7 @@ let
       home = {
         username = lib.mkDefault userName;
         homeDirectory = lib.mkDefault (
-          if pkgs.stdenvNoCC.isDarwin then "/Users/${userName}" else "/home/${userName}"
+          if pkgs.stdenvNoCC.hostPlatform.isDarwin then "/Users/${userName}" else "/home/${userName}"
         );
         stateVersion = lib.mkDefault "26.05";
       };

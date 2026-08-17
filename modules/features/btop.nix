@@ -11,7 +11,7 @@
         };
       };
 
-      home.packages = pkgs.lib.optionals pkgs.stdenvNoCC.isDarwin (
+      home.packages = pkgs.lib.optionals pkgs.stdenvNoCC.hostPlatform.isDarwin (
         with pkgs.nvtopPackages;
         [
           # TODO: generalize for linux & darwin
