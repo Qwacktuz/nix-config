@@ -25,6 +25,7 @@
           # Developer Tools
           #=======================================================================
 
+          # TODO: move these to project-specific devenv instances to stop polluting global context
           # Languages & Runtimes
           go
           golangci-lint
@@ -208,6 +209,7 @@
           binwalk
           picocom
           jdupes
+          hieroglyphic
         ];
     };
 }
