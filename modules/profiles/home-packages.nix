@@ -41,7 +41,6 @@
           bun
           deno
           pnpm
-          racket
 
           # DevOps & Containers
           lazysql
