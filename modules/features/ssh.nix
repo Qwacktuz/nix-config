@@ -119,6 +119,15 @@
             ];
           };
 
+          "github.uio.no" = {
+            HostName = "github.uio.no";
+            User = "git";
+            IdentitiesOnly = true;
+            IdentityFile = [
+              "~/.ssh/uio_id_ed25519"
+            ];
+          };
+
           "gitlab.com" = {
             HostName = "gitlab.com";
             User = "git";
