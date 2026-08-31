@@ -17,6 +17,7 @@
           brave
           qbittorrent
           xournalpp
+          remmina
           #dorion # Temporarily disabled: uses insecure pnpm for now
           # pika-backup
           # unifi
