@@ -79,6 +79,7 @@
           just # make alternative
           watchexec # exec commands on filechange
           iperf3
+          socat
           # autin # TODO: move from fzf history to synchronized autin
 
           #=======================================================================
