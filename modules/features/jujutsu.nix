@@ -37,6 +37,7 @@
         jps = "jj git push";
         jft = "jj git fetch";
         jbm = "jj bookmark set main -r @-"; # move current jj bookmark (on main) to latest commit
+        jpl = "jj git fetch && jj rebase -d main@origin";
       };
     };
 }
