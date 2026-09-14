@@ -14,7 +14,7 @@
           #================================_======================================
           obsidian
           localsend
-          brave
+          # brave
           qbittorrent
           xournalpp
           remmina
@@ -72,7 +72,7 @@
           typst # Document creation
           typship # typst package CLI tool
           typstPackages.fontawesome
-          zed # Code editor
+          zed-editor # Code editor
           mpv # Media player
           tenacity # Audio editor
           glow # cli markdown viewer
