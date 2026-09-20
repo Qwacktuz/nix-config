@@ -73,6 +73,7 @@ in
           "tailscale-app"
         ];
         brews = [
+          "vite-plus"
           "mole"
           # "ltex-ls"
           "scrcpy"

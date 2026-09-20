@@ -80,6 +80,8 @@
           "dev.blachut.svelte.lang"
           "io.flutter"
           "Dart"
+          "com.my.antlr.tool"
+          "org.antlr.intellij.plugin"
 
           # Cloud
           "com.intellij.kubernetes"

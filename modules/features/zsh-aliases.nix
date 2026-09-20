@@ -19,6 +19,7 @@ let
         # ts = "/Applications/Tailscale.app/Contents/MacOS/Tailscale";
         ts = "tailscale";
         n = "nvim";
+        ds = "devenv shell zsh";
 
         # utils
         c = "clear";

@@ -80,6 +80,7 @@
           watchexec # exec commands on filechange
           iperf3
           socat
+          smartmontools
           # autin # TODO: move from fzf history to synchronized autin
 
           #=======================================================================
