@@ -18,6 +18,11 @@
           qbittorrent
           xournalpp
           remmina
+          protonmail-desktop
+          proton-pass
+          proton-vpn-cli
+          protonmail-export
+          #proton-vpn
           #dorion # Temporarily disabled: uses insecure pnpm for now
           # pika-backup
           # unifi

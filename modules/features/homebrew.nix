@@ -44,7 +44,7 @@ in
           "signal" # newer build than pkgs.signal-desktop-bin
           "keepassxc"
           "proton-mail"
-          # "protonvpn"
+          "protonvpn"
           "tuta-mail"
           "steam" # nixpkgs build doesn't support darwin afaik
           # "libreoffice"
