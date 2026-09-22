@@ -14,12 +14,13 @@
           #================================_======================================
           obsidian
           localsend
-          # brave
+          brave
           qbittorrent
           xournalpp
           remmina
           protonmail-desktop
           protonmail-export
+          protonmail-bridge
           proton-pass
           # proton-vpn-cli
           #proton-vpn
