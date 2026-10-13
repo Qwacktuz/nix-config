@@ -49,3 +49,9 @@ nix shell nixpkgs#coreutils --command nix run .#write-flake
 - <https://github.com/Doc-Steve/dendritic-design-with-flake-parts>
 - <https://dendrix.oeiuwq.com>
 - <https://github.com/vic/flake-file>
+
+## How to install MacOS
+
+Download the pkg from
+
+- <https://docs.determinate.systems/guides/migrating-from-upstream-nix/>

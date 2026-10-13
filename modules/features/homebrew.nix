@@ -40,7 +40,6 @@ in
           "karabiner-elements"
           "lulu" # FOSS little snitch alternative
           "android-studio"
-          "void"
           "signal" # newer build than pkgs.signal-desktop-bin
           "keepassxc"
           "protonvpn"
@@ -61,10 +60,8 @@ in
           "omnissa-horizon-client"
           "font-fontawesome"
           "wireshark-app"
-          "codex-app"
-          "warp"
+          "codex"
           "middleclick"
-          "1kc-razer"
           "raspberry-pi-imager"
           "vorta"
           "linearmouse"
@@ -78,9 +75,9 @@ in
           # "ltex-ls"
           # "scrcpy"
           "binwalk"
-          "mas"
           "picocom"
           "jdupes"
+          "mas"
         ];
         masApps = {
           "WireGuard" = 1451685025;

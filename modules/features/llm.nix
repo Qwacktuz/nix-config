@@ -9,7 +9,6 @@
         # gemini-cli-bin
         codex
         antigravity-cli
-        # antigravity
         # opencode
       ];
 

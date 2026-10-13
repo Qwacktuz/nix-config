@@ -10,7 +10,7 @@
       vscodium
       zed
       jetbrains
-      packages
+      home-packages
     ];
   };
 }

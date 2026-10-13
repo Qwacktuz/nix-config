@@ -4,7 +4,7 @@
   flake.modules.darwin.profile-desktop = {
     imports = with config.flake.modules.darwin; [
       core
-      profile-base
+      darwin-profile-base
       aerospace
       homebrew
       stylix

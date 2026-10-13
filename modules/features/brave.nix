@@ -6,33 +6,29 @@
       # remember to turn of brave from eenvironment.systemPackages
       programs.chromium = {
         enable = true;
-        package = pkgs.brave;
+        package = pkgs.brave-origin;
 
         # homepageLocation = "https://duckduckgo.com";
         extensions = [
           # sponsorblock
-          "mnjggcdmjocbbbhaepdhchncahnbgone;https://clients2.google.com/service/update2/crx"
+          "mnjggcdmjocbbbhaepdhchncahnbgone"
           # dark reader
-          "eimadpbcbfnmbkopoojfekhnkhdbieeh;https://clients2.google.com/service/update2/crx"
+          "eimadpbcbfnmbkopoojfekhnkhdbieeh"
           # keepassxc
-          "oboonakemofpalcgghocfoadofidjkkk;https://clients2.google.com/service/update2/crx"
+          "oboonakemofpalcgghocfoadofidjkkk"
           # steamdb
-          "kdbmhfkmnlmbkgbabkdealhhbfhlmmon;https://clients2.google.com/service/update2/crx"
+          "kdbmhfkmnlmbkgbabkdealhhbfhlmmon"
           # i still don't care about cookies
-          "edibdbjcniadpccecjdfdjjppcpchdlm;https://clients2.google.com/service/update2/crx"
+          "edibdbjcniadpccecjdfdjjppcpchdlm"
           # consent-o-matic
           # "mdjildafknihdffpkfmmpnpoiajfjnjd;https://clients2.google.com/service/update2/crx"
 
           # Manifest v2
           # xbrowsersync
-          "lcbjdhceifofjlpecfpeimnnphbcjgnc;https://clients2.google.com/service/update2/crx"
+          # "lcbjdhceifofjlpecfpeimnnphbcjgnc;https://clients2.google.com/service/update2/crx"
           # ublock origin
-          "cjpalhdlnbpafiamejdnhcphjbkeiagm;https://clients2.google.com/service/update2/crx"
+          "cjpalhdlnbpafiamejdnhcphjbkeiagm"
         ];
-
-        extraOpts = {
-          "ExtensionManifestV2Availability" = 2;
-        };
 
         # https://discourse.nixos.org/t/how-to-change-browser-specific-settings/32866/9
         commandLineArgs = [

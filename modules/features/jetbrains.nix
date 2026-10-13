@@ -60,7 +60,6 @@
     in
     {
       home.packages = with pkgs.jetbrains; [
-
         # --- IntelliJ IDEA Ultimate ---
         (buildIDE idea [
           "Pythonid" # PyCharm Pro replacement

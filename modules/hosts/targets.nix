@@ -18,6 +18,13 @@ in
     ];
   };
 
+  flake.darwinConfigurations.luna = inputs.nix-darwin.lib.darwinSystem {
+    modules = [
+      config.flake.modules.darwin.luna
+      { nixpkgs.hostPlatform = lib.mkDefault darwin; }
+    ];
+  };
+
   # Tailscale jump host homelab
   flake.nixosConfigurations.fishhook = inputs.nixpkgs.lib.nixosSystem {
     modules = [

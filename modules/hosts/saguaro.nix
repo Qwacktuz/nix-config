@@ -17,7 +17,7 @@
       self.overlays.spotify
     ];
 
-    # Use determinate nix
+    # Disable when using determinate nix
     nix.enable = false;
 
     # Small VM that builds x86_64-linux systems anywhere!

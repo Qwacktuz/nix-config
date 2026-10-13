@@ -1,8 +1,7 @@
 { ... }:
 {
-  # packages.nix: General packages available across systems.
   # For Darwin-specific packages, see `darwin-packages.nix`.
-  flake.modules.homeManager.packages =
+  flake.modules.homeManager.home-packages =
     { pkgs, lib, ... }:
     {
       home.packages =
@@ -12,9 +11,9 @@
           #=======================================================================
           # GUI Applications
           #================================_======================================
+          # TODO: Move GUI apps to linux only, use homebrew to prevent weird system integration quirks
           obsidian
           localsend
-          brave
           qbittorrent
           xournalpp
           remmina
@@ -22,7 +21,6 @@
           protonmail-export
           protonmail-bridge
           proton-pass
-          thunderbird
           # proton-vpn-cli
           #proton-vpn
           #dorion # Temporarily disabled: uses insecure pnpm for now
@@ -168,6 +166,7 @@
           wget
           # yt-dlp-light
           xxd # hex editor
+          picocom
 
           patchelf # clion with plugins needs this DEP
 
@@ -217,7 +216,6 @@
           # CLI equivalents
           scrcpy
           binwalk
-          picocom
           jdupes
           hieroglyphic
         ];
