@@ -100,9 +100,9 @@
         ])
 
         # --- PyCharm Professional ---
-        # (buildIDE pycharm [
-        #   "org.tonybaloney.security.pycharm-security"
-        # ])
+        (buildIDE pycharm [
+          "org.tonybaloney.security.pycharm-security"
+        ])
 
         # --- WebStorm ---
         (buildIDE webstorm [
