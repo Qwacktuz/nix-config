@@ -37,7 +37,7 @@
 
             # Python
             ms-toolsai.jupyter
-            ms-python.python
+            # ms-python.python
             ms-python.black-formatter
             ms-python.isort
             ms-python.vscode-pylance

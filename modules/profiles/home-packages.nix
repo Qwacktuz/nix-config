@@ -22,6 +22,7 @@
           protonmail-export
           protonmail-bridge
           proton-pass
+          thunderbird
           # proton-vpn-cli
           #proton-vpn
           #dorion # Temporarily disabled: uses insecure pnpm for now
