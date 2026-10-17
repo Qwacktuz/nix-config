@@ -18,6 +18,7 @@
         mimeo
         signalbackup-tools
         todo
+        tdf
         toipe
         ttyper
         viu

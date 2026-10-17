@@ -3,6 +3,8 @@
     home.packages = with pkgs; [
       nil
       nixfmt
+      treefmt
+      shfmt
       devenv
       sops
       age

@@ -15,11 +15,8 @@
       openssl
       killall
       htop
-      treefmt
-      shfmt
       man-pages
       hexdump
-      tdf
     ];
   };
 }
