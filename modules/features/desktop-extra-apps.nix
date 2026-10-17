@@ -29,7 +29,16 @@
       unavailable = builtins.filter (p: !available p) candidates;
     in
     {
-      home.packages = builtins.filter available candidates;
+      # These casks are disabled on macOS in the pinned Homebrew input.
+      home.packages =
+        builtins.filter available candidates
+        ++ lib.optionals pkgs.stdenv.hostPlatform.isDarwin (
+          with pkgs;
+          [
+            qbittorrent
+            xournalpp
+          ]
+        );
       warnings =
         lib.optional (unavailable != [ ])
           "Optional desktop apps unavailable on ${pkgs.stdenv.hostPlatform.system}: ${

@@ -50,6 +50,13 @@ let
     && !host.homebrew.onActivation.autoUpdate
     && !host.homebrew.onActivation.upgrade;
 in
+assert lib.assertMsg (containsNone [ "qbittorrent" "xournal++" ] (
+  casks saguaro
+)) "Disabled macOS casks must use the optional Nix packages";
+assert lib.assertMsg (lib.all (name: builtins.elem name (packages saguaro)) [
+  "qbittorrent"
+  "xournalpp"
+]) "Saguaro must retain the Nix exceptions for disabled casks";
 assert lib.assertMsg (lib.all validCask (casks saguaro))
   "Missing pinned casks: ${
     lib.concatStringsSep ", " (builtins.filter (name: !validCask name) (casks saguaro))

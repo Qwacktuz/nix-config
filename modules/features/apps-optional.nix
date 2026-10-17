@@ -30,7 +30,6 @@
   ];
   flake.modules.darwin.apps-creative.homebrew.casks = [
     "obs"
-    "xournal++"
   ];
   flake.modules.darwin.apps-browsers.homebrew.casks = [
     "orion"
@@ -48,7 +47,6 @@
   flake.modules.darwin.apps-backup.homebrew.casks = [ "vorta" ];
   flake.modules.darwin.apps-study.homebrew.casks = [
     "anki"
-    "qbittorrent"
   ];
   flake.modules.darwin.apps-dev-extras.homebrew.brews = [ "vite-plus" ];
   flake.modules.darwin.apps-extra-tools.homebrew.brews = [
