@@ -151,7 +151,6 @@
           # transparency fix for fzf-tab
           export FZF_DEFAULT_OPTS='--height=40% --layout=reverse --border --ansi --no-clear'
 
-          eval "$(devenv hook zsh)"
         '';
 
       };
