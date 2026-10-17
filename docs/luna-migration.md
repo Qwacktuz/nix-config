@@ -46,6 +46,27 @@ user review and approval; do not activate this machine during cleanup.
 - After approval, advance local main to the reviewed descendant using jj.
   No remote push is authorized by this task.
 
+## Project toolchains
+
+Use `nix develop ~/nix-config#<name>` or `use flake ~/nix-config#<name>`
+in a project's `.envrc`. Projects needing independent version pins should own
+their own flake/lock instead of depending on a mutable checkout.
+
+| Shell | Tools moved out of global development packages |
+| --- | --- |
+| `go` | Go, gopls, golangci-lint/language server |
+| `rust` | Cargo, rustc, rustfmt, Clippy, rust-analyzer |
+| `jvm` | Java, Kotlin, Gradle, Android CLI tools |
+| `python` | Stable Python, uv, pixi; replaces global prerelease Python 3.15 |
+| `web` | Node.js, TypeScript, Bun, Deno, pnpm |
+| `infra` | act, Infisical, tenv, Ansible, Flux, AWS CLI, Packer, Kubernetes CLI |
+| `c` | Native C/C++ compiler, clang-tools, CMake, Make, Zig, platform debugger |
+
+Node.js, Lua, a native C compiler, Tree-sitter, and TeX tools remain in the
+editor-runtime feature for existing Neovim plugins. These are editor support
+dependencies, not the default project language versions. No repository lock
+inputs or state versions were changed.
+
 ## Progress
 
 Plan recorded; implementation and verification pending.

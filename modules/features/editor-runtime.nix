@@ -6,7 +6,7 @@
         nodejs
         lua5_1
         luarocks
-        gcc
+        stdenv.cc
         ghostscript
         tectonic
         texliveSmall

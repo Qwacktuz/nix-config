@@ -5,7 +5,6 @@
     imports = with config.flake.modules.homeManager; [
       dev-tools
       editor-runtime
-      language-toolchains
       security-tools
       yubikey
       personal-tools
