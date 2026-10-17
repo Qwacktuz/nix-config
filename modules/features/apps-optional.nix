@@ -14,6 +14,7 @@
     "proton-pass"
   ];
   flake.modules.darwin.apps-games.homebrew.casks = [
+    "parsec"
     "steam"
     "nvidia-geforce-now"
     "prismlauncher"

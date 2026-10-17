@@ -13,6 +13,7 @@
       zed
       vscodium
       virtualization
+      yubikey
       stylix
       tailscale
     ];
