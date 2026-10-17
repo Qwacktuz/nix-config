@@ -3,13 +3,13 @@
   flake-file.inputs.stylix.url = "github:nix-community/stylix";
 
   flake.modules.darwin.stylix =
-    { pkgs, lib, ... }:
+    { lib, ... }:
     {
       imports = lib.optionals (inputs ? stylix) [ inputs.stylix.darwinModules.stylix ];
 
       stylix.enable = true;
       stylix.enableReleaseChecks = false;
-      stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
+      stylix.base16Scheme = import ../../assets/themes/catppuccin-mocha.nix;
       # doesn't work for macos wallpaper
       stylix.image = ../../assets/wallpapers/love_lain.jpg;
 
