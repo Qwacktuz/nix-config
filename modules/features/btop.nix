@@ -1,6 +1,6 @@
 {
   flake.modules.homeManager.btop =
-    { pkgs, ... }:
+    { pkgs, lib, ... }:
     {
       programs.btop = {
         enable = true;
@@ -11,13 +11,8 @@
         };
       };
 
-      home.packages = pkgs.lib.optionals pkgs.stdenvNoCC.hostPlatform.isDarwin (
-        with pkgs.nvtopPackages;
-        [
-          # TODO: generalize for linux & darwin
-          apple
-          #full; ;
-        ]
-      );
+      home.packages =
+        lib.optionals pkgs.stdenv.hostPlatform.isDarwin [ pkgs.nvtopPackages.apple ]
+        ++ lib.optionals pkgs.stdenv.hostPlatform.isLinux [ pkgs.nvtopPackages.full ];
     };
 }

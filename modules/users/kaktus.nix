@@ -37,11 +37,6 @@ in
     imports = [ inputs.home-manager.darwinModules.home-manager ];
 
     home-manager = hmDefaults // {
-      # TODO: Move this to spicetify flake
-      sharedModules = [
-        { stylix.targets.spicetify.enable = false; }
-      ];
-
       users.${userName}.imports = cliHmModules ++ desktopHmModules ++ darwinHmExtras;
     };
   };

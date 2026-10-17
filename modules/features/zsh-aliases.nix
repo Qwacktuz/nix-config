@@ -1,11 +1,8 @@
 let
-  zshAliases = {
-    # TODO: configure missing aliases & vim keybinds
+  zshAliases = { pkgs, ... }: {
     programs.zsh = {
-      # idk why i put this here
+      defaultKeymap = "viins";
       initContent = ''
-        # Use vim key bindings
-        bindkey -v
         # Use fzf for history search
         bindkey "^R" fzf-history-widget
         bindkey -M vicmd "^R" fzf-history-widget
@@ -36,7 +33,7 @@ let
         icat = "kitten icat";
         dsize = "du -hs";
         pdf = "tdf";
-        open = "xdg-open";
+        open = if pkgs.stdenv.hostPlatform.isDarwin then "/usr/bin/open" else "xdg-open";
         space = "ncdu";
         man = "BAT_THEME='default' batman";
 
@@ -50,11 +47,11 @@ let
         ns = "nom-shell --run zsh";
         nd = "nom develop --command zsh";
         nb = "nom build";
-        nix-switch = "nh os switch";
-        nix-update = "nh os switch --update";
+        nix-switch = "nh ${if pkgs.stdenv.hostPlatform.isDarwin then "darwin" else "os"} switch";
+        nix-update = "nh ${if pkgs.stdenv.hostPlatform.isDarwin then "darwin" else "os"} switch --update";
         nix-clean = "nh clean all --keep 5";
         nix-search = "nh search";
-        nix-test = "nh os test";
+        nix-test = if pkgs.stdenv.hostPlatform.isDarwin then "nh darwin build" else "nh os test";
 
         # python
         piv = "python -m venv .venv";

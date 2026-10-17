@@ -1,6 +1,6 @@
 {
   flake.modules.homeManager.llm =
-    { pkgs, ... }:
+    { pkgs, lib, ... }:
     {
       home.packages = with pkgs; [
         # lmstudio # marked as broken
@@ -12,12 +12,7 @@
         # opencode
       ];
 
-      # TODO: lib.mkIf config here
-      services.ollama = {
-        package = pkgs.ollama;
-        enable = false;
-        host = "127.0.0.1"; # default
-        port = 11434; # default
-      };
+      # Home Manager creates the service only when enabled.
+      services.ollama.enable = lib.mkDefault false;
     };
 }

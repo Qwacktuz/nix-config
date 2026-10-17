@@ -38,7 +38,7 @@
         # pkgs.git-lfslab
       ];
 
-      # TODO: Could this be moved as an extention of zsh.nix/zsh_alises.nix perhaps?
+      # Keep Git aliases with the feature that installs their tools.
       programs.zsh.shellAliases = {
         g = "lazygit";
         gf = "onefetch --number-of-file-churns 0 --no-color-palette";

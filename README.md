@@ -20,7 +20,9 @@ nix shell nixpkgs#coreutils --command nix run .#write-flake
 
 ## TODO
 
-- set up kanata keybinds <https://github.com/jtroo/kanta>
+See [the TODO/FIXME audit](docs/todo-audit.md) for fixes, proposals, and validation.
+
+- set up kanata keybinds <https://github.com/jtroo/kanata>
 - set up <https://github.com/oddlama/nix-topology>
 - Further modularize packages into packages built with perSystem (flake parts) so I can build for each system using DRY (limit identical configuration in separate independent darwinModules or nixosModules)
   - May use <https://birdeehub.github.io/nix-wrapper-modules/md/getting-started.html>

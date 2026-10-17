@@ -17,6 +17,8 @@
       spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.stdenv.system};
     in
     {
+      stylix.targets.spicetify.enable = lib.mkDefault false;
+
       # imports = lib.optionals (inputs ? spicetify-nix) [
       #   inputs.spicetify-nix.homeManagerModules.spicetify
       # ];
