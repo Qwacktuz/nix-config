@@ -13,7 +13,11 @@
     - Sets outputs to inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } (inputs.import-tree ./modules).
   */
 
-  systems = lib.mkDefault (import inputs.systems);
+  systems = lib.intersectLists [
+    "aarch64-darwin"
+    "aarch64-linux"
+    "x86_64-linux"
+  ] (import inputs.systems);
 
   flake-file = {
     prune-lock.enable = true;
