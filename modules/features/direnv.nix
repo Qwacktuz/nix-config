@@ -5,9 +5,15 @@
       nix-direnv.enable = true; # enable caching
       enableZshIntegration = true;
       stdlib = ''
-        if command -v devenv >/dev/null 2>&1; then
+        use_devenv() {
+          if ! command -v devenv >/dev/null 2>&1; then
+            log_error "devenv is not installed"
+            return 1
+          fi
+          # Load only for use_devenv projects: helper names overlap nix-direnv.
           eval "$(devenv direnvrc)"
-        fi
+          use_devenv "$@"
+        }
       '';
       config = {
         global = {
