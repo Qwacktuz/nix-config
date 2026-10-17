@@ -2,15 +2,6 @@
 {
   flake-file.inputs.spicetify-nix.url = "github:Gerg-L/spicetify-nix";
 
-  flake.overlays.spotify = final: prev: {
-    spotify = prev.spotify.overrideAttrs (old: {
-      src = prev.fetchurl {
-        url = "https://download.scdn.co/SpotifyARM64.dmg";
-        sha256 = "sha256-3P7pmA7wJq/7lK8PB/H7NQDy/wMcvLmVWnmPFnhAGw8=";
-      };
-    });
-  };
-
   flake.modules.homeManager.spicetify =
     { pkgs, lib, ... }:
     let

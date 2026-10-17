@@ -20,7 +20,6 @@
 
     nixpkgs.overlays = [
       self.overlays.default
-      self.overlays.spotify
     ];
 
     # Disable when using determinate nix
