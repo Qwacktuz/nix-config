@@ -1,9 +1,12 @@
 {
+  flake.modules.darwin.vscodium.homebrew.casks = [ "vscodium" ];
+
   flake.modules.homeManager.vscodium =
     { pkgs, lib, ... }:
     {
       programs.vscodium = {
         enable = true;
+        package = if pkgs.stdenv.hostPlatform.isDarwin then null else pkgs.vscodium;
         profiles.default.enableUpdateCheck = false; # No notifications about updates
         profiles.default.enableExtensionUpdateCheck = false; # Declarative updates
         profiles.default = {
@@ -13,7 +16,7 @@
             #"editor.fontSize" = 12;
             "editor.fontFamily" = lib.mkDefault "JetBrainsMono Nerd Font, DejaVu Sans Mono, monospace";
             "editor.fontLigatures" = true;
-            "terminal.integrated.fontFamliy" = "JetBrainsMono Nerd Font";
+            "terminal.integrated.fontFamily" = "JetBrainsMono Nerd Font";
             "vim.enableNeovim" = true;
             # Use the neovim config file
             #"vim.neovimUseConfigFile": true;

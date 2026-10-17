@@ -1,12 +1,13 @@
 { ... }:
 {
+  flake.modules.darwin.brave.homebrew.casks = [ "brave-origin" ];
+
   flake.modules.homeManager.brave =
-    { pkgs, ... }:
+    { pkgs, lib, ... }:
     {
-      # remember to turn of brave from eenvironment.systemPackages
-      programs.chromium = {
+      programs.brave-origin = {
         enable = true;
-        package = pkgs.brave-origin;
+        package = if pkgs.stdenv.hostPlatform.isDarwin then null else pkgs.brave-origin;
 
         # homepageLocation = "https://duckduckgo.com";
         extensions = [
@@ -31,7 +32,7 @@
         ];
 
         # https://discourse.nixos.org/t/how-to-change-browser-specific-settings/32866/9
-        commandLineArgs = [
+        commandLineArgs = lib.optionals pkgs.stdenv.hostPlatform.isLinux [
           "--disable-features=AutofillSavePaymentMethods"
         ];
       };

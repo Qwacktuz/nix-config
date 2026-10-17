@@ -7,6 +7,11 @@
       darwin-profile-base
       aerospace
       homebrew
+      desktop-apps
+      ghostty
+      brave
+      zed
+      vscodium
       stylix
       tailscale
     ];

@@ -1,4 +1,6 @@
 {
+  flake.modules.darwin.ghostty.homebrew.casks = [ "ghostty" ];
+
   flake.modules.homeManager.ghostty =
     {
       lib,
@@ -13,7 +15,7 @@
       programs.ghostty = {
         enable = true;
 
-        package = if isDarwin then pkgs.ghostty-bin else pkgs.ghostty;
+        package = if isDarwin then null else pkgs.ghostty;
 
         enableBashIntegration = true;
         enableFishIntegration = true;
