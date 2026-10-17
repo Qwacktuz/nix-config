@@ -85,9 +85,9 @@ in
           # "Xcode" = 497799835;
         };
 
-        onActivation.cleanup = "zap";
-        onActivation.autoUpdate = true;
-        onActivation.upgrade = true;
+        onActivation.cleanup = "none";
+        onActivation.autoUpdate = false;
+        onActivation.upgrade = false;
       };
     };
 }
