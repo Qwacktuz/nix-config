@@ -5,9 +5,6 @@
     imports = with config.flake.modules.homeManager; [
       darwin-tools
       brave
-      spicetify
-      prismlauncher
-      virtualization
     ];
   };
 }

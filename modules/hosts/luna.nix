@@ -2,7 +2,7 @@
 {
   flake.modules.darwin.luna = {
     imports = with config.flake.modules.darwin; [
-      profile-desktop
+      profile-laptop
       config.flake.modules.darwin.${config.userName}
     ];
 
@@ -10,7 +10,6 @@
 
     nixpkgs.overlays = [
       self.overlays.default
-      self.overlays.spotify
     ];
 
     # Disable when using determinate nix

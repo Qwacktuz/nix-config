@@ -12,6 +12,7 @@
       brave
       zed
       vscodium
+      virtualization
       stylix
       tailscale
     ];

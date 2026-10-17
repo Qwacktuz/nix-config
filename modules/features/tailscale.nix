@@ -1,16 +1,5 @@
 {
-  flake.modules.darwin.tailscale = { pkgs, ... }: {
-    # environment.systemPackages = with pkgs; [
-    #   # tsui # check the github for installation instructions
-    #   tailscale-gui
-    # ];
-
-    # Daemon
-    services.tailscale = {
-      enable = true;
-      #overrideLocalDns = true;
-    };
-  };
+  flake.modules.darwin.tailscale.homebrew.casks = [ "tailscale-app" ];
 
   flake.modules.nixos.tailscale =
     { config, ... }:

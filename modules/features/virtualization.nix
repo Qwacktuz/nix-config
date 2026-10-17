@@ -1,17 +1,16 @@
 {
-  flake.modules.homeManager.virtualization =
-    { pkgs, ... }:
-    {
-      services.colima.enable = false;
+  flake.modules.darwin.virtualization.homebrew.casks = [ "orbstack" ];
+  flake.modules.darwin.virtualization-vms.homebrew.casks = [ "utm" ];
 
-      programs.docker-cli.enable = true;
+  flake.modules.homeManager.virtualization = { pkgs, ... }: {
+    programs.docker-cli.enable = true;
+    home.packages = [ pkgs.lazydocker ];
+  };
 
-      home.packages = with pkgs; [
-        orbstack
-        lima
-        lazydocker
-        utm
-        qemu
-      ];
-    };
+  flake.modules.homeManager.virtualization-vms = { pkgs, ... }: {
+    home.packages = with pkgs; [
+      lima
+      qemu
+    ];
+  };
 }

@@ -1,15 +1,19 @@
 {
   flake.modules.homeManager.desktop-extra-apps = { pkgs, lib, ... }: {
-    home.packages =
+    home.packages = lib.optionals pkgs.stdenv.hostPlatform.isLinux (
       with pkgs;
       [
-      ]
-      ++ lib.optionals pkgs.stdenv.hostPlatform.isLinux [
+        qbittorrent
+        xournalpp
+        remmina
+        protonmail-desktop
+        protonmail-bridge
+        proton-pass
+        anki-bin
         deluge
         obs-studio
         parsec-bin
         signal-desktop
-        keepassxc
         libreoffice
         element-desktop
         burpsuite
@@ -17,7 +21,7 @@
         rpi-imager
         vorta
         legcord
-        tailscale
-      ];
+      ]
+    );
   };
 }

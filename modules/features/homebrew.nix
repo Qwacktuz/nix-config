@@ -31,60 +31,6 @@ in
       homebrew = {
         taps = builtins.attrNames config.nix-homebrew.taps;
         enable = true;
-        casks = [
-          "mos"
-          "monitorcontrol"
-          "obs"
-          "parsec"
-          "nvidia-geforce-now"
-          "karabiner-elements"
-          "lulu" # FOSS little snitch alternative
-          "android-studio"
-          "signal" # newer build than pkgs.signal-desktop-bin
-          "keepassxc"
-          "protonvpn"
-          "tuta-mail"
-          "steam" # nixpkgs build doesn't support darwin afaik
-          "focusrite-control-2"
-          # "libreoffice"
-          "royal-tsx"
-          # "tor-browser"
-          "element"
-          "yubico-authenticator"
-          "orion"
-          "helium-browser"
-          "wacom-tablet"
-          # "vmware-fusion" # Apparently disabled because broadcom
-          "hashicorp/tap/hashicorp-vagrant"
-          "burp-suite"
-          "omnissa-horizon-client"
-          "font-fontawesome"
-          "wireshark-app"
-          "codex"
-          "middleclick"
-          "raspberry-pi-imager"
-          "vorta"
-          "linearmouse"
-          "bit-slicer"
-          "legcord"
-          "tailscale-app"
-        ];
-        brews = [
-          "vite-plus"
-          "mole"
-          # "ltex-ls"
-          # "scrcpy"
-          "binwalk"
-          "picocom"
-          "jdupes"
-          "mas"
-        ];
-        masApps = {
-          "WireGuard" = 1451685025;
-          # "Tailscale" = 1475387142;
-          # "Xcode" = 497799835;
-        };
-
         onActivation.cleanup = "none";
         onActivation.autoUpdate = false;
         onActivation.upgrade = false;
