@@ -1,0 +1,29 @@
+{
+  flake.modules.homeManager.language-toolchains = { pkgs, lib, ... }: {
+    home.packages = with pkgs; [
+      go
+      golangci-lint
+      golangci-lint-langserver
+      zig
+      cargo
+      rustc
+      temurin-bin
+      kotlin
+      gradle
+      python315
+      pixi
+      typescript
+      bun
+      deno
+      pnpm
+      android-tools
+      act
+      infisical
+      tenv
+      ansible
+      fluxcd
+      awscli2
+      packer
+    ];
+  };
+}

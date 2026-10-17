@@ -35,6 +35,7 @@
         lazygit
         gh
         glab
+        onefetch
         # pkgs.git-lfslab
       ];
 

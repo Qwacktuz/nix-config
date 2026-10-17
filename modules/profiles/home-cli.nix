@@ -4,6 +4,9 @@
   flake.modules.homeManager.profile-cli = {
     imports = with config.flake.modules.homeManager; [
       dotfiles
+      cli-tools
+      git
+      jujutsu
       zsh
       zsh-aliases
       direnv
