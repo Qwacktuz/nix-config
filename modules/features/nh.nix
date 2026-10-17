@@ -1,7 +1,7 @@
-{ config, ... }:
+{ ... }:
 {
   flake.modules.homeManager.nh =
-    { pkgs, ... }:
+    { pkgs, config, ... }:
     {
       programs.nh = {
         enable = true;
@@ -10,7 +10,7 @@
           extraArgs = "--keep-since 7d --keep 3";
         };
 
-        flake = "/Users/${config.userName}/nix-config";
+        flake = "${config.home.homeDirectory}/nix-config";
       };
 
       home.packages = with pkgs; [
