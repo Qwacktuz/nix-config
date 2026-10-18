@@ -2,6 +2,7 @@
 # Data stays local so reading the theme never builds base16-schemes during evaluation.
 {
   scheme = "Catppuccin Mocha";
+  slug = "catppuccin-mocha";
   author = "https://github.com/catppuccin/catppuccin";
   base00 = "1e1e2e";
   base01 = "313244";
