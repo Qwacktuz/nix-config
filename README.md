@@ -2,13 +2,13 @@
 
 - Featuring a dendritic pattern approach
 - [Luna migration plan and review checklist](docs/luna-migration.md)
-- [Repository memory](MEMORY.md)
+- [Repository memory](docs/MEMORY.md)
 
 ## Package ownership
 
 Nix owns CLI tools, configuration, and project toolchains. Homebrew casks own
 ordinary macOS GUI apps; Home Manager retains supported settings. JetBrains,
-optional Spicetify, and optional Tenacity are documented Nix exceptions.
+optional Spicetify/Tenacity, and optional qBittorrent/Xournal++ are documented Nix exceptions.
 Luna gets daily apps; Saguaro explicitly selects optional app collections.
 
 Project shells: `nix develop .#go`, `.#rust`, `.#jvm`, `.#python`, `.#web`,

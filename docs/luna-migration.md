@@ -11,7 +11,8 @@ user review and approval; do not activate this machine during cleanup.
 - Homebrew casks: ordinary macOS GUI applications. Home Manager keeps settings
   where its module supports configuration without installing the application.
 - Explicit Nix GUI exceptions: JetBrains IDE/plugin wrappers, optional
-  Spicetify/Spotify, and optional Tenacity (no matching pinned cask).
+  Spicetify/Spotify, and optional Tenacity (no matching pinned cask), and optional qBittorrent/Xournal++
+  (their pinned macOS casks are disabled).
   AeroSpace remains owned by its nix-darwin service.
 - Linux GUI packages: Nix, only in desktop roles.
 - Each application has one installation owner; profiles compose features.
@@ -21,7 +22,7 @@ user review and approval; do not activate this machine during cleanup.
 
 ## Commit sequence
 
-1. Record the plan and refresh repository MEMORY.md.
+1. Record the plan and refresh repository docs/MEMORY.md.
 2. Disable Brew automatic updates/upgrades; use cleanup `none` during migration.
 3. Split home-packages into CLI, development, desktop, security, and editor
    features. Remove redundant imports and duplicate Zed ownership.
@@ -91,7 +92,7 @@ Implementation complete; review and merge pending. Main has not moved.
 | `d207aacc` | Respect ARM Linux optional-app availability |
 
 The final documentation commit refreshes this document, the TODO audit, README,
-and MEMORY.md. The review also includes the preceding `98d38bb7`/`c2806e65`
+and docs/MEMORY.md. The review also includes the preceding `98d38bb7`/`c2806e65`
 baseline and TODO-fix commits, since main is still `ef1d2195`.
 
 ## Final selections
@@ -118,8 +119,8 @@ payment-autofill launch flag applies only to Linux now; use the browser's
 payment settings on macOS. Ghostty, Zed, and VSCodium also use config-only
 modules on Darwin. JetBrains plugins and VSCodium extensions remain declarative.
 
-`xcodes` and `macpm` remain Nix CLI tools. All old Saguaro casks are retained
-between daily/optional groups; `picocom` has one Nix owner, and the `mas` CLI
+`xcodes` and `macpm` remain Nix CLI tools. Old Saguaro apps remain available
+between daily/optional groups; qBittorrent/Xournal++ use Nix instead of disabled casks; `picocom` has one Nix owner, and the `mas` CLI
 and WireGuard App Store declaration are optional. App self-updaters are
 independent of the disabled Brew activation update/upgrade flags.
 
@@ -150,3 +151,27 @@ Review with `jj diff --from main --to codex/luna-cleanup` and
 `jj log -r 'main..codex/luna-cleanup'`. Main stays unchanged until explicit
 approval. The merge after approval is a local fast-forward of main to the
 reviewed descendant, preserving each jj commit. No remote push is included.
+
+
+## Activation follow-up
+
+The first real Saguaro build completed, but activation stopped in Brew Bundle:
+qBittorrent and Xournal++ casks are disabled on macOS for failed Gatekeeper
+checks. They are now optional Nix packages; no Gatekeeper bypass was added.
+The original file-existence check could not catch OS-specific disable rules.
+Run `python3 scripts/check-brew-casks.py saguaro` (or `luna`) on macOS before
+switching to validate actual Brew availability. All 48 remaining Saguaro casks
+passed this check, and the corrected Saguaro system built successfully.
+
+The old unmanaged global direnvrc used removed `devenv direnv-hook` and sourced
+an empty filename. The generated stdlib now defines a lazy use_devenv loader
+using supported `devenv direnvrc`; eager loading overwrites private nix-direnv
+helpers and must be avoided. Direnv/nix-direnv handles automatic loading;
+the separate Zsh `devenv hook zsh` was removed. The local direnvrc was backed
+up before repair, and actual repository entry renewed the cache and completed
+all four startup tasks. Home Manager will retain this configuration on the
+next successful switch.
+
+The palette now has an explicit Catppuccin slug, fixing the untitled theme
+filenames without changing colors. Repository memory lives at docs/MEMORY.md.
+The review-before-merge gate still applies.

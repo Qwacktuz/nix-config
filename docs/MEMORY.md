@@ -1,8 +1,8 @@
 # Repository Memory
 
 Updated 2026-10-18. Luna cleanup is implemented; review/merge is pending.
-Plan, commits, selections, and validation: [docs/luna-migration.md](docs/luna-migration.md).
-Remaining unrelated backlog: [docs/todo-audit.md](docs/todo-audit.md).
+Plan, commits, selections, and validation: [luna-migration.md](luna-migration.md).
+Remaining unrelated backlog: [todo-audit.md](todo-audit.md).
 
 ## Workflow and review gate
 
@@ -12,7 +12,9 @@ Remaining unrelated backlog: [docs/todo-audit.md](docs/todo-audit.md).
 - main remains `ef1d2195`. Do not merge until the user reviews and approves.
 - After approval, fast-forward local main to the reviewed descendant using jj;
   preserve the individual commits. No remote push is authorized.
-- No system activation or application removal was performed during this work.
+- The user built and attempted Saguaro activation after the cleanup. It stopped
+  at Homebrew because qBittorrent/Xournal++ casks were disabled. Later stages
+  may not have run; rerun the switch after the fixes below.
 
 ## Architecture
 
@@ -35,7 +37,8 @@ Remaining unrelated backlog: [docs/todo-audit.md](docs/todo-audit.md).
 - Use programs.brave-origin, not programs.chromium with a renamed package;
   this preserves the correct native browser extension directory.
 - Nix GUI exceptions: JetBrains/plugin wrappers; optional Spicetify/Spotify;
-  optional Tenacity because no matching cask exists in the pinned input.
+  optional Tenacity because no matching cask exists in the pinned input;
+  optional qBittorrent/Xournal++ because their macOS casks are disabled.
   AeroSpace is managed by its nix-darwin service.
 - profile-cli: CLI tools, Git/jj, shell, Neovim, nh, monitoring, fonts.
 - profile-dev: dev-tools, editor-runtime, YubiKey CLI, LanguageTool, LLM CLI,
@@ -85,3 +88,26 @@ python315. Node/Lua/native compiler/TeX remain available for Neovim plugins.
   migrate app data/secrets, then grant macOS permissions and test real hardware.
 - Snapshot new files with jj before Git-flake evaluation. nh derives its
   configured path from the target user's home on Linux and Darwin.
+
+## Follow-up fixes after the Saguaro activation attempt
+
+- Repository memory was moved by the user to docs/MEMORY.md; keep that path.
+- e6a648cc restores qBittorrent/Xournal++ as optional Nix packages and removes
+  their disabled macOS casks. scripts/check-brew-casks.py checks Homebrew's
+  actual target-platform disabled status, not merely file existence.
+- dc25feb4 removes the competing Zsh devenv auto-activation hook and introduces
+  managed direnv stdlib. 357992ef makes devenv initialization lazy, because its
+  helper names overlap nix-direnv's helpers. Keep use_flake working by loading
+  devenv direnvrc only when use_devenv is called.
+- The user's old ~/.config/direnv/direnvrc called removed `devenv direnv-hook`.
+  It was backed up to direnvrc.before-devenv-fix-20261018-015900 and replaced
+  with the generated lazy integration. Real `direnv exec ... true` loaded this
+  repository, renewed its cache, and completed all four startup tasks.
+- afff75ae restores scheme slug catppuccin-mocha; theme colors are unchanged.
+- All 48 Saguaro and 16 Luna casks pass actual Homebrew availability checks. The corrected Saguaro system built without
+  activation. The final documentation commit records the remaining checks.
+- A private FlakeHub cache returned HTTP 401 during verification, but fallback
+  to cache.nixos.org/local builds succeeded. Do not treat that as a direnv API
+  failure or disable global authentication settings as part of this fix.
+- Main remains unchanged pending review; follow-up commits stay on the review
+  bookmark. No activation retry was performed by the assistant.
