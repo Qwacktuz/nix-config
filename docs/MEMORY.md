@@ -4,6 +4,26 @@ Updated 2026-10-18. Luna cleanup is implemented; review/merge is pending.
 Plan, commits, selections, and validation: [luna-migration.md](luna-migration.md).
 Remaining unrelated backlog: [todo-audit.md](todo-audit.md).
 
+## Local writing checks
+
+- The user confirmed the Saguaro fixes work, then requested LTeX in LazyVim
+  for English/Norwegian. They explicitly chose local checks rather than sending
+  Norwegian documents to LanguageTool's hosted API.
+- New feature review bookmark: codex/ltex-local, descending from the cleanup
+  branch. Do not interpret the successful activation report as approval to
+  move main; the existing review gate remains.
+- dotfiles/nvim/lua/plugins/ltex-ls.lua enables the Nix ltex-ls-plus through
+  LazyVim's ltex_plus server with mason=false and an empty HTTP server URI.
+- config/writing.lua provides buffer-local WritingLanguage en/nb modes:
+  English grammar plus bilingual spelling by default; Norwegian Bokmål
+  spelling with only LTeX English diagnostics hidden in nb mode.
+- No offline Norwegian grammar is claimed. LTeX's duplicate English spelling
+  rule is disabled; Neovim handles spelling and personal dictionaries.
+- modules/features/dotfiles.nix pins official nb spell/suggestion files
+  in Home Manager's nvim/site/spell. Keep personal *.add files unmanaged.
+- Actual headless LazyVim English grammar, language-mode switching, and
+  English/Norwegian spelling tests passed. See writing.md for usage.
+
 ## Workflow and review gate
 
 - Use jj, one commit per logical change. Review bookmark: `codex/luna-cleanup`.

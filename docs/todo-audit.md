@@ -66,7 +66,7 @@ Darwin's installed MPD lacks inotify: trigger database updates manually.
 | Terranix | No tracked Terraform/HCL project exists here. Identify the infrastructure repository, convert one small component, and require a plan with no infrastructure changes before adopting. [Terranix](https://terranix.org/). |
 | Devshell templates | Reuse the named shells now; projects needing independent versions should own flakes/locks. Add standalone templates when a concrete project needs them. |
 | Pure direnv | Keep devenv while its default shell still provides scripts and Git hooks. Benchmark entry time and prototype equivalent mkShell behavior before replacing it. Quieter output is a separate configuration choice. |
-| LanguageTool/Neovim/Norwegian | ltex-ls-plus is installed, but ltex-ls.lua remains commented out. Activate ltex_plus through lsp.lua using the Nix executable. Test English locally first. LTeX+ documents Bokmaal only through its online service; choose explicitly between that and local Neovim Norwegian spell files. Test Markdown and Typst diagnostics. [Language support](https://ltex-plus.github.io/ltex-plus/supported-languages.html). |
+| LanguageTool/Neovim/Norwegian | Implemented local English grammar and English/Bokmål spelling in LazyVim. The user chose local checks, so Norwegian grammar is not configured. See [writing.md](writing.md) for commands and validation. |
 
 ## Inactive annotations
 
@@ -79,8 +79,7 @@ These modules are archived outside the import tree, or are commented Lua.
 | archive/unused-modules/home/zen-browser.nix: bookmarks | Specify the tree and reconcile existing profile data before enabling declarative bookmarks. |
 | Same file: upstream browser issue | Recheck the issue against the selected version and reproduce before removing the fallback browser. |
 | Same file: cookies | Inspect policies/preferences and test restart persistence with a disposable profile first. |
-| dotfiles/nvim/lua/plugins/ltex-ls.lua: lsp.lua | Included in the active LanguageTool proposal above. |
-| Same file: n-gram data | Defer until the server works; select/provision a supported corpus outside Git and compare diagnostics/performance. This does not add Norwegian support to local LanguageTool. |
+| Former ltex-ls.lua comments: lsp.lua / n-gram data | The plugin spec is now active and uses the shared writing module. Optional n-gram corpora remain deferred; they do not provide offline Norwegian grammar. |
 
 ## Verification
 

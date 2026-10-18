@@ -3,6 +3,7 @@
 - Featuring a dendritic pattern approach
 - [Luna migration plan and review checklist](docs/luna-migration.md)
 - [Repository memory](docs/MEMORY.md)
+- [Local English/Norwegian writing checks](docs/writing.md)
 
 ## Package ownership
 
@@ -42,11 +43,6 @@ See [the TODO/FIXME audit](docs/todo-audit.md) for fixes, proposals, and validat
   - <https://terranix.org/getting-started.html>
 - Streamline devshell creation
 - Consider moving back to pure direnv (not sure if I need devenv capabilities really) - make sure to disable warnings and logging (env var?)
-- languagetool server for neovim (ltex-ls-plus vs ltex-ls?) and activate
-  norwegian spellchecking
-  - <https://dev.languagetool.org/http-server>
-  - <https://nix.dev/tutorials/packaging-existing-software> (nix package?)
-  - <https://forum.languagetool.org/t/norwegian-language/11752>
 
 ## Various resources
 
