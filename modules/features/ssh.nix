@@ -2,50 +2,15 @@
 {
   flake.modules.homeManager.ssh-client =
     { config, ... }:
-    # let
-    #   dotfiles = "${config.home.homeDirectory}/nix-config/dotfiles";
-    #   create_symlink = path: config.lib.file.mkOutOfStoreSymlink path;
-    # in
-    let
-      termEnv = {
-        TERM = "xterm-256color";
-      };
-
-      rootHost = ip: key: {
-        HostName = ip;
-        User = "root";
-        IdentityFile = [ key ];
-        SetEnv = termEnv;
-      };
-
-      userHost = User: ip: key: {
-        HostName = ip;
-        inherit User;
-        IdentityFile = [ key ];
-        SetEnv = termEnv;
-      };
-
-      tsHost = User: ip: {
-        HostName = ip;
-        inherit User;
-        SetEnv = termEnv;
-      };
-
-      compressedHost = attrs: attrs // { Compression = true; };
-      lanRoot = ip: key: rootHost ip key;
-      lanRootCompressed = ip: key: compressedHost (rootHost ip key);
-    in
     {
-      # Prefer symlinking it out of store for on-the-go editing
-      # home.file.".ssh/config".source = create_symlink "${dotfiles}/ssh/config";
-
       programs.ssh = {
         enable = true;
         enableDefaultConfig = false;
 
-        extraConfig = ''
-          Include ~/.orbstack/ssh/config
-        '';
+        includes = [
+          ''"${config.sops.secrets.ssh_config.path}"''
+          "~/.orbstack/ssh/config"
+        ];
 
         settings = {
           # Global defaults
@@ -68,45 +33,6 @@
             UserKnownHostsFile = "~/.ssh/known_hosts";
           };
 
-          # University
-          uio = compressedHost (userHost "redacted-user" "login.uio.no" "~/.ssh/uio_id_ed25519");
-          ifi = compressedHost {
-            HostName = "login.ifi.uio.no";
-            User = "redacted-user";
-            IdentityFile = [ "~/.ssh/uio_id_ed25519" ];
-            ProxyJump = "uio";
-            SetEnv = termEnv;
-          };
-
-          # Local infrastructure
-          ow1 = lanRoot "private-host-5.invalid" "~/.ssh/openwrt_id_ed25519";
-          ow2 = lanRoot "private-host-6.invalid" "~/.ssh/openwrt_id_ed25519";
-          ow3 = lanRoot "private-host-7.invalid" "~/.ssh/openwrt_id_ed25519";
-          ow4 = lanRoot "private-host-8.invalid" "~/.ssh/openwrt_id_ed25519";
-          pve1 = lanRoot "private-host-3.invalid" "~/.ssh/homelab_id_ed25519";
-          pbs1 = lanRoot "private-host-4.invalid" "~/.ssh/homelab_id_ed25519";
-          tslan = lanRoot "private-host-9.invalid" "~/.ssh/tailscale_id_ed25519";
-
-          # Local devices
-          pwnpwnpurin = compressedHost (userHost "pi" "private-host-1.invalid" "~/.ssh/saguaro_id_ed25519");
-
-          # Tailscale host
-          ts = compressedHost (tsHost "root" "tailscale-debian");
-
-          # Minecraft production (through tailscale)
-          mcprd = compressedHost (userHost "deployer" "mc-prod" "~/.ssh/mc-prod_id_ed25519");
-          mc-node = compressedHost (userHost "deployer" "private-host-2.invalid" "~/.ssh/mc-prod_id_ed25519");
-
-          # Homelab services
-          # host = lanRootCompressed "10.60.0.123" "~/.ssh/ssh_key_id_ed25519";
-
-          # minecraft-nixos = {
-          #   hostname = "192.168.1.200";
-          #   user = "cactuz";
-          #   identityFile = [ "~/.ssh/minecraft-nixos_id_ed25519" ];
-          #   compression = true;
-          # };
-
           # Git providers
           "github.com" = {
             HostName = "github.com";
@@ -116,15 +42,6 @@
               "~/.ssh/github_id_ed25519"
               "~/.ssh/kaktus_id_ed25519_sk"
               "~/.ssh/kaktus_id_ed25519_sk_backup"
-            ];
-          };
-
-          "github.uio.no" = {
-            HostName = "github.uio.no";
-            User = "git";
-            IdentitiesOnly = true;
-            IdentityFile = [
-              "~/.ssh/uio_id_ed25519"
             ];
           };
 

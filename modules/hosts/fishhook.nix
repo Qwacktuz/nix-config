@@ -5,7 +5,7 @@
 }:
 {
   flake.modules.nixos.fishhook =
-    {
+    args@{
       modulesPath,
       ...
     }:
@@ -43,9 +43,9 @@
         };
       };
 
-      users.users.${config.userName}.openssh.authorizedKeys.keyFiles = [
-        ../../pubkeys/saguaro_id_ed25519.pub
-      ];
+      sops.templates.authorized_keys.content = lib.mkAfter ''
+        ${args.config.sops.placeholder.saguaro_id_ed25519}
+      '';
 
       system.stateVersion = lib.mkDefault "26.05";
 

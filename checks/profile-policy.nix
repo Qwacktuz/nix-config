@@ -3,6 +3,7 @@ let
   luna = self.darwinConfigurations.luna.config;
   saguaro = self.darwinConfigurations.saguaro.config;
   fishhook = self.nixosConfigurations.fishhook.config;
+  cholla = self.nixosConfigurations.cholla.config;
   home = host: host.home-manager.users.kaktus;
   casks = host: map (c: c.name) host.homebrew.casks;
   packages = host: map lib.getName (home host).home.packages;
@@ -49,7 +50,43 @@ let
     host.homebrew.onActivation.cleanup == "none"
     && !host.homebrew.onActivation.autoUpdate
     && !host.homebrew.onActivation.upgrade;
+  runtimeSecrets =
+    host:
+    let
+      hm = home host;
+    in
+    hm.sops.validateSopsFiles
+    && !hm.sops.age.generateKey
+    && hm.sops.age.sshKeyPaths == [ ]
+    && hm.sops.age.keyFile == "${hm.xdg.configHome}/sops/age/keys.txt"
+    && hm.sops.secrets.ssh_config.mode == "0600"
+    && builtins.elem ''"${hm.sops.secrets.ssh_config.path}"'' hm.programs.ssh.includes
+    && !(lib.hasInfix "/nix/store/" hm.sops.secrets.ssh_config.path)
+    && hm.programs.git.settings.credential.helper != "store";
 in
+assert lib.assertMsg (lib.all
+  (
+    host:
+    host.sops.age.keyFile == null
+    && !host.sops.age.generateKey
+    && host.sops.age.sshKeyPaths == [ "/etc/ssh/ssh_host_ed25519_key" ]
+    && host.users.users.kaktus.openssh.authorizedKeys.keyFiles == [ ]
+    && host.sops.templates.authorized_keys.mode == "0444"
+    && !(lib.hasInfix "/nix/store/" host.sops.templates.authorized_keys.path)
+  )
+  [
+    luna
+    saguaro
+    fishhook
+    cholla
+  ]
+) "Authorized public keys must be rendered by system SOPS outside the Nix store";
+assert lib.assertMsg (lib.all runtimeSecrets [
+  luna
+  saguaro
+  fishhook
+  cholla
+]) "Private configuration must decrypt at runtime outside the Nix store on every host";
 assert lib.assertMsg (containsNone [ "qbittorrent" "xournal++" ] (
   casks saguaro
 )) "Disabled macOS casks must use the optional Nix packages";

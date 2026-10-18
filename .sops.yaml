@@ -1,12 +1,18 @@
-# Editing atctual secrets
-# nix run nixpkgs#sops -- secrets/secrets.yaml
+# Public recipients only. Each listed recipient can decrypt the entire file.
 keys:
-  - &user_kaktus age1ey4gaelnj8ykzsd64483ef5c2g9h5d2uvz5yhcmphuzfygqxggustq443f
+  - &user_kaktus age1rqzjng53hyak0lzaj5730zdez72eakj28zgtqqp68jkd9xuq0gask43smw
   - &host_saguaro age1avlprtsgdx36uhzq9vjhajgl8skudzre9fkp9s2ln4gstltzndnsfn8wjp
+  - &host_luna age1cdmwx9r5e0hqx58evq3ynhuveyxngx7kupr7wksusylx52tg6fzsz9sh3e
 
 creation_rules:
-  - path_regex: secrets/secrets.yaml$
+  - path_regex: ^secrets/home\.yaml$
+    key_groups:
+      - age:
+          - *user_kaktus
+  # Add each system identity here before activating encrypted SSH authorization.
+  - path_regex: ^secrets/pubkeys\.yaml$
     key_groups:
       - age:
           - *user_kaktus
           - *host_saguaro
+          - *host_luna

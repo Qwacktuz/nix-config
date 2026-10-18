@@ -6,6 +6,16 @@ result
 # Env
 .direnv/
 .env
+.env.*
+!.env.example
+
+# Never stage decrypted secrets or private identities.
+secrets/**/*.plain.*
+secrets/**/*.decrypted.*
+secrets/**/keys.txt
+*.agekey
+pubkeys/*
+!pubkeys/*.pub
 
 # IDE
 .idea/

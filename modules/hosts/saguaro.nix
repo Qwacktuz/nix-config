@@ -8,7 +8,6 @@
       # darwin.virtualization
       # darwin.karabiner
       # darwin.sketchybar
-      # darwin.sops
     ];
 
     networking.hostName = "saguaro";

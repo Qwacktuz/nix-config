@@ -18,6 +18,7 @@
       fastfetch
       nh
       ssh-client
+      sops
       fonts
     ];
   };

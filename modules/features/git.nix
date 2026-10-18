@@ -11,7 +11,11 @@
             user.email = "104035252+Qwacktuz@users.noreply.github.com";
 
             init.defaultBranch = "main";
-            credential.helper = "store";
+            credential.helper =
+              if pkgs.stdenv.hostPlatform.isDarwin then
+                "${pkgs.git}/bin/git-credential-osxkeychain"
+              else
+                "cache --timeout=3600";
             merge.conflictstyle = "diff3";
             diff.colorMoved = "default";
             #pull.rebase = "true";

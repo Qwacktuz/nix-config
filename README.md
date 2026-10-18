@@ -4,6 +4,7 @@
 - [Luna migration plan and review checklist](docs/luna-migration.md)
 - [Repository memory](docs/MEMORY.md)
 - [Local English/Norwegian writing checks](docs/writing.md)
+- [SOPS setup, machine enrollment, recovery, and rotation](docs/secrets.md)
 
 ## Package ownership
 
@@ -61,6 +62,30 @@ See [the TODO/FIXME audit](docs/todo-audit.md) for fixes, proposals, and validat
 
 ## How to install MacOS
 
-Download the pkg from
+Download the determinate nix pkg from
 
 - <https://docs.determinate.systems/guides/migrating-from-upstream-nix/>
+
+Use the machine's SSH Ed25519 host key for system SOPS decryption:
+
+```sh
+# Generate missing host keys without replacing existing keys.
+sudo /usr/bin/ssh-keygen -A
+
+# Generate from host ssh key (recommended)
+nix run nixpkgs#ssh-to-age -- -i /etc/ssh/ssh_host_ed25519_key.pub
+
+```
+
+Add the resulting public age recipient to the `pubkeys.yaml` rule in
+`.sops.yaml`. On a machine with existing decryption access, run:
+
+```sh
+SOPS_AGE_KEY_FILE="$HOME/.config/sops/age/keys.txt" \
+  sops updatekeys secrets/pubkeys.yaml
+```
+
+Back up the private SSH host key securely. For user secrets, restore your
+personal age identity to `~/.config/sops/age/keys.txt` with mode `0600` and its
+parent directory mode `0700`. It must match the personal recipient enrolled for
+`home.yaml`. See [the SOPS guide](docs/secrets.md) before activating a new host.

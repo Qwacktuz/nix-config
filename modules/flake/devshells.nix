@@ -17,6 +17,10 @@
         git
         zip
         devenv
+        sops
+        age
+        ssh-to-age
+        gitleaks
       ];
       # debugger = if pkgs.stdenv.hostPlatform.isDarwin then "lldb" else "gdb";
       # memcheck = if pkgs.stdenv.hostPlatform.isLinux then "valgrind --leak-check=full" else "leaks --atExit --";
@@ -54,6 +58,12 @@
 
         git-hooks.hooks.treefmt.enable = true;
         git-hooks.hooks.treefmt.package = config.treefmt.build.wrapper;
+        git-hooks.hooks.gitleaks = {
+          enable = true;
+          name = "Gitleaks staged secrets scan";
+          entry = "${pkgs.gitleaks}/bin/gitleaks git --pre-commit --staged --redact --no-banner";
+          pass_filenames = false;
+        };
 
         # pre-commit.hooks = {
         #   nixfmt.enable = true;
