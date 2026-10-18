@@ -21,6 +21,9 @@ Remaining unrelated backlog: [todo-audit.md](todo-audit.md).
   rule is disabled; Neovim handles spelling and personal dictionaries.
 - modules/features/dotfiles.nix pins official nb spell/suggestion files
   in Home Manager's nvim/site/spell. Keep personal *.add files unmanaged.
+- editor-runtime installs ltex-ls-plus, which bundles its LanguageTool engine.
+  Removed the unused standalone languagetool/fasttext packages and their
+  separate feature module.
 - Actual headless LazyVim English grammar, language-mode switching, and
   English/Norwegian spelling tests passed. See writing.md for usage.
 
@@ -61,7 +64,7 @@ Remaining unrelated backlog: [todo-audit.md](todo-audit.md).
   optional qBittorrent/Xournal++ because their macOS casks are disabled.
   AeroSpace is managed by its nix-darwin service.
 - profile-cli: CLI tools, Git/jj, shell, Neovim, nh, monitoring, fonts.
-- profile-dev: dev-tools, editor-runtime, YubiKey CLI, LanguageTool, LLM CLI,
+- profile-dev: dev-tools, editor-runtime (including LTeX+), YubiKey CLI, LLM CLI,
   editor/IDE settings, container CLI. Language toolchains are not global.
 - profile-desktop (Home Manager): Ghostty config, GPU monitor, daily Linux
   apps, Syncthing. profile-darwin: darwin-tools and Brave Origin config.

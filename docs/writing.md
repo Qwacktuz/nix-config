@@ -5,6 +5,9 @@ is required: LazyVim uses the Nix-installed `ltex-ls-plus`, with Mason disabled
 for that server. It attaches to Markdown, LaTeX, Typst, plain text,
 reStructuredText, and Git commit messages.
 
+`modules/features/editor-runtime.nix` installs the server, including its bundled
+LanguageTool engine. No separate LanguageTool server or fastText CLI is needed.
+
 | Command | Current buffer |
 | --- | --- |
 | `:WritingLanguage en` | English grammar, English/Bokmål spelling (default) |

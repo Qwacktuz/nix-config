@@ -6,7 +6,6 @@
       dev-tools
       editor-runtime
       yubikey
-      languagetool
       llm
       vscodium
       zed

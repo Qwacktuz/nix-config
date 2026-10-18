@@ -11,6 +11,7 @@
         tectonic
         texliveSmall
         tree-sitter
+        ltex-ls-plus
       ]
       ++ lib.optionals pkgs.stdenv.hostPlatform.isLinux [
         patchelf
