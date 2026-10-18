@@ -18,6 +18,13 @@ is opened. It does not change unrelated LSP diagnostics or other buffers.
 English grammar checking is local and updates as you edit. Neovim handles
 spelling to avoid duplicate LTeX spelling warnings.
 
+The configuration lives in `dotfiles/nvim/lua/plugins/writing.lua`.
+Spelling is enabled when a prose filetype is set. Subsequent buffer switches,
+LSP attachments, and language changes preserve manual spelling/diagnostic
+toggles. Norwegian mode filters LTeX diagnostics before display; toggling all
+diagnostics cannot expose English warnings there. Switching back to English
+restores the latest grammar result without changing diagnostic visibility.
+
 - `]s` / `[s`: next/previous spelling issue.
 - `z=`: spelling suggestions; `zg`: add a word to your personal dictionary.
 - `<leader>ca`: LSP code actions for supported grammar corrections.
@@ -36,8 +43,18 @@ Neovim dotfiles feature. A successful Darwin/Home Manager switch provisions them
 on a fresh machine; the existing Saguaro dictionaries already work. Personal
 `*.add` dictionaries remain writable and unmanaged.
 
-Validation: an actual headless LazyVim session attached LTeX+, diagnosed
+Validation: actual headless LazyVim sessions attached LTeX+, diagnosed
 “This are a test.”, accepted valid Norwegian words, flagged Norwegian/English
 typos, and switched diagnostic visibility without affecting other namespaces.
 The freshly fetched pinned Norwegian dictionary and suggestions were checked
 separately. Luna's Nix system derivation and Lua formatting checks passed.
+
+Run the integration regression check with the installed LazyVim plugins,
+`ltex-ls-plus`, and Norwegian dictionaries:
+
+```sh
+NVIM_LOG_FILE=/tmp/neovim-writing.log nvim --headless -c 'luafile checks/neovim-writing.lua'
+```
+
+It checks English/Typst grammar and correction actions, bilingual spelling, Norwegian filtering after
+edits, global/buffer diagnostic toggles, spelling toggles, and buffer isolation.

@@ -79,7 +79,7 @@ These modules are archived outside the import tree, or are commented Lua.
 | archive/unused-modules/home/zen-browser.nix: bookmarks | Specify the tree and reconcile existing profile data before enabling declarative bookmarks. |
 | Same file: upstream browser issue | Recheck the issue against the selected version and reproduce before removing the fallback browser. |
 | Same file: cookies | Inspect policies/preferences and test restart persistence with a disposable profile first. |
-| Former ltex-ls.lua comments: lsp.lua / n-gram data | The plugin spec is now active and uses the shared writing module. Optional n-gram corpora remain deferred; they do not provide offline Norwegian grammar. |
+| Former ltex-ls.lua comments: lsp.lua / n-gram data | Server configuration and language commands are consolidated in plugins/writing.lua. Unused standalone LanguageTool/fastText packages were removed. Optional n-gram corpora remain deferred; they do not provide offline Norwegian grammar. |
 
 ## Verification
 

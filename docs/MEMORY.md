@@ -12,11 +12,17 @@ Remaining unrelated backlog: [todo-audit.md](todo-audit.md).
 - New feature review bookmark: codex/ltex-local, descending from the cleanup
   branch. Do not interpret the successful activation report as approval to
   move main; the existing review gate remains.
-- dotfiles/nvim/lua/plugins/ltex-ls.lua enables the Nix ltex-ls-plus through
-  LazyVim's ltex_plus server with mason=false and an empty HTTP server URI.
-- config/writing.lua provides buffer-local WritingLanguage en/nb modes:
+- dotfiles/nvim/lua/plugins/writing.lua combines the server spec and language
+  commands. It enables Nix ltex-ls-plus through LazyVim's ltex_plus server
+  with mason=false and an empty HTTP server URI. The legacy ltex-ls.lua and
+  config/writing.lua files were removed.
+- Buffer-local WritingLanguage en/nb modes provide
   English grammar plus bilingual spelling by default; Norwegian Bokmål
-  spelling with only LTeX English diagnostics hidden in nb mode.
+  spelling with only LTeX English diagnostics filtered in nb mode. The latest
+  server result is retained for switching back to English and cleared on
+  buffer wipe/client detach. Diagnostic toggles cannot reveal filtered issues.
+- Spelling defaults are set on FileType only; language changes, buffer entry,
+  and LSP attachments preserve the user's spelling/diagnostic toggles.
 - No offline Norwegian grammar is claimed. LTeX's duplicate English spelling
   rule is disabled; Neovim handles spelling and personal dictionaries.
 - modules/features/dotfiles.nix pins official nb spell/suggestion files
@@ -24,8 +30,9 @@ Remaining unrelated backlog: [todo-audit.md](todo-audit.md).
 - editor-runtime installs ltex-ls-plus, which bundles its LanguageTool engine.
   Removed the unused standalone languagetool/fasttext packages and their
   separate feature module.
-- Actual headless LazyVim English grammar, language-mode switching, and
-  English/Norwegian spelling tests passed. See writing.md for usage.
+- checks/neovim-writing.lua exercises real LazyVim/LTeX grammar/corrections, bilingual
+  spelling, language selection, buffer isolation, and independent toggles.
+  See writing.md for usage and the regression-check command.
 
 ## Workflow and review gate
 
@@ -36,8 +43,8 @@ Remaining unrelated backlog: [todo-audit.md](todo-audit.md).
 - After approval, fast-forward local main to the reviewed descendant using jj;
   preserve the individual commits. No remote push is authorized.
 - The user built and attempted Saguaro activation after the cleanup. It stopped
-  at Homebrew because qBittorrent/Xournal++ casks were disabled. Later stages
-  may not have run; rerun the switch after the fixes below.
+  at Homebrew because qBittorrent/Xournal++ casks were disabled. After the
+  follow-up fixes below, the user confirmed everything works.
 
 ## Architecture
 
