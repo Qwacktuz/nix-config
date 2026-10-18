@@ -32,6 +32,10 @@
         defaults = {
           smb.NetBIOSName = config.networking.hostName;
 
+          controlcenter = {
+            BatteryShowPercentage = true;
+          };
+
           trackpad = {
             Clicking = true;
             TrackpadThreeFingerDrag = true;
