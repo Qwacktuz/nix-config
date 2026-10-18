@@ -22,6 +22,7 @@ let
 
   darwinHmExtras = with config.flake.modules.homeManager; [
     profile-darwin
+    ssh-private-keys
   ];
 
   hmDefaults = {

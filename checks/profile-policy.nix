@@ -114,22 +114,15 @@ assert lib.assertMsg (
 assert lib.assertMsg (
   builtins.elem "tailscale-app" (casks luna) && builtins.elem "orbstack" (casks luna)
 ) "Luna needs its selected VPN/container apps";
-assert lib.assertMsg (containsNone [ "utm" "steam" "prismlauncher" "android-studio" ] (
-  casks luna
-)) "Optional apps leaked into Luna";
 assert lib.assertMsg (
-  luna.homebrew.masApps == { }
-) "Luna bootstrap must not require an App Store login";
-assert lib.assertMsg (containsNone (
-  nativeApps
-  ++ toolchains
-  ++ [
-    "qemu"
-    "lima"
-    "spotify"
-    "tenacity"
-  ]
-) (packages luna)) "Luna has duplicate GUI ownership or optional/global toolchains";
+  lib.sort builtins.lessThan (casks luna) == lib.sort builtins.lessThan (casks saguaro)
+) "Luna and Saguaro must include the same daily and optional casks";
+assert lib.assertMsg (
+  luna.homebrew.masApps == saguaro.homebrew.masApps
+) "Luna and Saguaro must include the same optional App Store apps";
+assert lib.assertMsg (containsNone (nativeApps ++ toolchains) (
+  packages luna
+)) "Luna has duplicate GUI ownership or global project toolchains";
 assert lib.assertMsg (containsNone (
   nativeApps
   ++ toolchains

@@ -1,5 +1,11 @@
 # Luna migration plan
 
+Current selection (2026-10-19): Luna now imports the same Darwin and Home Manager
+optional profiles as Saguaro, including games, peripheral apps, UTM, Spotify,
+MPD, and Lima/QEMU. WireGuard's App Store installation requires an Apple account.
+The daily-only Luna selections and counts recorded below describe the original
+migration baseline and are superseded by this selection.
+
 Target: `darwinConfigurations.luna`, an Apple Silicon MacBook Pro
 (`aarch64-darwin`). Review branch: `codex/luna-cleanup`, based on the existing
 TODO-fix commits. One jj commit per numbered step. Leave main unchanged until

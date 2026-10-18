@@ -199,6 +199,42 @@ Do not use this user module for boot-time passwords or system services.
 
 ## Edit or add secrets
 
+### SSH client key restoration
+
+`secrets/ssh.yaml` contains 21 private SSH client key files imported from
+Saguaro's `~/.ssh`, plus their 8 existing matching `.pub` files. Only the personal
+age recipient can decrypt it; SSH host recipients are not enrolled for this file.
+The `ssh-private-keys` Home Manager feature is imported on Saguaro and Luna only.
+Neither Fishhook nor Cholla receives these client keys.
+
+Each field under `keys` preserves the original filename and complete file bytes,
+including any existing SSH passphrase encryption. Configuration files,
+`known_hosts`, notes, sockets, and directories were not imported. The bootstrap
+personal age identity and system SSH host identities remain outside this file.
+
+On the new Mac, restore the personal age `keys.txt` first. Home Manager then
+creates a mode `0700` `~/.ssh` directory and SOPS installs links at the declared
+key filenames, pointing to user-owned mode `0600` runtime files outside the Nix
+store. The next activation replaces existing files at those managed paths;
+preserve a secure independent backup before switching. Original SSH files were
+not changed during the import, and no key deployment was activated.
+
+FIDO `*_sk` files are authenticator handles; restoring them does not clone the
+hardware key or remove its touch/PIN requirement. Existing SSH passphrases still
+apply. A single personal age identity grants access to every key in this file;
+split files and recipients if some user devices should receive fewer keys.
+
+```bash
+SOPS_AGE_KEY_FILE="$HOME/.config/sops/age/keys.txt" \
+  SOPS_EDITOR='nvim -u NONE -i NONE -n' sops edit secrets/ssh.yaml
+```
+
+When adding/removing a filename, also update `keyFiles` in
+`modules/features/ssh-private-keys.nix`. Removing its declaration does not revoke
+SSH access: remove its public authorization from the destination servers too.
+
+### Other application secrets
+
 ```bash
 export SOPS_AGE_KEY_FILE="$HOME/.config/sops/age/keys.txt"
 sops secrets/home.yaml
@@ -216,11 +252,8 @@ contain a secret value, use sops-nix runtime templates/placeholders, never
 `builtins.readFile`, `home.file.text`, `environment.etc.text`, `writeText`, or a
 derivation that decrypts it. Never export secret values via Nix session variables.
 
-Private SSH keys can be separate encrypted fields/files and deployed to
-`~/.ssh` with restrictive permissions if needed. Do not distribute every private
-key to every host. FIDO/YubiKey keys remain hardware backed; SOPS is not a
-replacement for the authenticator. Existing private keys outside this repository
-were not imported or changed.
+Do not distribute private client keys to every host. FIDO/YubiKey keys remain
+hardware backed; SOPS is not a replacement for the authenticator.
 
 ## Rotation, recovery, and publication
 

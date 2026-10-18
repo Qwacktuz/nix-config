@@ -11,7 +11,7 @@
 Nix owns CLI tools, configuration, and project toolchains. Homebrew casks own
 ordinary macOS GUI apps; Home Manager retains supported settings. JetBrains,
 optional Spicetify/Tenacity, and optional qBittorrent/Xournal++ are documented Nix exceptions.
-Luna gets daily apps; Saguaro explicitly selects optional app collections.
+Luna and Saguaro both select daily apps and the full optional app collections.
 
 Project shells: `nix develop .#go`, `.#rust`, `.#jvm`, `.#python`, `.#web`,
 `.#infra`, or `.#c`. See the migration plan before switching a new Mac.
@@ -89,3 +89,11 @@ Back up the private SSH host key securely. For user secrets, restore your
 personal age identity to `~/.config/sops/age/keys.txt` with mode `0600` and its
 parent directory mode `0700`. It must match the personal recipient enrolled for
 `home.yaml`. See [the SOPS guide](docs/secrets.md) before activating a new host.
+
+Lastly on a new machine run and rebuild switch inside the flake
+
+```sh
+# Add my own secret age key here
+export SOPS_AGE_KEY_FILE="$HOME/.config/sops/age/keys.txt"
+
+```
