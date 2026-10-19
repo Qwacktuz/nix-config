@@ -50,6 +50,8 @@
             autohide = true;
             mru-spaces = false; # disable reorganizing windows by recent
             expose-group-apps = true; # grouping in mission control
+            static-only = true;
+
             #autohide-delay = 1000.0;
             # Speed of the animation when hiding/showing the Dock
             #autohide-time-modifier = 0.0;
