@@ -9,7 +9,7 @@
         config.flake.modules.darwin.${config.userName}
       ];
 
-      networking.hostName = "luna";
+      networking.hostName = "sol";
       system.defaults.loginwindow.LoginwindowText = "Sol M2";
 
       # home-manager.users.${config.userName}.imports = with config.flake.modules.homeManager; [
