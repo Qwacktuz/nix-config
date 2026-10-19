@@ -13,6 +13,7 @@
       security.pam.services.sudo_local.reattach = true;
 
       system = {
+        startup.chime = false;
 
         # Set Git commit hash for darwin-version.
         configurationRevision = self.rev or self.dirtyRev or null;
@@ -30,6 +31,11 @@
         };
 
         defaults = {
+          WindowManager = {
+            StageManagerHideWidgets = true;
+            StandardHideWidgets = true;
+          };
+
           smb.NetBIOSName = config.networking.hostName;
 
           controlcenter = {
