@@ -26,7 +26,10 @@
           sshKeyPaths = [ ];
         };
         secrets = {
-          ssh_config.mode = "0600";
+          ssh_config = {
+            mode = "0600";
+            key = if pkgs.stdenv.hostPlatform.isDarwin then "ssh_config_proton" else "ssh_config";
+          };
           obsidian_workspaces.mode = "0600";
         };
       };

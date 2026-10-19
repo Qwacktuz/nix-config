@@ -9,11 +9,38 @@
     { config, pkgs, ... }:
     let
       isDarwin = pkgs.stdenv.hostPlatform.isDarwin;
-      protonAgent = "${config.home.homeDirectory}/.ssh/proton-pass-ssh-agent.sock";
+      protonAgent = "${config.home.homeDirectory}/.ssh/proton-pass-agent.sock";
+      brewPrefix = if pkgs.stdenv.hostPlatform.isAarch64 then "/opt/homebrew" else "/usr/local";
     in
     {
       home.sessionVariables = lib.optionalAttrs isDarwin {
         SSH_AUTH_SOCK = protonAgent;
+      };
+
+      launchd.agents.proton-pass-ssh-agent = lib.mkIf isDarwin {
+        enable = true;
+        config = {
+          ProgramArguments = [
+            "${brewPrefix}/bin/pass-cli"
+            "ssh-agent"
+            "start"
+            "--vault-name"
+            "Dev"
+            "--socket-path"
+            protonAgent
+            "--refresh-interval"
+            "300"
+          ];
+          EnvironmentVariables = {
+            HOME = config.home.homeDirectory;
+            PATH = "${brewPrefix}/bin:/usr/bin:/bin:/usr/sbin:/sbin";
+          };
+          RunAtLoad = true;
+          KeepAlive = true;
+          ThrottleInterval = 60;
+          StandardOutPath = "${config.home.homeDirectory}/Library/Logs/proton-pass-ssh-agent.log";
+          StandardErrorPath = "${config.home.homeDirectory}/Library/Logs/proton-pass-ssh-agent.error.log";
+        };
       };
 
       programs.ssh = {
@@ -32,7 +59,7 @@
             ServerAliveCountMax = 3;
             ForwardAgent = false;
             ForwardX11 = false;
-            IdentitiesOnly = !isDarwin;
+            IdentitiesOnly = true;
             AddKeysToAgent = if isDarwin then "no" else "yes";
             ControlMaster = "auto";
             ControlPath = "~/.ssh/cm-%r@%h:%p";
@@ -54,7 +81,7 @@
             User = "git";
             IdentitiesOnly = true;
             IdentityFile = [
-              "~/.ssh/github_id_ed25519"
+              "~/.ssh/github_id_ed25519${lib.optionalString isDarwin ".pub"}"
               "~/.ssh/kaktus_id_ed25519_sk"
               "~/.ssh/kaktus_id_ed25519_sk_backup"
             ];
@@ -65,7 +92,7 @@
             User = "git";
             IdentitiesOnly = true;
             IdentityFile = [
-              "~/.ssh/gitlab_id_ed25519"
+              "~/.ssh/gitlab_id_ed25519${lib.optionalString isDarwin ".pub"}"
               "~/.ssh/kaktus_id_ed25519_sk"
               "~/.ssh/kaktus_id_ed25519_sk_backup"
             ];

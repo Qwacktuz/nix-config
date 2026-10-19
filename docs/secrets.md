@@ -199,39 +199,34 @@ Do not use this user module for boot-time passwords or system services.
 
 ## Edit or add secrets
 
-### SSH client key restoration
+### SSH client keys and Proton Pass
 
-`secrets/ssh.yaml` contains 21 private SSH client key files imported from
-Saguaro's `~/.ssh`, plus their 8 existing matching `.pub` files. Only the personal
-age recipient can decrypt it; SSH host recipients are not enrolled for this file.
-The `ssh-private-keys` Home Manager feature is imported on Saguaro and Luna only.
-Neither Fishhook nor Cholla receives these client keys.
+MacBooks use the Proton Pass CLI agent with the `Dev` vault. Log in once with
+`pass-cli login` on each MacBook. Home Manager starts the agent at login and
+refreshes vault keys every five minutes. Encrypted SSH key items need a Hidden
+custom field named `Passphrase` containing the key passphrase.
 
-Each field under `keys` preserves the original filename and complete file bytes,
-including any existing SSH passphrase encryption. Configuration files,
-`known_hosts`, notes, sockets, and directories were not imported. The bootstrap
-personal age identity and system SSH host identities remain outside this file.
+`ssh-private-keys` now deploys only the 21 public `.pub` selectors and two FIDO
+`*_sk` handles from `secrets/ssh.yaml`. Software private keys remain encrypted in
+that file for recovery but are no longer declared as SOPS runtime secrets.
+Activation removes old software-private-key links only when they point to the
+expected SOPS runtime paths; independent regular files are left untouched.
 
-On the new Mac, restore the personal age `keys.txt` first. Home Manager then
-creates a mode `0700` `~/.ssh` directory and SOPS installs links at the declared
-key filenames, pointing to user-owned mode `0600` runtime files outside the Nix
-store. The next activation replaces existing files at those managed paths;
-preserve a secure independent backup before switching. Original SSH files were
-not changed during the import, and no key deployment was activated.
+Darwin uses `ssh_config_proton` in `secrets/home.yaml`, with software
+`IdentityFile` entries pointing to `.pub` files. Linux retains `ssh_config`.
+`IdentitiesOnly yes` selects the matching agent key rather than offering every
+vault key. Import software keys into Proton Pass before activating this change;
+this configuration does not upload private keys or passphrases.
 
-FIDO `*_sk` files are authenticator handles; restoring them does not clone the
-hardware key or remove its touch/PIN requirement. Existing SSH passphrases still
-apply. A single personal age identity grants access to every key in this file;
-split files and recipients if some user devices should receive fewer keys.
+FIDO handles still require their physical security keys and touch/PIN. The
+personal age identity is still required to decrypt the public selectors, handles,
+and other SOPS-managed configuration during activation.
 
 ```bash
-SOPS_AGE_KEY_FILE="$HOME/.config/sops/age/keys.txt" \
-  SOPS_EDITOR='nvim -u NONE -i NONE -n' sops edit secrets/ssh.yaml
+nh darwin switch
+ssh-add -l
+ssh -T git@github.com
 ```
-
-When adding/removing a filename, also update `keyFiles` in
-`modules/features/ssh-private-keys.nix`. Removing its declaration does not revoke
-SSH access: remove its public authorization from the destination servers too.
 
 ### Other application secrets
 
