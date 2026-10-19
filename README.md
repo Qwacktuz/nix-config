@@ -16,6 +16,16 @@ Luna and Saguaro both select daily apps and the full optional app collections.
 Project shells: `nix develop .#go`, `.#rust`, `.#jvm`, `.#python`, `.#web`,
 `.#infra`, or `.#c`. See the migration plan before switching a new Mac.
 
+## Wallpaper
+
+Saguaro and Luna apply the image selected by `stylix.image` in
+`modules/features/stylix.nix` on activation and at graphical login, using
+Home Manager's native `desktoppr` integration. The default is
+`assets/wallpapers/spacegirl.png`, scaled to fill each screen.
+To change it, add your image under `assets/wallpapers/`, update that one path,
+include the new file in jj, and switch. The configured image is reapplied at
+login; manual wallpaper changes do not override the declaration permanently.
+
 ## Caveats
 
 - Commands such as `nix flake show` won't work properly since dendritic nix
