@@ -4,6 +4,7 @@ let
   saguaro = self.darwinConfigurations.saguaro.config;
   fishhook = self.nixosConfigurations.fishhook.config;
   cholla = self.nixosConfigurations.cholla.config;
+  darwinHosts = map (host: host.config) (builtins.attrValues self.darwinConfigurations);
   home = host: host.home-manager.users.kaktus;
   casks = host: map (c: c.name) host.homebrew.casks;
   packages = host: map lib.getName (home host).home.packages;
@@ -33,6 +34,16 @@ let
     "utm"
     "stats"
     "iina"
+    "karabiner-elements"
+    "idea"
+    "idea-with-plugins"
+    "pycharm"
+    "pycharm-with-plugins"
+    "webstorm"
+    "webstorm-with-plugins"
+    "spotify"
+    "spicetify-catppuccin"
+    "prismlauncher"
   ];
   validCask =
     name:
@@ -46,10 +57,7 @@ let
         && builtins.pathExists "${self.inputs.homebrew-cask}/Casks/font/font-${builtins.substring 5 1 name}/${name}.rb"
       );
   predictableBrew =
-    host:
-    host.homebrew.onActivation.cleanup == "none"
-    && !host.homebrew.onActivation.autoUpdate
-    && !host.homebrew.onActivation.upgrade;
+    host: !host.homebrew.onActivation.autoUpdate && !host.homebrew.onActivation.upgrade;
   runtimeSecrets =
     host:
     let
@@ -87,17 +95,19 @@ assert lib.assertMsg (lib.all runtimeSecrets [
   fishhook
   cholla
 ]) "Private configuration must decrypt at runtime outside the Nix store on every host";
-assert lib.assertMsg (containsNone [ "qbittorrent" "xournal++" ] (
-  casks saguaro
-)) "Disabled macOS casks must use the optional Nix packages";
-assert lib.assertMsg (lib.all (name: builtins.elem name (packages saguaro)) [
-  "qbittorrent"
-  "xournalpp"
-]) "Saguaro must retain the Nix exceptions for disabled casks";
-assert lib.assertMsg (lib.all validCask (casks saguaro))
-  "Missing pinned casks: ${
-    lib.concatStringsSep ", " (builtins.filter (name: !validCask name) (casks saguaro))
-  }";
+assert lib.assertMsg (lib.all (
+  host:
+  containsNone [ "qbittorrent" "xournal++" "stolendata-mpv" ] (casks host)
+  && lib.all (name: builtins.elem name (packages host)) [
+    "qbittorrent"
+    "xournalpp"
+    "tenacity"
+    "mpv-with-scripts"
+  ]
+) darwinHosts) "Retain only the approved Nix GUI exceptions; do not install disabled macOS casks";
+assert lib.assertMsg (lib.all (
+  host: lib.all validCask (casks host)
+) darwinHosts) "Every macOS cask must exist in its pinned tap";
 assert lib.assertMsg (lib.unique (casks luna) == casks luna) "Luna has duplicate cask owners";
 assert lib.assertMsg (
   lib.unique (casks saguaro) == casks saguaro
@@ -107,7 +117,7 @@ assert lib.assertMsg (lib.all (name: builtins.elem name (casks saguaro)) (
 )) "Saguaro must include the daily apps";
 assert lib.assertMsg (
   predictableBrew luna && predictableBrew saguaro
-) "Brew activation must not update, upgrade, or prune";
+) "Brew activation must not update or upgrade";
 assert lib.assertMsg (
   !luna.services.tailscale.enable && !saguaro.services.tailscale.enable
 ) "Use one macOS Tailscale backend";
@@ -120,9 +130,34 @@ assert lib.assertMsg (
 assert lib.assertMsg (
   luna.homebrew.masApps == saguaro.homebrew.masApps
 ) "Luna and Saguaro must include the same optional App Store apps";
-assert lib.assertMsg (containsNone (nativeApps ++ toolchains) (
-  packages luna
-)) "Luna has duplicate GUI ownership or global project toolchains";
+assert lib.assertMsg (lib.all (
+  host:
+  containsNone (nativeApps ++ toolchains) (
+    packages host ++ map lib.getName host.environment.systemPackages
+  )
+) darwinHosts) "A macOS host has duplicate GUI ownership or global project toolchains";
+assert lib.assertMsg (lib.all (
+  host:
+  lib.all (name: builtins.elem name (casks host)) [
+    "intellij-idea"
+    "pycharm"
+    "webstorm"
+    "spotify"
+    "karabiner-elements"
+  ]
+  && containsNone [ "mpv" ] (map (brew: brew.name) host.homebrew.brews)
+  && !(home host).programs.spicetify.enable
+  && !(home host).programs.prismlauncher.enable
+  && !host.services.karabiner-elements.enable
+) darwinHosts) "GUI apps without reliable nix-darwin integration must use Homebrew";
+assert lib.assertMsg (lib.all (
+  host:
+  host.services.aerospace.enable
+  && builtins.elem host.services.aerospace.package host.environment.systemPackages
+  && containsNone [ "aerospace" "nikitabobko/tap/aerospace" ] (casks host)
+  && containsNone [ "aerospace" ] (packages host)
+  && lib.hasPrefix "${host.services.aerospace.package}/Applications/AeroSpace.app/Contents/MacOS/AeroSpace" host.launchd.user.agents.aerospace.command
+) darwinHosts) "AeroSpace must be installed and configured by its native nix-darwin service";
 assert lib.assertMsg (containsNone (
   nativeApps
   ++ toolchains

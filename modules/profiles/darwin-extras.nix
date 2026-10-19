@@ -6,6 +6,7 @@
       apps-games
       apps-peripherals
       apps-creative
+      spicetify
       apps-browsers
       apps-security
       apps-dev-extras

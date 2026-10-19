@@ -8,10 +8,16 @@
 
 ## Package ownership
 
-Nix owns CLI tools, configuration, and project toolchains. Homebrew casks own
-ordinary macOS GUI apps; Home Manager retains supported settings. JetBrains,
-optional Spicetify/Tenacity, and optional qBittorrent/Xournal++ are documented Nix exceptions.
+Nix owns CLI tools, configuration, and project toolchains. Prefer native
+nix-darwin modules for GUI apps with reliable installation and service support
+(currently AeroSpace). Other macOS GUI apps use Homebrew casks; Home Manager
+retains supported settings. Karabiner stays a cask until its nix-darwin module
+supports the current app layout. Tenacity, qBittorrent, Xournal++, and mpv are
+Nix exceptions: missing/disabled casks and, for mpv, a failing Homebrew formula
+dependency graph with the pinned taps.
 Luna and Saguaro both select daily apps and the full optional app collections.
+See [macOS GUI ownership and migration](docs/macos-gui-apps.md), including
+JetBrains plugin installation and Spicetify customization after switching.
 
 Project shells: `nix develop .#go`, `.#rust`, `.#jvm`, `.#python`, `.#web`,
 `.#infra`, or `.#c`. See the migration plan before switching a new Mac.

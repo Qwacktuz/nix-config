@@ -1,5 +1,5 @@
 {
-  # Tenacity has no matching cask in the pinned input; keep it opt-in via Nix.
+  # Tenacity has no cask; mpv's Brew dependency graph fails with the pinned taps.
   flake.modules.homeManager.creative-apps = { pkgs, ... }: {
     home.packages = with pkgs; [
       tenacity

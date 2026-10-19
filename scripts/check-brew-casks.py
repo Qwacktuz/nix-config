@@ -15,7 +15,7 @@ def main():
     parser.add_argument("host", nargs="?", default="luna")
     args = parser.parse_args()
     root = Path(__file__).resolve().parent.parent
-    names = json.loads(
+    config = json.loads(
         subprocess.check_output(
             [
                 "nix",
@@ -24,23 +24,56 @@ def main():
                 "--option",
                 "allow-import-from-derivation",
                 "false",
-                f"{root}#darwinConfigurations.{args.host}.config.homebrew.casks",
+                f"{root}#darwinConfigurations.{args.host}.config",
                 "--apply",
-                "casks: map (c: c.name) casks",
+                "cfg: { names = map (c: c.name) cfg.homebrew.casks; "
+                "taps = builtins.mapAttrs (_: tap: toString tap) cfg.nix-homebrew.taps; }",
             ],
             text=True,
         )
     )
+    names = config["names"]
     if not names:
         print(f"PASS: {args.host} declares no casks")
         return 0
     brew = shutil.which("brew")
     if brew is None:
         parser.error("Homebrew is required for macOS cask availability checks")
-    env = os.environ | {"HOMEBREW_NO_AUTO_UPDATE": "1", "HOMEBREW_NO_ANALYTICS": "1"}
+    definitions = []
+    for name in names:
+        if "/" in name:
+            owner, tap, token = name.split("/")
+            tap_name = f"{owner}/homebrew-{tap}"
+        else:
+            token = name
+            tap_name = "homebrew/homebrew-cask"
+        source = Path(config["taps"][tap_name]) / "Casks"
+        matches = list(source.rglob(f"{token}.rb"))
+        if len(matches) != 1:
+            parser.error(f"Expected one pinned cask for {name}, found {len(matches)}")
+        definitions.append({"path": str(matches[0]), "tap": tap_name})
+
+    # Evaluate the pinned Ruby DSL for this Mac without installing taps or apps.
+    # Developer mode is process-local, so `brew ruby` does not enable it globally.
+    env = os.environ | {
+        "HOMEBREW_NO_AUTO_UPDATE": "1",
+        "HOMEBREW_NO_ANALYTICS": "1",
+        "HOMEBREW_DEVELOPER": "1",
+    }
+    ruby = """
+require "cask/cask_loader"
+result = JSON.parse(STDIN.read).map do |definition|
+  cask = Cask::CaskLoader::FromContentLoader.new(
+    File.read(definition.fetch("path")), tap: Tap.fetch(definition.fetch("tap"))
+  ).load(config: nil)
+  { token: cask.token, disabled: cask.disabled?, disable_reason: cask.disable_reason }
+end
+puts JSON.generate({ casks: result })
+"""
     result = json.loads(
         subprocess.check_output(
-            [brew, "info", "--cask", "--json=v2", *names],
+            [brew, "ruby", "-e", ruby],
+            input=json.dumps(definitions),
             env=env,
             text=True,
         )

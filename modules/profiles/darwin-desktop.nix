@@ -12,6 +12,7 @@
       brave
       zed
       vscodium
+      jetbrains
       virtualization
       yubikey
       stylix

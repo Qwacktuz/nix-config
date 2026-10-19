@@ -6,6 +6,7 @@
       "stats"
       "iina"
       "keepassxc"
+      # nix-darwin's module still uses the pre-v15 launch-agent layout (#1041).
       "karabiner-elements"
       "lulu"
       "font-fontawesome"

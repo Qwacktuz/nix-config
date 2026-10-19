@@ -2,8 +2,14 @@
 {
   flake-file.inputs.nix-jetbrains-plugins.url = "github:nix-community/nix-jetbrains-plugins";
 
+  flake.modules.darwin.jetbrains.homebrew.casks = [
+    "intellij-idea"
+    "pycharm"
+    "webstorm"
+  ];
+
   flake.modules.homeManager.jetbrains =
-    { pkgs, ... }:
+    { pkgs, lib, ... }:
     let
       jbLib = inputs.nix-jetbrains-plugins.lib;
       commonPlugins = [
@@ -42,26 +48,37 @@
         "com.github.copilot"
       ];
 
-      # buildIDE =
-      #   ide: specificPlugins: jbLib.buildIdeWithPlugins pkgs ide (commonPlugins ++ specificPlugins);
-
-      # Darwin patch
+      launchers = {
+        idea = "/Applications/IntelliJ IDEA.app/Contents/MacOS/idea";
+        pycharm = "/Applications/PyCharm.app/Contents/MacOS/pycharm";
+        webstorm = "/Applications/WebStorm.app/Contents/MacOS/webstorm";
+      };
       buildIDE =
-        ide: specificPlugins:
-        let
-          wrappedIde = jbLib.buildIdeWithPlugins pkgs ide (commonPlugins ++ specificPlugins);
-        in
-        # Strip 'disallowedReferences' on darwin because the
-        # wrapper causes a false-positive security violation.
-        wrappedIde.overrideAttrs (old: {
-          disallowedReferences = [ ];
-        });
+        name: specificPlugins:
+        if pkgs.stdenv.hostPlatform.isDarwin then
+          pkgs.writeShellScriptBin "jetbrains-install-${name}-plugins" ''
+            set -eu
+            launcher=${lib.escapeShellArg launchers.${name}}
+            if [ ! -x "$launcher" ]; then
+              echo "Install the ${name} Homebrew cask before installing plugins." >&2
+              exit 1
+            fi
+            exec "$launcher" installPlugins ${
+              lib.escapeShellArgs (lib.unique (commonPlugins ++ specificPlugins))
+            } "$@"
+          ''
+        else
+          (jbLib.buildIdeWithPlugins pkgs pkgs.jetbrains.${name} (commonPlugins ++ specificPlugins))
+          .overrideAttrs
+            (_: {
+              disallowedReferences = [ ];
+            });
 
     in
     {
-      home.packages = with pkgs.jetbrains; [
+      home.packages = [
         # --- IntelliJ IDEA Ultimate ---
-        (buildIDE idea [
+        (buildIDE "idea" [
           "Pythonid" # PyCharm Pro replacement
           "org.jetbrains.plugins.go" # GoLand replacement
           "com.jetbrains.rust" # Rust rover replacement
@@ -99,12 +116,12 @@
         ])
 
         # --- PyCharm Professional ---
-        (buildIDE pycharm [
+        (buildIDE "pycharm" [
           "org.tonybaloney.security.pycharm-security"
         ])
 
         # --- WebStorm ---
-        (buildIDE webstorm [
+        (buildIDE "webstorm" [
           "org.jetbrains.plugins.astro"
           "dev.blachut.svelte.lang"
           "com.intellij.lang.jsgraphql"
@@ -113,18 +130,18 @@
         ])
 
         # --- CLion ---
-        # (buildIDE clion [
+        # (buildIDE "clion" [
         #   "com.intellij.gradle"
         #   "com.intellij.clion-gradle"
         # ])
 
         # --- GoLand ---
-        # (buildIDE goland [
+        # (buildIDE "goland" [
         #   "intellij.prettierJS"
         # ])
 
         # --- Rust Rover ---
-        # (buildIDE rust-rover [])
+        # (buildIDE "rust-rover" [])
       ];
     };
 }

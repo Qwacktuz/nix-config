@@ -3,7 +3,8 @@
   flake.modules.darwin.virtualization-vms.homebrew.casks = [ "utm" ];
 
   flake.modules.homeManager.virtualization = { pkgs, ... }: {
-    programs.docker-cli.enable = true;
+    # OrbStack and docker login/context commands need a writable config on macOS.
+    programs.docker-cli.enable = pkgs.stdenv.hostPlatform.isLinux;
     home.packages = [ pkgs.lazydocker ];
   };
 

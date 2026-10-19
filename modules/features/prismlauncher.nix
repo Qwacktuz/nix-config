@@ -3,7 +3,7 @@
     { pkgs, lib, ... }:
     {
       programs.prismlauncher = {
-        enable = true;
+        enable = pkgs.stdenv.hostPlatform.isLinux;
 
         #lib.optionals pkgs.stenv.hostPlatform.isLinux()
         package = pkgs.prismlauncher.override {

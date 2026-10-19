@@ -14,12 +14,16 @@ user review and approval; do not activate this machine during cleanup.
 ## Ownership
 
 - Nix: CLI applications, configuration, services, and project toolchains.
-- Homebrew casks: ordinary macOS GUI applications. Home Manager keeps settings
+- Native nix-darwin modules own GUI apps with reliable installation and service
+  support: currently AeroSpace, including its settings and launchd agent.
+- Homebrew casks: other macOS GUI applications. Home Manager keeps settings
   where its module supports configuration without installing the application.
-- Explicit Nix GUI exceptions: JetBrains IDE/plugin wrappers, optional
-  Spicetify/Spotify, and optional Tenacity (no matching pinned cask), and optional qBittorrent/Xournal++
-  (their pinned macOS casks are disabled).
-  AeroSpace remains owned by its nix-darwin service.
+- Current Nix GUI exceptions: Tenacity (no matching pinned cask),
+  qBittorrent/Xournal++ (their pinned macOS casks are disabled), and mpv
+  (its Homebrew formula dependency graph fails with the pinned taps).
+  JetBrains and Spotify use casks. Karabiner remains a cask because the pinned nix-darwin module uses
+  an incompatible pre-v15 launch-agent layout. See [the GUI migration](macos-gui-apps.md).
+  The progress and verification entries below record the earlier baseline.
 - Linux GUI packages: Nix, only in desktop roles.
 - Each application has one installation owner; profiles compose features.
 - Compilers/runtimes/SDKs: named project shells, except editor dependencies.

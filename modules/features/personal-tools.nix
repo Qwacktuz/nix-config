@@ -4,7 +4,7 @@
       with pkgs;
       [
         protonmail-export
-        ani-cli
+        (ani-cli.override { withMpv = !pkgs.stdenv.hostPlatform.isDarwin; })
         aoc-cli
         binsider
         bitwise
