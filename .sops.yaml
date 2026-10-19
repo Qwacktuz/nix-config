@@ -3,6 +3,7 @@ keys:
   - &user_kaktus age1rqzjng53hyak0lzaj5730zdez72eakj28zgtqqp68jkd9xuq0gask43smw
   - &host_saguaro age1avlprtsgdx36uhzq9vjhajgl8skudzre9fkp9s2ln4gstltzndnsfn8wjp
   - &host_luna age1cdmwx9r5e0hqx58evq3ynhuveyxngx7kupr7wksusylx52tg6fzsz9sh3e
+  - &host_sol age1wnxu49f0e9u4zdu3ltpu5k6002etncvk64c94z8t3dr67f5ykanqr77wdg
 
 creation_rules:
   - path_regex: ^secrets/luna\.yaml$
@@ -25,3 +26,4 @@ creation_rules:
           - *user_kaktus
           - *host_saguaro
           - *host_luna
+          - *host_sol
