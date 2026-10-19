@@ -5,17 +5,17 @@
     {
       imports = with config.flake.modules.darwin; [
         profile-laptop
-        profile-extras
+        # profile-extras
         config.flake.modules.darwin.${config.userName}
       ];
 
       networking.hostName = "sol";
       system.defaults.loginwindow.LoginwindowText = "Sol M2";
 
-      # home-manager.users.${config.userName}.imports = with config.flake.modules.homeManager; [
-      # profile-extras
-      # profile-darwin-extras
-      # ];
+      home-manager.users.${config.userName}.imports = with config.flake.modules.homeManager; [
+        # profile-extras
+        profile-darwin-extras
+      ];
 
       nixpkgs.overlays = [
         self.overlays.default
