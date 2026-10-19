@@ -1,8 +1,21 @@
 { lib, config, ... }:
 {
+  flake.modules.darwin.darwin-profile-base.homebrew = {
+    brews = [ "proton-pass-cli" ];
+    casks = [ "proton-pass" ];
+  };
+
   flake.modules.homeManager.ssh-client =
-    { config, ... }:
+    { config, pkgs, ... }:
+    let
+      isDarwin = pkgs.stdenv.hostPlatform.isDarwin;
+      protonAgent = "${config.home.homeDirectory}/.ssh/proton-pass-ssh-agent.sock";
+    in
     {
+      home.sessionVariables = lib.optionalAttrs isDarwin {
+        SSH_AUTH_SOCK = protonAgent;
+      };
+
       programs.ssh = {
         enable = true;
         enableDefaultConfig = false;
@@ -19,8 +32,8 @@
             ServerAliveCountMax = 3;
             ForwardAgent = false;
             ForwardX11 = false;
-            IdentitiesOnly = true;
-            AddKeysToAgent = "yes";
+            IdentitiesOnly = !isDarwin;
+            AddKeysToAgent = if isDarwin then "no" else "yes";
             ControlMaster = "auto";
             ControlPath = "~/.ssh/cm-%r@%h:%p";
             ControlPersist = "10m";
@@ -28,9 +41,11 @@
             ConnectTimeout = "10";
             StrictHostKeyChecking = "accept-new";
             IgnoreUnknown = "UseKeychain";
-            UseKeychain = "yes";
+            UseKeychain = if isDarwin then "no" else "yes";
             VisualHostKey = "yes";
             UserKnownHostsFile = "~/.ssh/known_hosts";
+          } // lib.optionalAttrs isDarwin {
+            IdentityAgent = protonAgent;
           };
 
           # Git providers
