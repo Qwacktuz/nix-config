@@ -11,6 +11,7 @@
       "lulu"
       "font-fontawesome"
       "codex"
+      "chatgpt"
     ];
   };
 
