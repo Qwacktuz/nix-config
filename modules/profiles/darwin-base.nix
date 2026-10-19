@@ -5,6 +5,17 @@
     {
       imports = [ self.modules.darwin.networking ];
 
+      # https://github.com/maralorn/nix-output-monitor/pull/321
+      # Remove once nixpkgs includes the unknown activity/result type fix.
+      nixpkgs.overlays = [
+        (final: prev: {
+          nix-output-monitor = prev.nix-output-monitor.overrideAttrs (old: {
+            patches = (old.patches or [ ]) ++ [ ../../assets/patches/nom-unknown-events.patch ];
+          });
+          nh = prev.nh.override { inherit (final) nix-output-monitor; };
+        })
+      ];
+
       nix.extraOptions = ''
         extra-platforms = x86_64-darwin aarch64-darwin
       '';
