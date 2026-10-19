@@ -97,6 +97,8 @@
             AppleInterfaceStyleSwitchesAutomatically = false;
             KeyRepeat = 2;
             ApplePressAndHoldEnabled = false; # this setting on true drove me crazy
+            "com.apple.trackpad.scaling" = 1.0;
+            "com.apple.mouse.tapBehavior" = 1;
           };
 
           # CustomSystemPreferences = {
