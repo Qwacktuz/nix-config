@@ -81,6 +81,7 @@
             ShowStatusBar = true;
             _FXShowPosixPathInTitle = true;
             FXPreferredViewStyle = "Clmv"; # Nlsv
+            FXRemoveOldTrashItems = true;
             FXEnableExtensionChangeWarning = false;
           };
 

@@ -27,7 +27,7 @@ in
 
   flake.darwinConfigurations.sol = inputs.nix-darwin.lib.darwinSystem {
     modules = [
-      config.flake.modules.darwin.luna
+      config.flake.modules.darwin.sol
       { nixpkgs.hostPlatform = lib.mkDefault darwin; }
     ];
   };
