@@ -33,7 +33,7 @@ different product.
 
 Ghostty, Brave Origin, Zed, VSCodium, KeePassXC, Obsidian, LocalSend,
 Yubico Authenticator, Tailscale, OrbStack, UTM, Prism Launcher, and the other
-apps in `apps-optional.nix` already use casks. WireGuard remains an App Store
+apps in the [package profiles](profiles.md) use casks. WireGuard remains an App Store
 installation managed by Homebrew Bundle. The inactive examples under
 `archive/unused-modules` do not contribute packages to any host.
 

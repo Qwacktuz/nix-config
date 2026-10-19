@@ -50,7 +50,7 @@ let
     };
 in
 {
-  flake.modules.nixos.core = {
+  flake.modules.nixos.system-base = {
     imports = [
       inputs.sops-nix.nixosModules.sops
       coreModule
@@ -58,7 +58,7 @@ in
     # Remove the old /etc-managed key file before SOPS takes over its path.
     system.activationScripts.setupSecrets.deps = [ "etc" ];
   };
-  flake.modules.darwin.core = {
+  flake.modules.darwin.system-base = {
     imports = [
       inputs.sops-nix.darwinModules.sops
       coreModule

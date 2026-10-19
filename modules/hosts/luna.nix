@@ -4,8 +4,7 @@
     darwin@{ lib, ... }:
     {
       imports = with config.flake.modules.darwin; [
-        profile-laptop
-        profile-extras
+        profile-full
         config.flake.modules.darwin.${config.userName}
       ];
 
@@ -24,11 +23,6 @@
       #     LoginwindowText -string "if found contact $lockscreen_phone"
       #   unset lockscreen_phone
       # '';
-
-      home-manager.users.${config.userName}.imports = with config.flake.modules.homeManager; [
-        profile-extras
-        profile-darwin-extras
-      ];
 
       nixpkgs.overlays = [
         self.overlays.default

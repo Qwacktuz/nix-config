@@ -4,6 +4,11 @@
   flake.modules.homeManager.vscodium =
     { pkgs, lib, ... }:
     {
+      programs.zsh.shellAliases = {
+        code = "codium";
+        cdnix = "cd ~/nix-config && codium ~/nix-config";
+      };
+
       programs.vscodium = {
         enable = true;
         package = if pkgs.stdenv.hostPlatform.isDarwin then null else pkgs.vscodium;

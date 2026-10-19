@@ -15,7 +15,9 @@ retains supported settings. Karabiner stays a cask until its nix-darwin module
 supports the current app layout. Tenacity, qBittorrent, Xournal++, and mpv are
 Nix exceptions: missing/disabled casks and, for mpv, a failing Homebrew formula
 dependency graph with the pinned taps.
-Luna and Saguaro both select daily apps and the full optional app collections.
+Luna and Saguaro select `profile-full`; Sol selects `profile-core`.
+The five package categories are `core`, `dev`, `gaming`, `creative`, and
+`security`. See [profile selection and package placement](docs/profiles.md).
 See [macOS GUI ownership and migration](docs/macos-gui-apps.md), including
 JetBrains plugin installation and Spicetify customization after switching.
 

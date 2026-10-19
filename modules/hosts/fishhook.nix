@@ -14,11 +14,15 @@
         with config.flake.modules.nixos;
         [
           profile-server
-          user-kaktus-server
+          config.flake.modules.nixos.${config.userName}
         ]
         ++ [
           (modulesPath + "/virtualisation/proxmox-lxc.nix")
         ];
+
+      home-manager.users.${config.userName}.imports = [
+        config.flake.modules.homeManager.profile-cli
+      ];
 
       boot.isContainer = true;
 

@@ -14,7 +14,7 @@ described below. User identities for `home.yaml` and system identities for
 provide editing access; they do not provision boot-time decryption.
 
 `modules/features/sops.nix` imports the Home Manager sops-nix module on all
-four hosts through `profile-cli`. The input is pinned in `flake.lock` and follows
+five hosts through `profile-cli`. The input is pinned in `flake.lock` and follows
 the existing nixpkgs input. It works with Linux user systemd and macOS launchd.
 
 `secrets/home.yaml` contains the private SSH host configuration and Obsidian
@@ -162,7 +162,7 @@ or keys visible to the running system.
 
 Edit key fields with `sops edit secrets/pubkeys.yaml`. The system template combines
 the FIDO fields; Fishhook appends the Saguaro field. Add a new field's declaration
-and template placeholder in `modules/features/core.nix` to authorize a new key.
+and template placeholder in `modules/features/system-base.nix` to authorize a new key.
 
 The two user secrets were also installed once on Saguaro to verify runtime
 decryption and permissions. A full system switch is still needed to install the

@@ -2,21 +2,12 @@
 {
   flake.modules.darwin.saguaro = {
     imports = with config.flake.modules.darwin; [
-      profile-desktop
-      profile-extras
+      profile-full
       config.flake.modules.darwin.${config.userName}
-      # darwin.virtualization
-      # darwin.karabiner
-      # darwin.sketchybar
     ];
 
     networking.hostName = "saguaro";
     system.defaults.loginwindow.LoginwindowText = "Saguaro M4";
-
-    home-manager.users.${config.userName}.imports = with config.flake.modules.homeManager; [
-      profile-extras
-      profile-darwin-extras
-    ];
 
     nixpkgs.overlays = [
       self.overlays.default

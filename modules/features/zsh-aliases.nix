@@ -24,7 +24,6 @@ let
         tt = "gtrash put";
         cat = "bat";
         nano = "micro";
-        code = "codium";
         diff = "delta --diff-so-fancy --side-by-side";
         less = "bat";
         y = "yazi";
@@ -43,7 +42,6 @@ let
         tree = "eza --icons=auto --tree --group-directories-first";
 
         # nix
-        cdnix = "cd ~/nix-config && codium ~/nix-config";
         ns = "nom-shell --run zsh";
         nd = "nom develop --command zsh";
         nb = "nom build";

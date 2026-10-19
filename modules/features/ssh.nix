@@ -1,10 +1,5 @@
 { lib, config, ... }:
 {
-  flake.modules.darwin.darwin-profile-base.homebrew = {
-    brews = [ "proton-pass-cli" ];
-    casks = [ "proton-pass" ];
-  };
-
   flake.modules.homeManager.ssh-client =
     { config, pkgs, ... }:
     let
@@ -71,7 +66,8 @@
             UseKeychain = if isDarwin then "no" else "yes";
             VisualHostKey = "yes";
             UserKnownHostsFile = "~/.ssh/known_hosts";
-          } // lib.optionalAttrs isDarwin {
+          }
+          // lib.optionalAttrs isDarwin {
             IdentityAgent = protonAgent;
           };
 

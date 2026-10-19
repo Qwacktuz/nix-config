@@ -105,23 +105,18 @@ The final documentation commit refreshes this document, the TODO audit, README,
 and docs/MEMORY.md. The review also includes the preceding `98d38bb7`/`c2806e65`
 baseline and TODO-fix commits, since main is still `ef1d2195`.
 
-## Final selections
+## Current selections
 
-Luna's 16 casks: Ghostty, Brave Origin, Zed, VSCodium, Obsidian, LocalSend,
-KeePassXC, Stats, IINA, Karabiner Elements, LuLu, Font Awesome, Codex,
-Tailscale standalone, OrbStack, and Yubico Authenticator.
+The original desktop/extras split has been replaced by the five
+[package categories](profiles.md): core, dev, gaming, creative and security.
+Luna and Saguaro select `darwin.profile-full`; Sol selects `darwin.profile-core`.
+Each Darwin profile wires its Home Manager configuration automatically.
+Cholla selects `homeManager.profile-full`; Fishhook remains CLI-only.
 
-Saguaro explicitly imports `darwin.profile-extras` and Home Manager
-`profile-extras` plus `profile-darwin-extras`. Cholla imports the common
-Home Manager extras. Fishhook remains CLI-only. Enabling an optional Darwin
-app group requires importing its named `darwin.apps-*` feature into the host;
-the full optional bundle is `darwin.profile-extras`.
-
-The common Home Manager extras include personal CLI/security tools, Linux
-optional desktop apps, Tenacity/mpv, and MPD. Darwin extras add Spicetify and
-Lima/QEMU; the Darwin VM feature supplies UTM. Prism Launcher on Darwin is now
-an optional cask: the launcher manages Java installations instead of using the
-previous Nix wrapper's four bundled JDKs.
+Core includes Spotify/Spicetify; dev includes OrbStack, UTM and Lima/QEMU;
+creative includes Tenacity/mpv and MPD. Prism Launcher belongs to gaming and
+uses a macOS cask: the launcher manages Java installations instead of using
+the previous Nix wrapper's four bundled JDKs.
 
 Home Manager uses `programs.brave-origin` with no package on Darwin so extension
 files go to Brave Origin's actual profile directory. The old Nix wrapper's

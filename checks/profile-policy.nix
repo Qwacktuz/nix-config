@@ -2,12 +2,19 @@
 let
   luna = self.darwinConfigurations.luna.config;
   saguaro = self.darwinConfigurations.saguaro.config;
+  sol = self.darwinConfigurations.sol.config;
+  fullHosts = [
+    luna
+    saguaro
+  ];
   fishhook = self.nixosConfigurations.fishhook.config;
   cholla = self.nixosConfigurations.cholla.config;
   darwinHosts = map (host: host.config) (builtins.attrValues self.darwinConfigurations);
   home = host: host.home-manager.users.kaktus;
   casks = host: map (c: c.name) host.homebrew.casks;
   packages = host: map lib.getName (home host).home.packages;
+  packageSet = ps: lib.sort builtins.lessThan (lib.unique (map (p: p.name) ps));
+  brewNames = host: lib.sort builtins.lessThan (map (b: b.name) host.homebrew.brews);
   containsNone = forbidden: actual: lib.intersectLists forbidden actual == [ ];
   toolchains = [
     "go"
@@ -85,6 +92,7 @@ assert lib.assertMsg (lib.all
   [
     luna
     saguaro
+    sol
     fishhook
     cholla
   ]
@@ -92,6 +100,7 @@ assert lib.assertMsg (lib.all
 assert lib.assertMsg (lib.all runtimeSecrets [
   luna
   saguaro
+  sol
   fishhook
   cholla
 ]) "Private configuration must decrypt at runtime outside the Nix store on every host";
@@ -104,7 +113,10 @@ assert lib.assertMsg (lib.all (
     "tenacity"
     "mpv-with-scripts"
   ]
-) darwinHosts) "Retain only the approved Nix GUI exceptions; do not install disabled macOS casks";
+) fullHosts) "Full profiles must retain the approved Nix GUI exceptions";
+assert lib.assertMsg (lib.all (
+  host: containsNone [ "qbittorrent" "xournal++" "stolendata-mpv" ] (casks host)
+) darwinHosts) "Do not install disabled macOS casks";
 assert lib.assertMsg (lib.all (
   host: lib.all validCask (casks host)
 ) darwinHosts) "Every macOS cask must exist in its pinned tap";
@@ -112,6 +124,7 @@ assert lib.assertMsg (lib.unique (casks luna) == casks luna) "Luna has duplicate
 assert lib.assertMsg (
   lib.unique (casks saguaro) == casks saguaro
 ) "Saguaro has duplicate cask owners";
+assert lib.assertMsg (lib.unique (casks sol) == casks sol) "Sol has duplicate cask owners";
 assert lib.assertMsg (lib.all (name: builtins.elem name (casks saguaro)) (
   casks luna
 )) "Saguaro must include the daily apps";
@@ -130,6 +143,87 @@ assert lib.assertMsg (
 assert lib.assertMsg (
   luna.homebrew.masApps == saguaro.homebrew.masApps
 ) "Luna and Saguaro must include the same optional App Store apps";
+assert lib.assertMsg (
+  brewNames luna == brewNames saguaro
+  && packageSet (home luna).home.packages == packageSet (home saguaro).home.packages
+  && packageSet luna.environment.systemPackages == packageSet saguaro.environment.systemPackages
+) "Luna and Saguaro must have identical formula, Home Manager, and system package sets";
+assert lib.assertMsg (
+  lib.all (name: builtins.elem name (casks sol)) [
+    "brave-origin"
+    "signal"
+    "proton-pass"
+    "ghostty"
+    "spotify"
+  ]
+  && lib.all (name: builtins.elem name (casks luna)) (casks sol)
+  && lib.all (name: builtins.elem name (packages luna)) (packages sol)
+  && lib.all (name: builtins.elem name (brewNames luna)) (brewNames sol)
+) "Sol must include the essential daily apps and remain a subset of full";
+assert lib.assertMsg
+  (
+    containsNone [
+      "zed"
+      "vscodium"
+      "intellij-idea"
+      "pycharm"
+      "webstorm"
+      "android-studio"
+      "codex"
+      "orbstack"
+      "utm"
+      "hashicorp/tap/hashicorp-vagrant"
+      "steam"
+      "parsec"
+      "nvidia-geforce-now"
+      "prismlauncher"
+      "obs"
+      "focusrite-control-2"
+      "wacom-tablet"
+      "burp-suite"
+      "wireshark-app"
+      "bit-slicer"
+    ] (casks sol)
+    && containsNone [
+      "nodejs"
+      "clang-wrapper"
+      "gcc-wrapper"
+      "lua"
+      "luarocks"
+      "devenv"
+      "nil"
+      "nixfmt"
+      "codex"
+      "github-copilot-cli"
+      "antigravity-cli"
+      "xcodes"
+      "lazydocker"
+      "lima"
+      "qemu"
+      "jetbrains-install-idea-plugins"
+      "jetbrains-install-pycharm-plugins"
+      "jetbrains-install-webstorm-plugins"
+      "tenacity"
+      "mpv-with-scripts"
+      "xournalpp"
+      "typst"
+      "texlive"
+      "nmap"
+      "trivy"
+      "tfsec"
+      "syft"
+      "grype"
+      "foremost"
+      "scalpel"
+      "zsteg"
+    ] (packages sol ++ map lib.getName sol.environment.systemPackages)
+    && containsNone [ "vite-plus" "binwalk" ] (brewNames sol)
+    && !(home sol).programs.vscodium.enable
+    && !(home sol).programs.zed-editor.enable
+    && !(home sol).programs.docker-cli.enable
+    && !(home sol).services.mpd.enable
+  )
+  "Development, virtualization, gaming, creative, or specialist security tools leaked into Sol's core profile";
 assert lib.assertMsg (lib.all (
   host:
   containsNone (nativeApps ++ toolchains) (
@@ -139,9 +233,6 @@ assert lib.assertMsg (lib.all (
 assert lib.assertMsg (lib.all (
   host:
   lib.all (name: builtins.elem name (casks host)) [
-    "intellij-idea"
-    "pycharm"
-    "webstorm"
     "spotify"
     "karabiner-elements"
   ]
@@ -150,6 +241,24 @@ assert lib.assertMsg (lib.all (
   && !(home host).programs.prismlauncher.enable
   && !host.services.karabiner-elements.enable
 ) darwinHosts) "GUI apps without reliable nix-darwin integration must use Homebrew";
+assert lib.assertMsg (lib.all (
+  host:
+  lib.all (name: builtins.elem name (casks host)) [
+    "intellij-idea"
+    "pycharm"
+    "webstorm"
+    "orbstack"
+    "utm"
+    "steam"
+    "obs"
+    "burp-suite"
+  ]
+  && lib.all (name: builtins.elem name (packages host)) [
+    "lima"
+    "qemu"
+    "lazydocker"
+  ]
+) fullHosts) "Full must include development, VMs, gaming, creative, and security tools";
 assert lib.assertMsg (lib.all (
   host:
   host.services.aerospace.enable
@@ -183,7 +292,9 @@ assert lib.assertMsg (
 {
   result = "passed";
   lunaCasks = casks luna;
-  optionalCasks = lib.subtractLists (casks luna) (casks saguaro);
+  coreCasks = casks sol;
+  optionalCasks = lib.subtractLists (casks sol) (casks luna);
+  coreNixPackages = packages sol;
   lunaNixPackages = packages luna;
   serverNixPackages = packages fishhook;
 }

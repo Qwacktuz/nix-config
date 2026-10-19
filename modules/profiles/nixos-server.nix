@@ -3,7 +3,7 @@
 {
   flake.modules.nixos.profile-server = {
     imports = with config.flake.modules.nixos; [
-      core
+      system-base
       tailscale
       ssh-server
     ];
