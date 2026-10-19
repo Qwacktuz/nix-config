@@ -5,6 +5,7 @@
     {
       imports = with config.flake.modules.darwin; [
         profile-core
+        profile-dev
         config.flake.modules.darwin.${config.userName}
       ];
 
