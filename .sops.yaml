@@ -5,6 +5,11 @@ keys:
   - &host_luna age1cdmwx9r5e0hqx58evq3ynhuveyxngx7kupr7wksusylx52tg6fzsz9sh3e
 
 creation_rules:
+  - path_regex: ^secrets/luna\.yaml$
+    key_groups:
+      - age:
+          - *user_kaktus
+          - *host_luna
   - path_regex: ^secrets/home\.yaml$
     key_groups:
       - age:

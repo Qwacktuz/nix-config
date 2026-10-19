@@ -11,6 +11,7 @@
     ];
 
     networking.hostName = "saguaro";
+    system.defaults.loginwindow.LoginwindowText = "Saguaro M4";
 
     home-manager.users.${config.userName}.imports = with config.flake.modules.homeManager; [
       profile-extras
