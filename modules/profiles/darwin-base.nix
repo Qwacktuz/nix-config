@@ -42,6 +42,9 @@
         };
 
         defaults = {
+          # Needs terminal to have 'full disk access' in macOS settings
+          universalaccess.closeViewScrollWheelToggle = true;
+
           WindowManager = {
             StageManagerHideWidgets = true;
             StandardHideWidgets = true;

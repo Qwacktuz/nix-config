@@ -23,6 +23,7 @@
     ];
     homebrew.brews = [
       "vite-plus"
+      "secretspec"
     ];
   };
 
@@ -67,6 +68,7 @@
             rpi-imager
             scrcpy
             patchelf
+            secretspec
           ]
         )
       )
