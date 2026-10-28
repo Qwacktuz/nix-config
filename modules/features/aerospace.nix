@@ -3,19 +3,15 @@
     services.aerospace = {
       enable = true;
 
-      # Remember to rebind alt in nix-darwin
       settings = {
         after-startup-command = [ ];
-        # Managed by darwin and not itself
-        #start-at-login = true;
+        # Startup is managed by nix-darwin.
 
         # Normalizations. See: https://nikitabobko.github.io/AeroSpace/guide#normalization
         enable-normalization-flatten-containers = true;
         enable-normalization-opposite-orientation-for-nested-containers = true;
 
         # See: https://nikitabobko.github.io/AeroSpace/guide#layouts
-        # The 'accordion-padding' specifies the size of accordion padding
-        # You can set 0 to disable the padding feature
         accordion-padding = 30;
 
         # Possible values: tiles|accordion
@@ -27,7 +23,6 @@
         default-root-container-orientation = "auto";
 
         # Mouse follows focus when focused monitor changes
-        # Drop it from your config, if you don't like this behavior
         on-focused-monitor-changed = [ "move-mouse monitor-lazy-center" ];
 
         # You can effectively turn off macOS "Hide application" (cmd-h) feature by toggling this flag
@@ -45,18 +40,6 @@
           outer.top = 3;
           outer.right = 4;
         };
-
-        # 'main' binding mode declaration
-        # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
-        # 'main' binding mode must be always presented
-        # Fallback value (if you omit the key): mode.main.binding = {}
-
-        # swap alt and control in systemsettings
-        # use skhd since fn is a special needs hotkey that doesn't send a keycode to non apple devices
-        # se docs for possible values
-        #key-mapping.key-notation-to-key-code = {
-        #  alt = "";
-        #};
 
         mode.main.binding = {
           # See: https://nikitabobko.github.io/AeroSpace/commands#layout

@@ -160,70 +160,54 @@ assert lib.assertMsg (
   && lib.all (name: builtins.elem name (packages luna)) (packages sol)
   && lib.all (name: builtins.elem name (brewNames luna)) (brewNames sol)
 ) "Sol must include the essential daily apps and remain a subset of full";
-assert lib.assertMsg
-  (
-    containsNone [
-      "zed"
-      "vscodium"
-      "intellij-idea"
-      "pycharm"
-      "webstorm"
-      "android-studio"
-      "codex"
-      "orbstack"
-      "utm"
-      "hashicorp/tap/hashicorp-vagrant"
-      "steam"
-      "parsec"
-      "nvidia-geforce-now"
-      "prismlauncher"
-      "obs"
-      "focusrite-control-2"
-      "wacom-tablet"
-      "burp-suite"
-      "wireshark-app"
-      "bit-slicer"
-    ] (casks sol)
-    && containsNone [
-      "nodejs"
-      "clang-wrapper"
-      "gcc-wrapper"
-      "lua"
-      "luarocks"
-      "devenv"
-      "nil"
-      "nixfmt"
-      "codex"
-      "github-copilot-cli"
-      "antigravity-cli"
-      "xcodes"
-      "lazydocker"
-      "lima"
-      "qemu"
-      "jetbrains-install-idea-plugins"
-      "jetbrains-install-pycharm-plugins"
-      "jetbrains-install-webstorm-plugins"
-      "tenacity"
-      "mpv-with-scripts"
-      "xournalpp"
-      "typst"
-      "texlive"
-      "nmap"
-      "trivy"
-      "tfsec"
-      "syft"
-      "grype"
-      "foremost"
-      "scalpel"
-      "zsteg"
-    ] (packages sol ++ map lib.getName sol.environment.systemPackages)
-    && containsNone [ "vite-plus" "binwalk" ] (brewNames sol)
-    && !(home sol).programs.vscodium.enable
-    && !(home sol).programs.zed-editor.enable
-    && !(home sol).programs.docker-cli.enable
-    && !(home sol).services.mpd.enable
-  )
-  "Development, virtualization, gaming, creative, or specialist security tools leaked into Sol's core profile";
+assert lib.assertMsg (
+  containsNone [
+    "steam"
+    "parsec"
+    "nvidia-geforce-now"
+    "prismlauncher"
+    "obs"
+    "focusrite-control-2"
+    "wacom-tablet"
+    "burp-suite"
+    "wireshark-app"
+    "bit-slicer"
+  ] (casks sol)
+  && containsNone [
+    "tenacity"
+    "mpv-with-scripts"
+    "xournalpp"
+    "typst"
+    "texlive"
+    "nmap"
+    "trivy"
+    "tfsec"
+    "syft"
+    "grype"
+    "foremost"
+    "scalpel"
+    "zsteg"
+  ] (packages sol ++ map lib.getName sol.environment.systemPackages)
+  && containsNone [ "binwalk" ] (brewNames sol)
+  && lib.all (name: builtins.elem name (casks sol)) [
+    "zed"
+    "vscodium"
+    "intellij-idea"
+    "pycharm"
+    "webstorm"
+    "orbstack"
+    "utm"
+  ]
+  && lib.all (name: builtins.elem name (packages sol)) [
+    "lima"
+    "qemu"
+    "lazydocker"
+  ]
+  && (home sol).programs.vscodium.enable
+  && (home sol).programs.zed-editor.enable
+  && !(home sol).programs.docker-cli.enable
+  && !(home sol).services.mpd.enable
+) "Sol must select core and dev without gaming, creative, or specialist security tools";
 assert lib.assertMsg (lib.all (
   host:
   containsNone (nativeApps ++ toolchains) (
@@ -292,6 +276,7 @@ assert lib.assertMsg (
 {
   result = "passed";
   lunaCasks = casks luna;
+  # Retain the report field names; Sol now supplies the core + dev baseline.
   coreCasks = casks sol;
   optionalCasks = lib.subtractLists (casks sol) (casks luna);
   coreNixPackages = packages sol;

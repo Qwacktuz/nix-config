@@ -18,7 +18,6 @@
                 "cache --timeout=3600";
             merge.conflictstyle = "diff3";
             diff.colorMoved = "default";
-            #pull.rebase = "true";
           };
         };
 
@@ -40,7 +39,6 @@
         gh
         glab
         onefetch
-        # pkgs.git-lfslab
       ];
 
       # Keep Git aliases with the feature that installs their tools.

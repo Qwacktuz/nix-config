@@ -34,9 +34,4 @@
         });
       };
     };
-
-  # flake.overlays.xrdb = final: prev: {
-  #   # change name from xrdb to xorg.xrdb
-  #   xrdb = prev.xorg.xrdb;
-  # };
 }

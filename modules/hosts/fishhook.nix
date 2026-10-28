@@ -53,21 +53,5 @@
 
       system.stateVersion = lib.mkDefault "26.05";
 
-      /*
-        # Not used for LXC containers
-        xserver.xkb.layout = "us";
-        services.qemuGuest.enable = true;
-        boot.loader.limine.enable = true;
-        fileSystems."/" = {
-          device = "/dev/disk/by-label/nixos";
-          fsType = "ext4";
-        };
-
-        # for EFI
-        fileSystems."/boot" = {
-          device = "/dev/disk/by-label/boot";
-          fsType = "vfat";
-        };
-      */
     };
 }

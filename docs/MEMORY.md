@@ -1,143 +1,57 @@
-# Repository Memory
+# Repository maintenance notes
 
-Updated 2026-10-18. Luna cleanup is implemented; review/merge is pending.
-Plan, commits, selections, and validation: [luna-migration.md](luna-migration.md).
-Remaining unrelated backlog: [todo-audit.md](todo-audit.md).
+Reviewed 2026-10-29 against the tracked configuration. These are current
+maintenance notes; historical implementation details remain in Git history.
 
-## Local writing checks
+## Structure and invariants
 
-- The user confirmed the Saguaro fixes work, then requested LTeX in LazyVim
-  for English/Norwegian. They explicitly chose local checks rather than sending
-  Norwegian documents to LanguageTool's hosted API.
-- New feature review bookmark: codex/ltex-local, descending from the cleanup
-  branch. Do not interpret the successful activation report as approval to
-  move main; the existing review gate remains.
-- dotfiles/nvim/lua/plugins/writing.lua combines the server spec and language
-  commands. It enables Nix ltex-ls-plus through LazyVim's ltex_plus server
-  with mason=false and an empty HTTP server URI. The legacy ltex-ls.lua and
-  config/writing.lua files were removed.
-- Buffer-local WritingLanguage en/nb modes provide
-  English grammar plus bilingual spelling by default; Norwegian Bokmål
-  spelling with only LTeX English diagnostics filtered in nb mode. The latest
-  server result is retained for switching back to English and cleared on
-  buffer wipe/client detach. Diagnostic toggles cannot reveal filtered issues.
-- Spelling defaults are set on FileType only; language changes, buffer entry,
-  and LSP attachments preserve the user's spelling/diagnostic toggles.
-- No offline Norwegian grammar is claimed. LTeX's duplicate English spelling
-  rule is disabled; Neovim handles spelling and personal dictionaries.
-- modules/features/dotfiles.nix pins official nb spell/suggestion files
-  in Home Manager's nvim/site/spell. Keep personal *.add files unmanaged.
-- editor-runtime installs ltex-ls-plus, which bundles its LanguageTool engine.
-  Removed the unused standalone languagetool/fasttext packages and their
-  separate feature module.
-- checks/neovim-writing.lua exercises real LazyVim/LTeX grammar/corrections, bilingual
-  spelling, language selection, buffer isolation, and independent toggles.
-  See writing.md for usage and the regression-check command.
+- `flake.nix` is generated. Declare inputs in the modules, then run
+  `nix run .#write-flake` (with GNU coreutils on macOS).
+- `modules/` is imported as flake-parts modules using import-tree. Keep plain
+  data/check expressions outside it. `_cholla-hwconfig.nix` is a retained
+  generated reference; `modules/hardware/cholla.nix` owns the active definition.
+- Luna/Saguaro select full; Sol selects core and dev. Cholla selects full Home
+  Manager; Fishhook selects CLI only. See [profiles.md](profiles.md).
+- Preserve state versions and host-specific hardware settings.
+- Preserve archived modules, alternate assets, and Karabiner backups unless
+  their removal is explicitly intended. Exported features may have external
+  consumers even when no local host selects them.
+- Neovim and Karabiner use out-of-store links into `~/nix-config`.
 
-## Workflow and review gate
+## Ownership and integrations
 
-- Use jj, one commit per logical change. Review bookmark: `codex/luna-cleanup`.
-- Its series includes prior commits `98d38bb7` (Darwin/Luna baseline) and
-  `c2806e65` (initial TODO fixes), followed by the migration-plan steps.
-- main remains `ef1d2195`. Do not merge until the user reviews and approves.
-- After approval, fast-forward local main to the reviewed descendant using jj;
-  preserve the individual commits. No remote push is authorized.
-- The user built and attempted Saguaro activation after the cleanup. It stopped
-  at Homebrew because qBittorrent/Xournal++ casks were disabled. After the
-  follow-up fixes below, the user confirmed everything works.
+- Homebrew owns ordinary macOS GUI apps. AeroSpace uses nix-darwin; Tenacity,
+  qBittorrent, Xournal++, and mpv remain Nix GUI exceptions. Font Awesome uses
+  Nix `fonts.packages`. See [macos-gui-apps.md](macos-gui-apps.md).
+- Homebrew taps are immutable. Activation has `autoUpdate = false`,
+  `upgrade = false`, and `cleanup = "uninstall"`.
+- The pinned nixpkgs supplies the nix-output-monitor unknown-event fix;
+  the duplicate local patch/overlay was removed.
+- Local English grammar and English/Bokmål spelling are configured in
+  `dotfiles/nvim/lua/plugins/writing.lua`; the server is provided by creative.
+  See [writing.md](writing.md) for commands and the integration check.
+- Load devenv's direnv integration lazily inside `use_devenv`: its helper names
+  overlap nix-direnv's. Do not add a competing Zsh auto-activation hook.
+- System SOPS uses each machine's SSH host identity. User SOPS uses a personal
+  age identity at `~/.config/sops/age/keys.txt`. Never decrypt during evaluation.
+  See [secrets.md](secrets.md) for enrollment and recovery.
+- Mac SSH software keys are served by Proton Pass; public selectors and FIDO
+  handles are deployed by SOPS. Do not remove the activation cleanup for old
+  SOPS private-key links without confirming all machines have migrated.
 
-## Architecture
+## Validation limits
 
-- flake.nix uses flake-parts and `inputs.import-tree ./modules`.
-- Nix files in modules register `flake.modules.<class>.<feature>`; data and
-  checks that are ordinary Nix expressions belong outside that import tree.
-- modules/flake: inputs, aliases, formatter, devshells, profile-policy check.
-- modules/features: Home Manager/Darwin/NixOS features; modules/profiles:
-  role composition; modules/users: kaktus account/Home Manager composition.
-- modules/hosts/targets.nix constructs Saguaro/Luna (aarch64-darwin), Cholla
-  (aarch64-linux Asahi), Fishhook (x86_64-linux Proxmox LXC).
-- perSystem outputs are restricted to those three architectures.
-- archive/unused-modules is inactive. Preserve existing stateVersion values.
+Run the checks in [README](../README.md#development-and-validation).
+The profile policy must match selected profiles, including Sol's dev tools.
+The cask checker loads Ruby definitions and catches parser incompatibilities as
+well as platform-specific disabled casks; Nix builds alone cannot validate these.
 
-## Package ownership and profiles
+The October 29 cleanup can be syntax-checked locally, but this assistant session
+cannot access the Nix daemon or write Git metadata. Full evaluation, builds,
+activation, and publishing must be verified separately if those restrictions
+remain in place. Earlier migration check results apply to their old revisions,
+not automatically to the current lock or checkout.
 
-- Ordinary macOS GUI apps: Homebrew casks. Nix: CLI/configuration/services.
-- Home Manager Ghostty, Zed, VSCodium, and Brave Origin use package=null on
-  Darwin, retain settings, and install native packages on Linux when selected.
-- Use programs.brave-origin, not programs.chromium with a renamed package;
-  this preserves the correct native browser extension directory.
-- Nix GUI exceptions: JetBrains/plugin wrappers; optional Spicetify/Spotify;
-  optional Tenacity because no matching cask exists in the pinned input;
-  optional qBittorrent/Xournal++ because their macOS casks are disabled.
-  AeroSpace is managed by its nix-darwin service.
-- profile-cli: CLI tools, Git/jj, shell, Neovim, nh, monitoring, fonts.
-- profile-dev: dev-tools, editor-runtime (including LTeX+), YubiKey CLI, LLM CLI,
-  editor/IDE settings, container CLI. Language toolchains are not global.
-- profile-desktop (Home Manager): Ghostty config, GPU monitor, daily Linux
-  apps, Syncthing. profile-darwin: darwin-tools and Brave Origin config.
-- Removed home-packages and darwin-packages. Replacements include cli-tools,
-  dev-tools, editor-runtime, personal-tools, security-tools, yubikey,
-  desktop-apps, desktop-extra-apps, creative-apps, darwin-tools, gpu-monitor.
-- profile-extras (Home Manager): personal/security tools, optional Linux apps,
-  Tenacity/mpv, MPD. profile-darwin-extras adds Spicetify and Lima/QEMU.
-- darwin.profile-extras composes apps-* groups and optional UTM. Saguaro opts
-  into it and both HM extras; Cholla opts into common HM extras.
-- Luna imports profile-laptop and gets 16 daily casks, no App Store dependency,
-  no optional games/peripheral apps, and no MPD/Spotify/extra VM tools.
-- OrbStack is the default macOS runtime; Docker CLI/lazydocker remain Nix.
-  macOS Tailscale is the standalone cask, without a Darwin tailscaled service.
-- Brew activation uses cleanup=none, autoUpdate=false, upgrade=false.
-  This does not disable individual applications' own update mechanisms.
-- xcodes and macpm are CLI tools, retained in Nix. GPU monitors are desktop-only.
-- The old Spotify DMG overlay was removed; use the pinned native nixpkgs package.
-- Catppuccin Mocha data lives in assets/themes/catppuccin-mocha.nix, avoiding
-  a base16-schemes build during evaluation. The colors match the old pinned data.
-
-## Project environments
-
-modules/flake/project-shells.nix exports go, rust, jvm, python, web, infra, c.
-Use `nix develop ~/nix-config#NAME`; a project's own lock is preferable when
-it needs independent version pins. Python uses stable python3, not global
-python315. Node/Lua/native compiler/TeX remain available for Neovim plugins.
-
-## Verification and migration requirements
-
-- Strict no-IFD Luna/Saguaro derivation evaluation passed; Luna build dry-run
-  passed. No full Luna binary build or activation has been performed.
-- Native `nix flake check --no-build` passed; profile-policy evaluated and built.
-- All 21 named shells evaluated across the three supported architectures.
-- Fishhook system and Cholla Home Manager derivations evaluated.
-- Cholla's full system still fails its host-specific Asahi firmware-location
-  assertion on this Mac. Root filesystems are configured.
-- Optional Proton Mail Desktop and Proton Pass are unavailable on aarch64-linux;
-  the optional desktop feature reports and skips unsupported packages.
-- Remaining upstream warnings: renamed Rofi font option and options.json
-  source context. These are not locally suppressed.
-- Before Luna activation: install Determinate Nix (nix.enable=false), create
-  kaktus, clone under ~/nix-config for out-of-store dotfile links, build,
-  migrate app data/secrets, then grant macOS permissions and test real hardware.
-- Snapshot new files with jj before Git-flake evaluation. nh derives its
-  configured path from the target user's home on Linux and Darwin.
-
-## Follow-up fixes after the Saguaro activation attempt
-
-- Repository memory was moved by the user to docs/MEMORY.md; keep that path.
-- e6a648cc restores qBittorrent/Xournal++ as optional Nix packages and removes
-  their disabled macOS casks. scripts/check-brew-casks.py checks Homebrew's
-  actual target-platform disabled status, not merely file existence.
-- dc25feb4 removes the competing Zsh devenv auto-activation hook and introduces
-  managed direnv stdlib. 357992ef makes devenv initialization lazy, because its
-  helper names overlap nix-direnv's helpers. Keep use_flake working by loading
-  devenv direnvrc only when use_devenv is called.
-- The user's old ~/.config/direnv/direnvrc called removed `devenv direnv-hook`.
-  It was backed up to direnvrc.before-devenv-fix-20261018-015900 and replaced
-  with the generated lazy integration. Real `direnv exec ... true` loaded this
-  repository, renewed its cache, and completed all four startup tasks.
-- afff75ae restores scheme slug catppuccin-mocha; theme colors are unchanged.
-- All 48 Saguaro and 16 Luna casks pass actual Homebrew availability checks. The corrected Saguaro system built without
-  activation. The final documentation commit records the remaining checks.
-- A private FlakeHub cache returned HTTP 401 during verification, but fallback
-  to cache.nixos.org/local builds succeeded. Do not treat that as a direnv API
-  failure or disable global authentication settings as part of this fix.
-- Main remains unchanged pending review; follow-up commits stay on the review
-  bookmark. No activation retry was performed by the assistant.
+Cholla's full system needs the target's Asahi firmware location. Physical
+YubiKey operations, MPD playback, GUI permissions, and app/plugin compatibility
+require target-host testing. Remaining ideas are in [todo-audit.md](todo-audit.md).

@@ -16,9 +16,6 @@ in
         user = userName; # User owning the Homebrew prefix
         autoMigrate = true; # Let nix symlink existing installations etc.
 
-        # Alternative set this under git.nix if mutableTaps = true;
-        # git config --global --add safe.directory '/nix/store/*'
-        # programs.git.extraConfig.safe.directory = "/nix/store/*";
         mutableTaps = false;
         taps = {
           "homebrew/homebrew-core" = inputs.homebrew-core;

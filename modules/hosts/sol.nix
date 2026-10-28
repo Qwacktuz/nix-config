@@ -1,7 +1,7 @@
 { self, config, ... }:
 {
   flake.modules.darwin.sol =
-    darwin@{ lib, ... }:
+    { ... }:
     {
       imports = with config.flake.modules.darwin; [
         profile-core

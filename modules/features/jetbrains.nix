@@ -102,7 +102,6 @@
           # Cloud
           "com.intellij.kubernetes"
           "org.intellij.plugins.hcl"
-          "com.intellij.kubernetes"
 
           # Minecraft
           "com.github.tth05.minecraft-nbt-intellij-plugin"

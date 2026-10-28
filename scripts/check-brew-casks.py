@@ -26,8 +26,10 @@ def main():
                 "false",
                 f"{root}#darwinConfigurations.{args.host}.config",
                 "--apply",
-                "cfg: { names = map (c: c.name) cfg.homebrew.casks; "
-                "taps = builtins.mapAttrs (_: tap: toString tap) cfg.nix-homebrew.taps; }",
+                (
+                    "cfg: { names = map (c: c.name) cfg.homebrew.casks; "
+                    "taps = builtins.mapAttrs (_: tap: toString tap) cfg.nix-homebrew.taps; }"
+                ),
             ],
             text=True,
         )

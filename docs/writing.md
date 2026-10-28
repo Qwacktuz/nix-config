@@ -41,14 +41,8 @@ are configured and documents are not sent to that service.
 The English dictionary ships with Neovim. Home Manager pins the official Vim
 Bokmål dictionary and suggestions under `nvim/site/spell` through the
 Neovim dotfiles feature. A successful Darwin/Home Manager switch provisions them
-on a fresh machine; the existing Saguaro dictionaries already work. Personal
+on a fresh machine. Personal
 `*.add` dictionaries remain writable and unmanaged.
-
-Validation: actual headless LazyVim sessions attached LTeX+, diagnosed
-“This are a test.”, accepted valid Norwegian words, flagged Norwegian/English
-typos, and switched diagnostic visibility without affecting other namespaces.
-The freshly fetched pinned Norwegian dictionary and suggestions were checked
-separately. Luna's Nix system derivation and Lua formatting checks passed.
 
 Run the integration regression check with the installed LazyVim plugins,
 `ltex-ls-plus`, and Norwegian dictionaries:

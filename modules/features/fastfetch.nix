@@ -1,6 +1,6 @@
 {
   flake.modules.homeManager.fastfetch =
-    { pkgs, ... }:
+    { ... }:
     {
       programs.fastfetch = {
         enable = true;
@@ -70,49 +70,6 @@
               keyColor = "32";
             }
             "break"
-
-            # --- Commented out hardware section ---
-            # {
-            #   type = "cpu";
-            #   key = "╭─ ";
-            #   keyColor = "34";
-            #   freqNdigits = 1;
-            # }
-            # {
-            #   type = "gpu";
-            #   key = "├─󰢮 ";
-            #   format = "{1} {2} ({3})";
-            #   keyColor = "34";
-            # }
-            # {
-            #   type = "sound";
-            #   key = "├─󰓃 ";
-            #   format = "{2}";
-            #   keyColor = "34";
-            # }
-            # {
-            #   type = "battery";
-            #   key = "├─󰁹 ";
-            #   keyColor = "34";
-            # }
-            # {
-            #   type = "memory";
-            #   key = "├─ ";
-            #   keyColor = "34";
-            # }
-            # {
-            #   type = "disk";
-            #   key = "├─󰋊 ";
-            #   keyColor = "34";
-            # }
-            # {
-            #   type = "localip";
-            #   key = "╰─󱦂 ";
-            #   keyColor = "34";
-            #   showIpv4 = true;
-            #   compact = true;
-            # }
-            # "break"
 
             {
               type = "display";

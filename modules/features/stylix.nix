@@ -13,7 +13,7 @@
       stylix.enable = true;
       stylix.enableReleaseChecks = false;
       stylix.base16Scheme = import ../../assets/themes/catppuccin-mocha.nix;
-      # Replace this path to select a different wallpaper for both Macs.
+      # Replace this path to select a different wallpaper for all Darwin hosts.
       stylix.image = ../../assets/wallpapers/spacegirl.png;
 
       home-manager.sharedModules = [
@@ -46,7 +46,5 @@
 
       stylix.opacity.terminal = 0.7; # same as ghostty.nix
 
-      #stylix.fonts = {
-      #};
     };
 }

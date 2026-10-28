@@ -9,11 +9,6 @@ let
         export PATH="$HOME/.local/bin:$PATH"
       '';
       shellAliases = {
-        # services
-        # ts = "tailscale";
-        # Installed through app store
-        # tailscale = "/Applications/Tailscale.app/Contents/MacOS/Tailscale";
-        # ts = "/Applications/Tailscale.app/Contents/MacOS/Tailscale";
         ts = "tailscale";
         n = "nvim";
         ds = "nix develop -c zsh";

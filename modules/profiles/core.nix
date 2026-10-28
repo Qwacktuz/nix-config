@@ -1,6 +1,6 @@
 { config, ... }:
 {
-  flake.modules.darwin.profile-core = {
+  flake.modules.darwin.profile-core = { pkgs, ... }: {
     imports = with config.flake.modules.darwin; [
       system-base
       darwin-profile-base
@@ -19,6 +19,8 @@
       spicetify
       ssh-private-keys
     ];
+    fonts.packages = [ pkgs.font-awesome ];
+
     homebrew.casks = [
       "obsidian"
       "localsend"
@@ -27,7 +29,6 @@
       "keepassxc"
       "karabiner-elements"
       "lulu"
-      "font-fontawesome"
       "chatgpt"
       "signal"
       "proton-pass"

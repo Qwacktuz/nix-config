@@ -13,12 +13,9 @@ nix fmt
 echo "Checking flake syntax..."
 nix flake check --all-systems
 
-# Update flake file and inputs
-echo "Updating flake inputs..."
+# Regenerate flake.nix from the module declarations (does not update inputs).
+echo "Regenerating flake.nix..."
 nix run .#write-flake
-
-# Sanity check
-# sudo -H darwin-rebuild check --flake ~/nix-config#saguaro
 
 # Apply the update
 echo "Applying the update..."
@@ -28,8 +25,6 @@ nh darwin switch ~/nix-config/ --hostname saguaro
 read -rp "Do you want to collect the trash? (y/n): " answer
 if [[ $answer =~ ^[Yy]$ ]]; then
   echo "Starting garbage collection"
-  #nix store gc
-  #nix-collect-garbage -d
   nh clean all
   nix store optimise
 

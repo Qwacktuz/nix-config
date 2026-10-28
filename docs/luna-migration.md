@@ -1,182 +1,72 @@
-# Luna migration plan
+# New Mac migration checklist
 
-Current selection (2026-10-19): Luna now imports the same Darwin and Home Manager
-optional profiles as Saguaro, including games, peripheral apps, UTM, Spotify,
-MPD, and Lima/QEMU. WireGuard's App Store installation requires an Apple account.
-The daily-only Luna selections and counts recorded below describe the original
-migration baseline and are superseded by this selection.
+Luna and Saguaro select `darwin.profile-full`; Sol selects `profile-core` and
+`profile-dev`. All are `aarch64-darwin` with the `kaktus` account. The earlier
+Luna-only migration and its temporary review workflow are complete historical
+work; this checklist describes the current configuration.
 
-Target: `darwinConfigurations.luna`, an Apple Silicon MacBook Pro
-(`aarch64-darwin`). Review branch: `codex/luna-cleanup`, based on the existing
-TODO-fix commits. One jj commit per numbered step. Leave main unchanged until
-user review and approval; do not activate this machine during cleanup.
+## Before activation
 
-## Ownership
+1. Install Determinate Nix; the Darwin hosts set `nix.enable = false`.
+2. Clone the repository to `~/nix-config` for the out-of-store dotfile links.
+   Track new configuration files before evaluating the Git-backed flake.
+3. Provision the machine's SSH host identity and enroll its public age recipient
+   for `secrets/pubkeys.yaml`. Restore or enroll a user age identity for the
+   user secrets. Follow [secrets.md](secrets.md), including decryption checks.
+4. Back up existing app data and configuration. Migrate sign-ins and licenses
+   separately; avoid copying stale Nix application symlinks with Migration
+   Assistant. Homebrew casks do not provide Nix-store rollback of app binaries.
+5. Check the selected profile in `modules/hosts/`, then validate and build:
 
-- Nix: CLI applications, configuration, services, and project toolchains.
-- Native nix-darwin modules own GUI apps with reliable installation and service
-  support: currently AeroSpace, including its settings and launchd agent.
-- Homebrew casks: other macOS GUI applications. Home Manager keeps settings
-  where its module supports configuration without installing the application.
-- Current Nix GUI exceptions: Tenacity (no matching pinned cask),
-  qBittorrent/Xournal++ (their pinned macOS casks are disabled), and mpv
-  (its Homebrew formula dependency graph fails with the pinned taps).
-  JetBrains and Spotify use casks. Karabiner remains a cask because the pinned nix-darwin module uses
-  an incompatible pre-v15 launch-agent layout. See [the GUI migration](macos-gui-apps.md).
-  The progress and verification entries below record the earlier baseline.
-- Linux GUI packages: Nix, only in desktop roles.
-- Each application has one installation owner; profiles compose features.
-- Compilers/runtimes/SDKs: named project shells, except editor dependencies.
-- macOS Tailscale: standalone app, without an additional nix-darwin daemon.
-- macOS containers: OrbStack; heavier VM tools are opt-in.
+   ```sh
+   python3 scripts/check-brew-casks.py luna
+   nix build .#checks.aarch64-darwin.profile-policy .#checks.aarch64-darwin.secrets
+   nh darwin build ~/nix-config --hostname luna
+   ```
 
-## Commit sequence
+Use the target hostname. The cask checker requires an initialized Homebrew
+installation. With immutable taps, update compatible Homebrew implementation
+and tap pins together rather than trying to repair the managed tree manually.
 
-1. Record the plan and refresh repository docs/MEMORY.md.
-2. Disable Brew automatic updates/upgrades; use cleanup `none` during migration.
-3. Split home-packages into CLI, development, desktop, security, and editor
-   features. Remove redundant imports and duplicate Zed ownership.
-4. Add Go, Rust, JVM, Python, web, infrastructure, and C/C++ project shells;
-   remove their toolchains from global development packages.
-5. Move ordinary Darwin GUI apps to validated pinned casks; retain supported
-   Home Manager configuration and Linux Nix ownership.
-6. Separate daily apps from optional communications, games, peripherals,
-   creative apps, and VM tools. Luna selects daily apps; Saguaro explicitly
-   selects extras. Consolidate Tailscale and the default container runtime.
-7. Verify hosts, shells, and ownership invariants; update docs/memory with
-   results and present the complete series for review before merging main.
+## Activate and verify
 
-## Migration checks
+```sh
+nh darwin switch ~/nix-config --hostname luna
+```
 
-- Determinate Nix must be installed when `nix.enable = false`.
-- The macOS account is `kaktus`; repo location is `~/nix-config` because the
-  Neovim/Karabiner dotfiles use out-of-store links there.
-- Build with `nh darwin build ~/nix-config --hostname luna` before switching.
-- Do not copy old Nix application symlinks with Migration Assistant.
-- Sign-ins, licenses, app data, secrets, and macOS permissions need separate
-  migration. Test keyboard/window management, VPN, terminal, and IDE plugins.
-- Cask declarations do not provide Nix store rollback of application binaries.
-- After approval, advance local main to the reviewed descendant using jj.
-  No remote push is authorized by this task.
+Activation removes unselected managed Homebrew packages. Keep console access
+and an existing SSH session while changing authorization. Verify a second SSH
+login and runtime secrets before closing that session.
+
+Test keyboard/window management, VPN, terminal, wallpaper, backup tools, and
+IDE plugins on the actual Mac. Grant macOS permissions when requested.
+WireGuard's App Store installation requires an Apple account. Log in to
+`pass-cli` and import software SSH keys into Proton Pass before relying on the
+configured agent. Run the JetBrains and Spicetify helpers described in
+[macOS GUI ownership](macos-gui-apps.md) after installing/opening the apps.
 
 ## Project toolchains
 
 Use `nix develop ~/nix-config#<name>` or `use flake ~/nix-config#<name>`
-in a project's `.envrc`. Projects needing independent version pins should own
-their own flake/lock instead of depending on a mutable checkout.
+in a project's `.envrc`. Projects needing independent pins should own a flake
+and lock rather than relying on a mutable checkout.
 
-| Shell | Tools moved out of global development packages |
+| Shell | Tools |
 | --- | --- |
-| `go` | Go, gopls, golangci-lint/language server |
+| `go` | Go, gopls, golangci-lint and its language server |
 | `rust` | Cargo, rustc, rustfmt, Clippy, rust-analyzer |
 | `jvm` | Java, Kotlin, Gradle, Android CLI tools |
-| `python` | Stable Python, uv, pixi; replaces global prerelease Python 3.15 |
+| `python` | Stable Python, uv, pixi |
 | `web` | Node.js, TypeScript, Bun, Deno, pnpm |
-| `infra` | act, Infisical, tenv, Ansible, Flux, AWS CLI, Packer, Kubernetes CLI |
-| `c` | Native C/C++ compiler, clang-tools, CMake, Make, Zig, platform debugger |
+| `infra` | act, Infisical, tenv, Ansible, Flux, AWS CLI, Packer, Kubernetes tools |
+| `c` | Native compiler environment, clang-tools, CMake, Make, Zig, platform debugger |
 
-Node.js, Lua, a native C compiler, Tree-sitter, and TeX tools remain in the
-editor-runtime feature for existing Neovim plugins. These are editor support
-dependencies, not the default project language versions. No repository lock
-inputs or state versions were changed.
+The dev profile also provides Node.js, Lua, a compiler, and Tree-sitter for
+editor plugins. Creative provides TeX and writing tools. See
+[profiles.md](profiles.md) for package placement.
 
-## Progress
+## Validation scope
 
-Implementation complete; review and merge pending. Main has not moved.
-
-| Commit | Change |
-| --- | --- |
-| `7d3125f4` | Plan and repository memory |
-| `769462d0` | Predictable Brew activation |
-| `8650b060` | Focused package features and profile boundaries |
-| `ae25cd2b` | Seven named project toolchains |
-| `cc58c7da` | Native macOS GUI ownership |
-| `fcedbcae` | Daily Luna profile and optional Saguaro collections |
-| `ce6dfb51` | Local palette; no theme build during evaluation |
-| `c935ec7a` | Pinned native Spotify; remove obsolete DMG overlay |
-| `4886854c` | Keep GPU monitors on desktops |
-| `a8460831` | Correct nh paths on Linux and Darwin |
-| `02b8399b` | Profile ownership regression checks |
-| `19433373` | Preserve authenticator and optional Parsec |
-| `38010f59` | Export only the three supported host platforms |
-| `d207aacc` | Respect ARM Linux optional-app availability |
-
-The final documentation commit refreshes this document, the TODO audit, README,
-and docs/MEMORY.md. The review also includes the preceding `98d38bb7`/`c2806e65`
-baseline and TODO-fix commits, since main is still `ef1d2195`.
-
-## Current selections
-
-The original desktop/extras split has been replaced by the five
-[package categories](profiles.md): core, dev, gaming, creative and security.
-Luna and Saguaro select `darwin.profile-full`; Sol selects `darwin.profile-core`.
-Each Darwin profile wires its Home Manager configuration automatically.
-Cholla selects `homeManager.profile-full`; Fishhook remains CLI-only.
-
-Core includes Spotify/Spicetify; dev includes OrbStack, UTM and Lima/QEMU;
-creative includes Tenacity/mpv and MPD. Prism Launcher belongs to gaming and
-uses a macOS cask: the launcher manages Java installations instead of using
-the previous Nix wrapper's four bundled JDKs.
-
-Home Manager uses `programs.brave-origin` with no package on Darwin so extension
-files go to Brave Origin's actual profile directory. The old Nix wrapper's
-payment-autofill launch flag applies only to Linux now; use the browser's
-payment settings on macOS. Ghostty, Zed, and VSCodium also use config-only
-modules on Darwin. JetBrains plugins and VSCodium extensions remain declarative.
-
-`xcodes` and `macpm` remain Nix CLI tools. Old Saguaro apps remain available
-between daily/optional groups; qBittorrent/Xournal++ use Nix instead of disabled casks; `picocom` has one Nix owner, and the `mas` CLI
-and WireGuard App Store declaration are optional. App self-updaters are
-independent of the disabled Brew activation update/upgrade flags.
-
-## Verification
-
-- `nix flake check --offline --no-build --option allow-import-from-derivation false`
-  passed on aarch64-darwin.
-- `checks.aarch64-darwin.profile-policy` evaluated and built successfully.
-  It checks pinned cask existence, unique ownership, role boundaries, runtime
-  selection, rebuild aliases, and nh paths.
-- All 21 named project-shell derivations evaluated for aarch64-darwin,
-  aarch64-linux, and x86_64-linux.
-- Luna and Saguaro system derivations evaluated with evaluation-time builds
-  disabled. Luna's full system build **dry-run** passed; binaries were not
-  built/installed, and casks were not downloaded or activated.
-- Fishhook's system derivation evaluated. Cholla's Home Manager generation
-  evaluates; its full NixOS system still needs the host's Asahi firmware path.
-- Cholla skips unsupported optional Proton Mail Desktop and Proton Pass and
-  reports them in Home Manager warnings.
-- The palette is the exact Catppuccin Mocha color data from the original
-  pinned schemes revision, with source attribution in the local data file.
-- Existing upstream Rofi option-renaming and options.json source-context
-  warnings remain.
-
-## Review gate
-
-Review with `jj diff --from main --to codex/luna-cleanup` and
-`jj log -r 'main..codex/luna-cleanup'`. Main stays unchanged until explicit
-approval. The merge after approval is a local fast-forward of main to the
-reviewed descendant, preserving each jj commit. No remote push is included.
-
-
-## Activation follow-up
-
-The first real Saguaro build completed, but activation stopped in Brew Bundle:
-qBittorrent and Xournal++ casks are disabled on macOS for failed Gatekeeper
-checks. They are now optional Nix packages; no Gatekeeper bypass was added.
-The original file-existence check could not catch OS-specific disable rules.
-Run `python3 scripts/check-brew-casks.py saguaro` (or `luna`) on macOS before
-switching to validate actual Brew availability. All 48 remaining Saguaro casks
-passed this check, and the corrected Saguaro system built successfully.
-
-The old unmanaged global direnvrc used removed `devenv direnv-hook` and sourced
-an empty filename. The generated stdlib now defines a lazy use_devenv loader
-using supported `devenv direnvrc`; eager loading overwrites private nix-direnv
-helpers and must be avoided. Direnv/nix-direnv handles automatic loading;
-the separate Zsh `devenv hook zsh` was removed. The local direnvrc was backed
-up before repair, and actual repository entry renewed the cache and completed
-all four startup tasks. Home Manager will retain this configuration on the
-next successful switch.
-
-The palette now has an explicit Catppuccin slug, fixing the untitled theme
-filenames without changing colors. Repository memory lives at docs/MEMORY.md.
-The review-before-merge gate still applies.
+A build verifies Nix derivations, not Homebrew downloads, secret enrollment, or
+GUI startup. Historical migration checks are not a current validation result.
+After changing inputs or profiles, rerun the checks in the [README](../README.md).

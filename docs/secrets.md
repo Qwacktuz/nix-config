@@ -17,9 +17,13 @@ provide editing access; they do not provision boot-time decryption.
 five hosts through `profile-cli`. The input is pinned in `flake.lock` and follows
 the existing nixpkgs input. It works with Linux user systemd and macOS launchd.
 
+`secrets/luna.yaml` is retained for the disabled Luna lock-screen contact
+configuration; the active module does not deploy it. Keep its ciphertext and
+recipient rule unless that optional setup is deliberately retired.
+
 `secrets/home.yaml` contains the private SSH host configuration and Obsidian
 workspace paths. Each value is encrypted; its field name and public age
-recipients remain visible. Home Manager decrypts it on activation/login into
+recipients remain visible. Home Manager decrypts the selected values on activation/login into
 the user's runtime secret directory, with mode `0600`, and maintains links at:
 
 ```text
@@ -91,7 +95,8 @@ age-keygen -y "$HOME/.config/sops/age/keys.txt"
 
 Transfer only the printed `age1...` **public recipient** to the editing machine.
 Add a named anchor in `.sops.yaml` and list it under the `secrets/home.yaml`
-creation rule. On Saguaro (which can currently decrypt):
+creation rule. If the account also needs the SSH selectors/FIDO handles, enroll
+it for `secrets/ssh.yaml` and run `sops updatekeys secrets/ssh.yaml` as well. On Saguaro (which can currently decrypt):
 
 ```bash
 export SOPS_AGE_KEY_FILE="$HOME/.config/sops/age/keys.txt"
@@ -142,14 +147,12 @@ sudo ssh-to-age -private-key -i /etc/ssh/ssh_host_ed25519_key | \
   SOPS_AGE_KEY_FILE=/dev/stdin sops decrypt secrets/pubkeys.yaml >/dev/null
 ```
 
-Saguaro and Luna's SSH-derived recipients are enrolled for `pubkeys.yaml`.
+Saguaro, Luna, and Sol's SSH-derived recipients are enrolled for `pubkeys.yaml`.
 Enroll Fishhook and Cholla's actual SSH-derived recipients before switching.
-The host-only decryption test on Saguaro requires interactive sudo authentication
-and has not been completed by the agent.
 
 Only switch after this succeeds. Keep an existing SSH session and console access
 available during the first switch, then verify a second SSH login before closing
-the session. No activation or SSH host-key replacement was performed by this change.
+the session. Do not replace existing SSH host keys as part of routine enrollment.
 
 System SOPS runs during activation and boot, independently of Home Manager or
 user login. It renders `/etc/ssh/authorized_keys.d/kaktus` on NixOS and
@@ -164,10 +167,6 @@ Edit key fields with `sops edit secrets/pubkeys.yaml`. The system template combi
 the FIDO fields; Fishhook appends the Saguaro field. Add a new field's declaration
 and template placeholder in `modules/features/system-base.nix` to authorize a new key.
 
-The two user secrets were also installed once on Saguaro to verify runtime
-decryption and permissions. A full system switch is still needed to install the
-persistent launchd agent, new SSH include, and Git settings.
-
 Stage the new module, encrypted file, checks, and documentation before running a
 normal Git-flake build; Nix excludes untracked files. Review `git diff --cached`.
 Then run the checks and your usual target switch:
@@ -178,9 +177,9 @@ nh darwin switch # on macOS
 # nh os switch  # on NixOS
 ```
 
-The existing `profile-policy` check currently fails its Homebrew activation
-assertion on the unchanged baseline too. The new focused `secrets` check passes;
-that pre-existing policy failure needs separate resolution before all checks pass.
+The policy check must match the current profile selection: Sol includes both
+core and dev. A passing source check does not prove that the target's identities
+can decrypt; perform the runtime checks too.
 
 Check decryption after activation/login:
 
@@ -206,9 +205,11 @@ MacBooks use the Proton Pass CLI agent with the `Dev` vault. Log in once with
 refreshes vault keys every five minutes. Encrypted SSH key items need a Hidden
 custom field named `Passphrase` containing the key passphrase.
 
-`ssh-private-keys` now deploys only the 21 public `.pub` selectors and two FIDO
+The core profile selects `ssh-private-keys`, which deploys public `.pub`
+selectors and two FIDO
 `*_sk` handles from `secrets/ssh.yaml`. Software private keys remain encrypted in
 that file for recovery but are no longer declared as SOPS runtime secrets.
+Fishhook selects CLI only and does not deploy this key bundle.
 Activation removes old software-private-key links only when they point to the
 expected SOPS runtime paths; independent regular files are left untouched.
 

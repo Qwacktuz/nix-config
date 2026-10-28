@@ -9,7 +9,7 @@
 | `security` | Network analysis, forensics and vulnerability scanners | [security.nix](../modules/profiles/security.nix) |
 | `full` | Imports all five categories; owns no package lists | [full.nix](../modules/profiles/full.nix) |
 
-Sol imports `darwin.profile-core`. Saguaro and Luna import
+Sol imports `darwin.profile-core` and `darwin.profile-dev`. Saguaro and Luna import
 `darwin.profile-full`, giving them the same casks, formulas, App Store apps,
 Home Manager packages and system packages.
 
@@ -41,6 +41,9 @@ such as hostname remain in `modules/hosts/`. OS defaults remain in
   Platform-specific dependencies stay alongside the app they support.
 - Keep project language toolchains in the existing project development shells.
 
+Font Awesome is a system font installed through Darwin `fonts.packages`,
+alongside the base JetBrains Mono Nerd Font.
+
 Homebrew remains the macOS GUI owner except for AeroSpace's native Darwin
 service and the existing Nix exceptions. qBittorrent is in core; Tenacity,
 mpv and Xournal++ are in creative. See [GUI ownership](macos-gui-apps.md).
@@ -54,7 +57,8 @@ package inventories. The NixOS desktop/server profiles contain system setup,
 not another desktop application selection.
 
 `checks/profile-policy.nix` checks full-host parity, Sol's essential apps and
-category exclusions, package ownership and secrets. Validate without activation:
+category exclusions (Sol excludes gaming, creative, and security), package
+ownership and secrets. Validate without activation:
 
 ```sh
 nix eval .#checks.aarch64-darwin.profile-policy.drvPath

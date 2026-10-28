@@ -4,7 +4,7 @@ Luna and Saguaro prefer native nix-darwin modules for GUI apps when they provide
 reliable installation, configuration, and service integration. AeroSpace uses
 that route. Other GUI apps use Homebrew, with four documented Nix
 exceptions. Home Manager may configure an app without owning its installation.
-Linux package selections remain unchanged. Nix still owns CLI/TUI tools, fonts,
+Nix owns Linux GUI packages. Nix also owns CLI/TUI tools, fonts,
 configuration, and project environments.
 
 ## Audit and migration
@@ -27,8 +27,7 @@ Tenacity, qBittorrent, and Xournal++ were explicitly approved as exceptions on
 `brew install --dry-run mpv` reproduces a `dav1d` formula evaluation error
 (`undefined method 'new' for an instance of Symbol`). Removing mpv from the
 Brewfile avoids that dependency graph without updating unrelated inputs.
-Disabled casks
-are not added to the Brewfile. No application is silently replaced by a
+Disabled casks are not added to the Brewfile. No application is silently replaced by a
 different product.
 
 Ghostty, Brave Origin, Zed, VSCodium, KeePassXC, Obsidian, LocalSend,
@@ -38,9 +37,8 @@ installation managed by Homebrew Bundle. The inactive examples under
 `archive/unused-modules` do not contribute packages to any host.
 
 `ani-cli` remains a Nix CLI tool, with its bundled Nix mpv dependency disabled
-on Darwin; it resolves the globally installed Nix mpv through PATH. Prism Launcher's unused
-Home Manager feature is guarded to Linux so it cannot introduce a second
-macOS installation. Browser engines and graphics libraries required internally
+on Darwin; it resolves the globally installed Nix mpv through PATH. The exported Prism Launcher Home Manager feature is
+guarded to Linux and is not selected by the current profiles. Browser engines and graphics libraries required internally
 by CLI tools are dependencies, not separately installed desktop applications.
 
 ## Native module review
@@ -50,12 +48,12 @@ list. AeroSpace is the supported match and retains its original native module.
 Other native GUI integrations (such as Emacs, Arq, and 1Password) are not among
 the selected apps; enabling unrelated apps is outside this migration.
 
-Karabiner's pinned package is 15.7.0, but the native module still references
-`Library/LaunchAgents/org.pqrs.karabiner.agent.*.plist` from the old layout.
-[Issue #1041](https://github.com/nix-darwin/nix-darwin/issues/1041) documents
-this incompatibility, and [the v15+ support PR](https://github.com/nix-darwin/nix-darwin/pull/1679)
-is still open as checked on 2026-10-19. Keep the working cask and managed
-configuration until that integration is fixed and validated.
+Karabiner remains a cask because the earlier native-module review found
+incompatible launch-agent paths for the v15+ app layout. Keep the cask until a
+replacement is verified against the selected nix-darwin version and on the
+actual host. Historical references: [issue #1041](https://github.com/nix-darwin/nix-darwin/issues/1041)
+and [v15+ support PR](https://github.com/nix-darwin/nix-darwin/pull/1679).
+Their current status is not a substitute for validating this configuration.
 
 The native Tailscale module installs `tailscaled`, not the standalone GUI app.
 The GUI cask remains the sole macOS backend. Likewise, `services.spotifyd`
@@ -112,21 +110,19 @@ on the current Mac, including third-party taps, without installing taps or
 apps. The policy check covers every declared Darwin host's Home Manager and
 system packages, required casks, and AeroSpace's executable location.
 
-Verified on 2026-10-19: all 52 casks pass for each Mac, both Darwin system
-derivations evaluate with import-from-derivation disabled, Cholla's Home Manager
-derivation evaluates, the ownership-policy check builds, all four generated
-helper scripts pass Bash syntax checking, and `nix flake check --no-build` passes.
-After restoring mpv to Nix, both Darwin configurations and the ownership check
-were revalidated, the mpv package built, and `mpv --no-config --version` ran
-successfully (0.41.0).
+These commands must be rerun after changing the lock or package selections.
+Earlier migration results refer to their historical revisions. Full system
+activation and GUI/plugin behavior require checks on the target machine.
 
-Building `checks.aarch64-darwin.check-flake-file` fails because the generator
-normalizes unrelated locked inputs. The same failure was reproduced on the
-unchanged parent commit `0d1504c3`. Existing input pins are preserved. The
-AeroSpace tap added during the initial migration is no longer needed.
+Font Awesome is now installed by Nix (`fonts.packages = [ pkgs.font-awesome ];`)
+rather than Homebrew. The October 29 activation failure was caused by the
+pinned cask's `zap :not_required` stanza being incompatible with the Nix-managed
+Homebrew 7.0.4 parser. Nixpkgs and Homebrew pins can advance independently;
+validate the implementation against the pinned taps before switching.
 
-No full system build, host activation, GUI launch, or live plugin/customization
-installation was performed.
+`check-flake-file` checks that generated `flake.nix` matches the declarations.
+If it fails, inspect the generator's diff rather than assuming an old failure
+still applies. GNU coreutils may be required on macOS (see the README).
 
 Sources: [AeroSpace installation](https://nikitabobko.github.io/AeroSpace/guide#homebrew-installation-preferred),
 [JetBrains plugin installation](https://www.jetbrains.com/help/idea/install-plugins-from-the-command-line.html),

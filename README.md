@@ -1,117 +1,111 @@
 # Nix configuration flake
 
-- Featuring a dendritic pattern approach
-- [Luna migration plan and review checklist](docs/luna-migration.md)
-- [Repository memory](docs/MEMORY.md)
-- [Local English/Norwegian writing checks](docs/writing.md)
-- [SOPS setup, machine enrollment, recovery, and rotation](docs/secrets.md)
+Personal NixOS and nix-darwin configuration using flake-parts and the dendritic
+module pattern. `flake.nix` is generated from `modules/`; edit input declarations
+there rather than editing the generated file directly.
 
-## Package ownership
+| Host | Platform | Selection |
+| --- | --- | --- |
+| Luna | `aarch64-darwin` | Full |
+| Saguaro | `aarch64-darwin` | Full |
+| Sol | `aarch64-darwin` | Core and dev |
+| Cholla | `aarch64-linux` (Asahi) | NixOS desktop and full Home Manager |
+| Fishhook | `x86_64-linux` (Proxmox LXC) | NixOS server and CLI Home Manager |
 
-Nix owns CLI tools, configuration, and project toolchains. Prefer native
-nix-darwin modules for GUI apps with reliable installation and service support
-(currently AeroSpace). Other macOS GUI apps use Homebrew casks; Home Manager
-retains supported settings. Karabiner stays a cask until its nix-darwin module
-supports the current app layout. Tenacity, qBittorrent, Xournal++, and mpv are
-Nix exceptions: missing/disabled casks and, for mpv, a failing Homebrew formula
-dependency graph with the pinned taps.
-Luna and Saguaro select `profile-full`; Sol selects `profile-core`.
-The five package categories are `core`, `dev`, `gaming`, `creative`, and
-`security`. See [profile selection and package placement](docs/profiles.md).
-See [macOS GUI ownership and migration](docs/macos-gui-apps.md), including
-JetBrains plugin installation and Spicetify customization after switching.
+## Setup and switching
 
-Project shells: `nix develop .#go`, `.#rust`, `.#jvm`, `.#python`, `.#web`,
-`.#infra`, or `.#c`. See the migration plan before switching a new Mac.
+Clone to `~/nix-config`: Home Manager's Neovim and Karabiner configurations use
+out-of-store links to this checkout. The configured account is `kaktus`.
+The Macs use Determinate Nix with `nix.enable = false`.
 
-## Wallpaper
+Provision user and system identities using [the secrets guide](docs/secrets.md)
+before activation. For a new Mac, follow [the migration checklist](docs/luna-migration.md).
 
-Saguaro and Luna apply the image selected by `stylix.image` in
-`modules/features/stylix.nix` on activation and at graphical login, using
-Home Manager's native `desktoppr` integration. The default is
-`assets/wallpapers/spacegirl.png`, scaled to fill each screen.
-To change it, add your image under `assets/wallpapers/`, update that one path,
-include the new file in jj, and switch. The configured image is reapplied at
-login; manual wallpaper changes do not override the declaration permanently.
+```sh
+nh darwin build ~/nix-config --hostname luna
+nh darwin switch ~/nix-config --hostname luna
+# NixOS, on the target host:
+nh os switch ~/nix-config --hostname fishhook
+```
 
-## Caveats
+Use the desired hostname. A successful Nix build does not guarantee successful
+Homebrew installation or runtime secret decryption during activation.
 
-- Commands such as `nix flake show` won't work properly since dendritic nix
-  design implements flakes using: `flake.modules.<module class>.<aspect name>`,
-  where the aspect name is a feature/module name and the module class can be
-  `homeManager`, `darwin`, `nixos`
-  - Normal flake-parts modules follow the pattern `flake.<host>` where host can
-    be `darwinConfiugrations`, `homeManagerModules`, `darwinModules` or
-    `nixosModules`
-- GNU coreutils doesn't exist on macOS and it's needed for flags like `--no-preserve` and `--reflink` when using `nix run .#write-flake` with github:vic/flake-file. The fix is to temporarily add it to PATH:
+## Package ownership and profiles
 
-```bash
+Nix owns CLI tools, fonts, configuration, and project toolchains. AeroSpace uses
+its native nix-darwin service. Other macOS GUI apps use Homebrew casks, with
+Tenacity, qBittorrent, Xournal++, and mpv retained as Nix exceptions.
+Home Manager keeps supported app settings without duplicating cask installs.
+Font Awesome is installed through `fonts.packages` to avoid an incompatible
+Homebrew cask stanza.
+
+- [Profile selection and package placement](docs/profiles.md)
+- [macOS app ownership and post-switch helpers](docs/macos-gui-apps.md)
+- [Local English/Bokmål writing checks](docs/writing.md)
+- [SOPS enrollment, recovery, and rotation](docs/secrets.md)
+- [Repository maintenance notes](docs/MEMORY.md)
+- [Remaining proposals](docs/todo-audit.md)
+
+Homebrew taps are immutable and pinned by `flake.lock`. Activation does not
+update or upgrade packages, but `cleanup = "uninstall"` removes unselected
+managed packages. Individual apps may have their own update mechanisms.
+
+## Development and validation
+
+`direnv allow` loads the default devenv shell; alternatively use `nix develop`.
+It provides `napply`, `nfmt`, `ncheck`, formatting hooks, and a staged Gitleaks
+hook. Project shells are `go`, `rust`, `jvm`, `python`, `web`, `infra`, and `c`:
+
+```sh
+nix develop .#rust
+nix fmt
+nix flake check --no-build
+nix build .#checks.aarch64-darwin.profile-policy .#checks.aarch64-darwin.secrets
+python3 scripts/check-brew-casks.py luna
+```
+
+The cask checker requires macOS and Homebrew; it loads pinned definitions
+without installing apps. `--no-build` evaluates checks but does not execute
+check derivations. Cholla's full system requires its Asahi firmware location;
+cross-platform outputs may need a builder for their architecture.
+
+Track new files before evaluating the Git-backed flake. In a colocated Jujutsu
+checkout, `jj status` snapshots them into the working-copy change. Named project
+shells share this repository's pins; projects needing independent versions
+should keep their own flakes and locks.
+
+Regenerate `flake.nix` after changing module input declarations:
+
+```sh
 nix shell nixpkgs#coreutils --command nix run .#write-flake
 ```
 
-## TODO
+GNU coreutils supplies flags required by the generator on macOS. Regeneration
+is separate from updating inputs with `nix flake update`. After an input update,
+check Homebrew implementation/tap compatibility as well as Nix evaluation.
+`update_saguaro.sh` formats, checks, regenerates the flake, switches Saguaro,
+and optionally runs cleanup; it does not explicitly update input pins.
 
-See [the TODO/FIXME audit](docs/todo-audit.md) for fixes, proposals, and validation.
+## Wallpaper
 
-- set up kanata keybinds <https://github.com/jtroo/kanata>
-- set up <https://github.com/oddlama/nix-topology>
-- Further modularize packages into packages built with perSystem (flake parts) so I can build for each system using DRY (limit identical configuration in separate independent darwinModules or nixosModules)
-  - May use <https://birdeehub.github.io/nix-wrapper-modules/md/getting-started.html>
-  - Look into how to build my own derivations (everything cross platform should exist in a perSystem package derivation)
-- Consider migrating from HCL to terranix (compiles to \*.tf.json)
-  - <https://terranix.org/getting-started.html>
-- Streamline devshell creation
-- Consider moving back to pure direnv (not sure if I need devenv capabilities really) - make sure to disable warnings and logging (env var?)
+All Darwin hosts use the image selected by `stylix.image` in
+`modules/features/stylix.nix`, currently `assets/wallpapers/spacegirl.png`.
+Home Manager's `desktoppr` integration applies it during activation and at
+graphical login, scaled to fill each screen. Add and track a new image, update
+that path, and switch. Manual wallpaper changes are overwritten on login.
 
-## Various resources
+## Architecture and resources
 
-**Docs/cheatsheets:**
+`inputs.import-tree ./modules` loads the module declarations.
+`flake.modules.<class>.<feature>` registers modules for `darwin`, `nixos`, or
+`homeManager`; host outputs are constructed in `modules/hosts/targets.nix`.
+Ordinary Nix data and check expressions belong outside this import tree.
+`archive/unused-modules` is inactive and retained for reference.
 
-- <https://jdheyburn.co.uk/blog/nix-cheat-sheet>
-
-- [Automatic lock flattening](https://github.com/fzakaria/nix-auto-follow)
-
-**Flake parts and dendritic design:**
-
-- <https://flake.parts>
-- <https://github.com/Doc-Steve/dendritic-design-with-flake-parts>
-- <https://dendrix.oeiuwq.com>
-- <https://github.com/vic/flake-file>
-
-## How to install MacOS
-
-Download the determinate nix pkg from
-
-- <https://docs.determinate.systems/guides/migrating-from-upstream-nix/>
-
-Use the machine's SSH Ed25519 host key for system SOPS decryption:
-
-```sh
-# Generate missing host keys without replacing existing keys.
-sudo /usr/bin/ssh-keygen -A
-
-# Generate from host ssh key (recommended)
-nix run nixpkgs#ssh-to-age -- -i /etc/ssh/ssh_host_ed25519_key.pub
-
-```
-
-Add the resulting public age recipient to the `pubkeys.yaml` rule in
-`.sops.yaml`. On a machine with existing decryption access, run:
-
-```sh
-SOPS_AGE_KEY_FILE="$HOME/.config/sops/age/keys.txt" \
-  sops updatekeys secrets/pubkeys.yaml
-```
-
-Back up the private SSH host key securely. For user secrets, restore your
-personal age identity to `~/.config/sops/age/keys.txt` with mode `0600` and its
-parent directory mode `0700`. It must match the personal recipient enrolled for
-`home.yaml`. See [the SOPS guide](docs/secrets.md) before activating a new host.
-
-Lastly on a new machine run and rebuild switch inside the flake
-
-```sh
-# Add my own secret age key here
-export SOPS_AGE_KEY_FILE="$HOME/.config/sops/age/keys.txt"
-
-```
+- [flake-parts](https://flake.parts)
+- [Dendritic design](https://github.com/Doc-Steve/dendritic-design-with-flake-parts)
+- [Dendrix](https://dendrix.oeiuwq.com)
+- [flake-file](https://github.com/vic/flake-file)
+- [Automatic lock following](https://github.com/fzakaria/nix-auto-follow)
+- [Nix cheat sheet](https://jdheyburn.co.uk/blog/nix-cheat-sheet)

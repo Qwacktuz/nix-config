@@ -32,9 +32,6 @@
       nix-darwin.url = "github:nix-darwin/nix-darwin/master";
       home-manager.url = "github:nix-community/home-manager/master";
 
-      # -- Utilities & Overlays --
-      # nur.url = "github:nix-community/NUR";
-
       # -- Raw Sources (flake = false) --
       devenv-root = {
         url = "file+file:///dev/null";
@@ -56,10 +53,6 @@
         url = "github:tw93/homebrew-tap";
         flake = false;
       };
-      # pubkeys = {
-      #   url = "path:../pubkeys";
-      #   flake = false;
-      # };
     };
   };
 }

@@ -22,8 +22,6 @@
         ssh-to-age
         gitleaks
       ];
-      # debugger = if pkgs.stdenv.hostPlatform.isDarwin then "lldb" else "gdb";
-      # memcheck = if pkgs.stdenv.hostPlatform.isLinux then "valgrind --leak-check=full" else "leaks --atExit --";
     in
     {
       treefmt = {
@@ -34,7 +32,6 @@
 
         programs.shfmt.enable = true;
         programs.shellcheck.enable = true;
-        # programs.deno.enable = true;
 
         # Python linting and formatting
         programs.ruff.check = true;
@@ -43,7 +40,6 @@
         # C formatting
         programs.clang-format.enable = true;
 
-        #programs.shellcheck.options = [ "--severity=error" ];
         settings.formatter.shellcheck.excludes = [
           ".envrc"
           "dotfiles/sketchybar/**"
@@ -65,12 +61,6 @@
           pass_filenames = false;
         };
 
-        # pre-commit.hooks = {
-        #   nixfmt.enable = true;
-        #   shellcheck.enable = true;
-        #   shfmt.enable = true;
-        # };
-
         enterShell = ''
           echo "❄️ Nix devshell loaded | 'napply' to rebuild | 'nfmt' to format | 'ncheck' to lint"
         '';
@@ -79,48 +69,5 @@
         scripts.nfmt.exec = "${config.treefmt.build.wrapper}/bin/treefmt";
         scripts.ncheck.exec = "nix flake check";
       };
-
-      #nix develop ~/.config/nix-config#c
-      #   devenv.shells.c = {
-      #     name = "c-dev";
-      #
-      #     # Best Practice: Use devenv's language modules to ensure standard C toolchains
-      #     # (like stdenv.cc, clang-tools) are correctly hooked up without manual package definitions.
-      #     languages.c.enable = true;
-      #
-      #     enterShell = ''
-      #       echo "⚡️ C devshell loaded | 'cb' to build | 'cx' to run | 'cdb' to debug"
-      #     '';
-      #
-      #     scripts.cb.exec = "cc -Wall -Wextra -g \"$@\" -o out";
-      #     scripts.cx.exec = "cc -Wall -Wextra -g \"$@\" -o out && ./out";
-      #     scripts.cdb.exec = "${debugger} ./out \"$@\"";
-      #     scripts.cmem.exec = "${memcheck} ./out \"$@\"";
-      #
-      #     scripts."c-init".exec = ''
-      #       if [ ! -f Makefile ]; then
-      #         echo -e "all:\n\tcc -Wall -g main.c -o out\nclean:\n\trm -f out" > Makefile
-      #         echo -e "#include <stdio.h>\n\nint main() {\n    printf(\"Hello World\\\\n\");\n    return 0;\n}" > main.c
-      #         echo "Created main.c and Makefile"
-      #       else
-      #         echo "Makefile already exists."
-      #       fi
-      #     '';
-      #
-      #     packages =
-      #       with pkgs;
-      #       [
-      #         cmake
-      #         gnumake
-      #         binutils
-      #       ]
-      #       ++ pkgs.lib.optionals pkgs.stdenv.hostPlatform.isLinux [
-      #         ltrace
-      #         valgrind
-      #         gdb
-      #       ]
-      #       ++ pkgs.lib.optionals pkgs.stdenv.hostPlatform.isDarwin [ lldb ]
-      #       ++ commonPackages;
-      #   };
     };
 }
