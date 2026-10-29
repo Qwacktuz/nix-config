@@ -8,6 +8,7 @@
       "obs"
       "focusrite-control-2"
       "wacom-tablet"
+      "stirling-pdf"
     ];
   };
 
@@ -42,6 +43,7 @@
             obs-studio
             libreoffice
             hieroglyphic
+            stirling-pdf-desktop
           ]
         )
       )
