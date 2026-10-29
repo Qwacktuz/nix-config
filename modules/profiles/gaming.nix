@@ -9,6 +9,7 @@
       "steam"
       "nvidia-geforce-now"
       "prismlauncher"
+      "crossover"
     ];
   };
 
