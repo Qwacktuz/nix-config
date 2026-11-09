@@ -11,6 +11,7 @@
     ];
     homebrew.brews = [
       "binwalk"
+      "ghidra"
     ];
   };
 
@@ -44,6 +45,7 @@
             wireshark
             sysdig
             binwalk
+            ghidra
           ]
         )
       );
