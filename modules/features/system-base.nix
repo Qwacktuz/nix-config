@@ -5,10 +5,6 @@ let
     {
       # host level configs
       nixpkgs.config.allowUnfree = lib.mkDefault true;
-      nix.settings.experimental-features = [
-        "nix-command"
-        "flakes"
-      ];
 
       fonts = {
         packages = with pkgs; [ nerd-fonts.jetbrains-mono ];
@@ -51,6 +47,10 @@ let
 in
 {
   flake.modules.nixos.system-base = {
+    nix.settings.experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
     imports = [
       inputs.sops-nix.nixosModules.sops
       coreModule

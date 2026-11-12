@@ -5,10 +5,6 @@
     {
       imports = [ self.modules.darwin.networking ];
 
-      nix.extraOptions = ''
-        extra-platforms = x86_64-darwin aarch64-darwin
-      '';
-
       security.pam.services.sudo_local.touchIdAuth = true;
       security.pam.services.sudo_local.reattach = true;
 

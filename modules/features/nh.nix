@@ -6,7 +6,8 @@
       programs.nh = {
         enable = true;
         clean = {
-          enable = true;
+          # Determinate Nixd handles garbage collection on our Darwin hosts.
+          enable = pkgs.stdenv.hostPlatform.isLinux;
           extraArgs = "--keep-since 7d --keep 3";
         };
 

@@ -30,5 +30,12 @@
 
       # Disable when using determinate nix
       nix.enable = false;
+
+      # Determinate reads this file even with nix-darwin's Nix management disabled.
+      # M5 Pro / 24 GiB: leave headroom for interactive work during source builds.
+      environment.etc."nix/nix.custom.conf".text = ''
+        max-jobs = 2
+        cores = 6
+      '';
     };
 }

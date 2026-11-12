@@ -19,5 +19,12 @@
 
       # Disable when using determinate nix
       nix.enable = false;
+
+      # Determinate reads this file even with nix-darwin's Nix management disabled.
+      # M2 / 16 GiB: limit concurrent compilers to reduce memory pressure.
+      environment.etc."nix/nix.custom.conf".text = ''
+        max-jobs = 2
+        cores = 4
+      '';
     };
 }
