@@ -65,6 +65,32 @@
 
       programs.ncmpcpp = {
         enable = true;
+        # libc++ 22 exposes Boost iterator proxies to the templated comparator.
+        # Use typed wrappers until nixpkgs includes the upstream workaround:
+        # https://github.com/ncmpcpp/ncmpcpp/issues/663
+        package =
+          if pkgs.stdenv.hostPlatform.isDarwin then
+            pkgs.ncmpcpp.overrideAttrs (old: {
+              patches = (old.patches or [ ]) ++ [
+                (pkgs.writeText "ncmpcpp-libcxx22.patch" ''
+                  --- a/src/screens/sel_items_adder.cpp
+                  +++ b/src/screens/sel_items_adder.cpp
+                  @@ -257 +257,2 @@
+                  -			LocaleBasedSorting(std::locale(), Config.ignore_leading_the));
+                  +			[cmp = LocaleBasedSorting(std::locale(), Config.ignore_leading_the)]
+                  +			(const Entry &a, const Entry &b) { return cmp(a, b); });
+                  --- a/src/screens/tag_editor.cpp
+                  +++ b/src/screens/tag_editor.cpp
+                  @@ -292 +292,3 @@
+                  -			LocaleBasedSorting(std::locale(), Config.ignore_leading_the));
+                  +			[cmp = LocaleBasedSorting(std::locale(), Config.ignore_leading_the)]
+                  +			(const std::pair<std::string, std::string> &a,
+                  +			 const std::pair<std::string, std::string> &b) { return cmp(a, b); });
+                '')
+              ];
+            })
+          else
+            pkgs.ncmpcpp;
         mpdMusicDir = musicDir;
         settings.visualizer_data_source = fifoPath;
       };
