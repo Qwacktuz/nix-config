@@ -30,6 +30,7 @@
       "karabiner-elements"
       "lulu"
       "chatgpt"
+      "claude"
       "signal"
       "proton-pass"
       "protonvpn"

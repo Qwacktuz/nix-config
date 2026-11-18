@@ -57,6 +57,7 @@
         tree-sitter
         github-copilot-cli
         codex
+        claude-code
         antigravity-cli
         lazydocker
       ])
