@@ -11,7 +11,11 @@ def encrypted_leaves(value):
         return bool(value) and all(encrypted_leaves(v) for v in value.values())
     if isinstance(value, list):
         return bool(value) and all(encrypted_leaves(v) for v in value)
-    return isinstance(value, str) and value.startswith("ENC[AES256_GCM,") and value.endswith("]")
+    return (
+        isinstance(value, str)
+        and value.startswith("ENC[AES256_GCM,")
+        and value.endswith("]")
+    )
 
 
 def main(root):
