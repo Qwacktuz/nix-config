@@ -166,19 +166,11 @@ assert lib.assertMsg (
     "parsec"
     "nvidia-geforce-now"
     "prismlauncher"
-    "obs"
-    "focusrite-control-2"
-    "wacom-tablet"
     "burp-suite"
     "wireshark-app"
     "bit-slicer"
   ] (casks sol)
   && containsNone [
-    "tenacity"
-    "mpv-with-scripts"
-    "xournalpp"
-    "typst"
-    "texlive"
     "nmap"
     "trivy"
     "tfsec"
@@ -197,17 +189,23 @@ assert lib.assertMsg (
     "webstorm"
     "orbstack"
     "utm"
+    # creative
+    "obs"
+    "stirling-pdf"
   ]
   && lib.all (name: builtins.elem name (packages sol)) [
     "lima"
     "qemu"
     "lazydocker"
+    # creative
+    "tenacity"
+    "typst"
   ]
   && (home sol).programs.vscodium.enable
   && (home sol).programs.zed-editor.enable
   && !(home sol).programs.docker-cli.enable
-  && !(home sol).services.mpd.enable
-) "Sol must select core and dev without gaming, creative, or specialist security tools";
+  && (home sol).services.mpd.enable
+) "Sol must select core, dev and creative without gaming or specialist security tools";
 assert lib.assertMsg (lib.all (
   host:
   containsNone (nativeApps ++ toolchains) (

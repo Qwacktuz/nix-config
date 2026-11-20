@@ -7,7 +7,10 @@
 
   inputs = {
     apple-silicon.url = "github:nix-community/nixos-apple-silicon";
-    devenv.url = "github:cachix/devenv";
+    devenv = {
+      url = "github:cachix/devenv";
+      inputs.flake-parts.follows = "flake-parts";
+    };
     devenv-root = {
       url = "file+file:///dev/null";
       flake = false;
@@ -21,7 +24,10 @@
       url = "github:hashicorp/homebrew-tap";
       flake = false;
     };
-    home-manager.url = "github:nix-community/home-manager/master";
+    home-manager = {
+      url = "github:nix-community/home-manager/master";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     homebrew-cask = {
       url = "github:homebrew/homebrew-cask";
       flake = false;
@@ -35,19 +41,44 @@
       url = "github:fzakaria/nix-auto-follow";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nix-darwin.url = "github:nix-darwin/nix-darwin/master";
+    nix-darwin = {
+      url = "github:nix-darwin/nix-darwin/master";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nix-homebrew.url = "github:zhaofengli/nix-homebrew";
-    nix-jetbrains-plugins.url = "github:nix-community/nix-jetbrains-plugins";
+    nix-jetbrains-plugins = {
+      url = "github:nix-community/nix-jetbrains-plugins";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        systems.follows = "systems";
+      };
+    };
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     nixpkgs-lib.follows = "nixpkgs";
     sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    spicetify-nix.url = "github:Gerg-L/spicetify-nix";
-    stylix.url = "github:nix-community/stylix";
+    spicetify-nix = {
+      url = "github:Gerg-L/spicetify-nix";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        systems.follows = "systems";
+      };
+    };
+    stylix = {
+      url = "github:nix-community/stylix";
+      inputs = {
+        flake-parts.follows = "flake-parts";
+        nixpkgs.follows = "nixpkgs";
+        systems.follows = "systems";
+      };
+    };
     systems.url = "github:nix-systems/default";
-    treefmt-nix.url = "github:numtide/treefmt-nix";
+    treefmt-nix = {
+      url = "github:numtide/treefmt-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     tw93-mole = {
       url = "github:tw93/homebrew-tap";
       flake = false;

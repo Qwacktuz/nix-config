@@ -5,6 +5,9 @@
     {
       imports = [ self.modules.darwin.networking ];
 
+      # Determinate Nix manages the daemon; nix-darwin must not.
+      nix.enable = false;
+
       security.pam.services.sudo_local.touchIdAuth = true;
       security.pam.services.sudo_local.reattach = true;
 

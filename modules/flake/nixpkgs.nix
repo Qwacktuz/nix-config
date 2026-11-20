@@ -3,13 +3,10 @@
   ...
 }:
 {
-  imports = [ inputs.flake-parts.flakeModules.easyOverlay ];
-
   # Flake level config
   perSystem =
     {
       system,
-      pkgs,
       lib,
       ...
     }:
@@ -19,19 +16,6 @@
       _module.args.pkgs = import inputs.nixpkgs {
         inherit system;
         config.allowUnfree = lib.mkDefault true;
-      };
-
-      # Using easyOverlay, you use pkgs directly instead of referencing prev
-      overlayAttrs = {
-        yt-dlp = pkgs.yt-dlp.overridePythonAttrs (oldAttrs: {
-          dependencies = lib.filter (
-            dep:
-            !(lib.elem dep.pname [
-              "cffi"
-              "secretstorage"
-            ])
-          ) oldAttrs.dependencies;
-        });
       };
     };
 }

@@ -29,8 +29,14 @@
       nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
       nixpkgs-lib.follows = "nixpkgs";
       systems.url = "github:nix-systems/default";
-      nix-darwin.url = "github:nix-darwin/nix-darwin/master";
-      home-manager.url = "github:nix-community/home-manager/master";
+      nix-darwin = {
+        url = "github:nix-darwin/nix-darwin/master";
+        inputs.nixpkgs.follows = "nixpkgs";
+      };
+      home-manager = {
+        url = "github:nix-community/home-manager/master";
+        inputs.nixpkgs.follows = "nixpkgs";
+      };
 
       # -- Raw Sources (flake = false) --
       devenv-root = {

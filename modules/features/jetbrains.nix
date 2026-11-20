@@ -1,6 +1,10 @@
 { inputs, ... }:
 {
-  flake-file.inputs.nix-jetbrains-plugins.url = "github:nix-community/nix-jetbrains-plugins";
+  flake-file.inputs.nix-jetbrains-plugins = {
+    url = "github:nix-community/nix-jetbrains-plugins";
+    inputs.nixpkgs.follows = "nixpkgs";
+    inputs.systems.follows = "systems";
+  };
 
   flake.modules.darwin.jetbrains.homebrew.casks = [
     "intellij-idea"

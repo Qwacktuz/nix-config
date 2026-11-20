@@ -9,7 +9,7 @@
 | `security` | Network analysis, forensics and vulnerability scanners | [security.nix](../modules/profiles/security.nix) |
 | `full` | Imports all five categories; owns no package lists | [full.nix](../modules/profiles/full.nix) |
 
-Sol imports `darwin.profile-core` and `darwin.profile-dev`. Saguaro and Luna import
+Sol imports `darwin.profile-core`, `darwin.profile-dev` and `darwin.profile-creative`. Saguaro and Luna import
 `darwin.profile-full`, giving them the same casks, formulas, App Store apps,
 Home Manager packages and system packages.
 
@@ -57,7 +57,7 @@ package inventories. The NixOS desktop/server profiles contain system setup,
 not another desktop application selection.
 
 `checks/profile-policy.nix` checks full-host parity, Sol's essential apps and
-category exclusions (Sol excludes gaming, creative, and security), package
+category exclusions (Sol excludes gaming and security), package
 ownership and secrets. Validate without activation:
 
 ```sh

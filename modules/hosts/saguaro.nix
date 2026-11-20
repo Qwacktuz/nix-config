@@ -1,4 +1,4 @@
-{ self, config, ... }:
+{ config, ... }:
 {
   flake.modules.darwin.saguaro = {
     imports = with config.flake.modules.darwin; [
@@ -8,13 +8,5 @@
 
     networking.hostName = "saguaro";
     system.defaults.loginwindow.LoginwindowText = "Saguaro M4";
-
-    nixpkgs.overlays = [
-      self.overlays.default
-    ];
-
-    # Disable when using determinate nix
-    nix.enable = false;
-
   };
 }

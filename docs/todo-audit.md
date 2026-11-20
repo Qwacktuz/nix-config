@@ -39,9 +39,10 @@ presenting them as active configuration.
 ## Archived material
 
 Keep `archive/unused-modules` unchanged. Its Vesktop theme and Zen browser
-bookmark/cookie issues need rechecking if revived. Karabiner automatic backups,
-alternate wallpapers, and the inactive SketchyBar files are retained because
-absence from current imports alone does not establish that they are unwanted.
+bookmark/cookie issues need rechecking if revived. Alternate wallpapers and the
+inactive SketchyBar files are retained because absence from current imports
+alone does not establish that they are unwanted. Karabiner automatic backups
+stay on disk but are gitignored, since Karabiner rewrites them itself.
 
 Use the [README validation commands](../README.md#development-and-validation)
 after changing selections or inputs. Historic cask counts and migration results

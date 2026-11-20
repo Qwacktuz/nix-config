@@ -8,7 +8,7 @@ there rather than editing the generated file directly.
 | --- | --- | --- |
 | Luna | `aarch64-darwin` | Full |
 | Saguaro | `aarch64-darwin` | Full |
-| Sol | `aarch64-darwin` | Core and dev |
+| Sol | `aarch64-darwin` | Core, dev and creative |
 | Cholla | `aarch64-linux` (Asahi) | NixOS desktop and full Home Manager |
 | Fishhook | `x86_64-linux` (Proxmox LXC) | NixOS server and CLI Home Manager |
 

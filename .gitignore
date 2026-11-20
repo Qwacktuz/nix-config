@@ -39,3 +39,6 @@ devenv.local.yaml
 
 # pre-commit
 .pre-commit-config.yaml
+
+# Karabiner writes these itself (config dir is symlinked here)
+dotfiles/karabiner/automatic_backups/

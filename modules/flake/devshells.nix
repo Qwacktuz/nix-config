@@ -1,7 +1,14 @@
 { inputs, lib, ... }:
 {
-  flake-file.inputs.treefmt-nix.url = "github:numtide/treefmt-nix";
-  flake-file.inputs.devenv.url = "github:cachix/devenv";
+  flake-file.inputs.treefmt-nix = {
+    url = "github:numtide/treefmt-nix";
+    inputs.nixpkgs.follows = "nixpkgs";
+  };
+  # Keep devenv's own nixpkgs so its binary stays cached.
+  flake-file.inputs.devenv = {
+    url = "github:cachix/devenv";
+    inputs.flake-parts.follows = "flake-parts";
+  };
 
   imports = [
     inputs.devenv.flakeModule
@@ -51,6 +58,9 @@
         devenv.root = lib.mkOverride 900 (builtins.toString ../..);
 
         packages = commonPackages;
+
+        # Unused; on Linux these outputs need extra inputs (mk-shell-bin, nix2container).
+        containers = lib.mkForce { };
 
         git-hooks.hooks.treefmt.enable = true;
         git-hooks.hooks.treefmt.package = config.treefmt.build.wrapper;
