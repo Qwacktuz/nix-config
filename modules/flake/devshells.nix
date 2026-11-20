@@ -64,11 +64,18 @@
 
         git-hooks.hooks.treefmt.enable = true;
         git-hooks.hooks.treefmt.package = config.treefmt.build.wrapper;
+        # Built-in hook: entry is the binary, args hold the subcommand.
         git-hooks.hooks.gitleaks = {
           enable = true;
           name = "Gitleaks staged secrets scan";
-          entry = "${pkgs.gitleaks}/bin/gitleaks git --pre-commit --staged --redact --no-banner";
-          pass_filenames = false;
+          package = pkgs.gitleaks;
+          args = [
+            "git"
+            "--pre-commit"
+            "--staged"
+            "--redact"
+            "--no-banner"
+          ];
         };
 
         enterShell = ''
