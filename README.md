@@ -84,8 +84,9 @@ nix shell nixpkgs#coreutils --command nix run .#write-flake
 GNU coreutils supplies flags required by the generator on macOS. Regeneration
 is separate from updating inputs with `nix flake update`. After an input update,
 check Homebrew implementation/tap compatibility as well as Nix evaluation.
-`update_saguaro.sh` formats, checks, regenerates the flake, switches Saguaro,
-and optionally runs cleanup; it does not explicitly update input pins.
+`update.sh` regenerates the flake, formats, checks, switches the current host
+(by hostname, Darwin or NixOS), and optionally runs cleanup; it does not update
+input pins.
 
 ## Wallpaper
 

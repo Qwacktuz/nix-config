@@ -1,5 +1,22 @@
-{ inputs, lib, ... }:
 {
+  inputs,
+  lib,
+  config,
+  ...
+}:
+{
+  # devenv's flake module always exports deprecated `devenv-up`/`devenv-test`
+  # packages (they warn on every check). Re-export packages without them.
+  flake.packages = lib.mkForce (
+    lib.genAttrs config.systems (
+      system:
+      removeAttrs config.allSystems.${system}.packages [
+        "devenv-up"
+        "devenv-test"
+      ]
+    )
+  );
+
   flake-file.inputs.treefmt-nix = {
     url = "github:numtide/treefmt-nix";
     inputs.nixpkgs.follows = "nixpkgs";
