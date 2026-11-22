@@ -19,7 +19,7 @@
       "omnissa-horizon-client"
       "orion"
       "helium-browser"
-      "codex"
+      "wispr-flow"
     ];
     homebrew.brews = [
       "vite-plus"
